@@ -29,9 +29,19 @@ dependencies:
 
   # capture: the intake wizard's media step (D-011 rule 4)
   image_picker: ^1.1.2
-  file_picker: ^8.0.6
-  record: ^5.1.2
-  just_audio: ^0.9.39
+  # Must be >=13: file_picker 8.x compiles against android-34, while
+  # flutter_plugin_android_lifecycle (pulled in by image_picker) requires every dependant to
+  # compile against 36+. The build fails at :file_picker:checkDebugAarMetadata, which reads as
+  # a minSdk problem but is about compileSdk.
+  file_picker: ^13.0.0
+  # Must be >=7: record 5.x resolves record_linux 0.7.2 against
+  # record_platform_interface 1.6.0, whose hasPermission/startStream signatures it does not
+  # implement. Dart compiles every federated implementation even for an Android-only build,
+  # so that mismatch fails the APK compile rather than being ignored.
+  record: ^7.1.1
+  # 0.9.x (and the audio_session it pulls) compile against android-34 and hit the same
+  # checkDebugAarMetadata failure as file_picker did.
+  just_audio: ^0.10.6
   path_provider: ^2.1.4
 
   # ui
@@ -54,6 +64,19 @@ dev_dependencies:
   riverpod_generator: ^2.6.3
   custom_lint: ^0.7.3
   riverpod_lint: ^2.6.3
+
+# Toolchain repair, not a change to the dependency set.
+#
+# riverpod_lint 2.6.4 and custom_lint 0.7.3 pin analyzer_plugin ^0.12.0. That release was built
+# against the analyzer of the Element/Element2 migration and calls `publiclyExporting2`, which
+# the analyzer this resolution actually lands on (7.6.0, capped below 7.7.0 by
+# custom_lint_visitor) does not have. build_runner reaches analyzer_plugin through
+# riverpod_generator -> riverpod_analyzer_utils -> custom_lint_core, so without this override
+# build_runner cannot compile its own build script and NOTHING generates — no freezed models, no
+# providers, no APK. 0.13.4 is the analyzer_plugin published for analyzer ^7.5.1, which sits
+# inside the window this resolution allows.
+dependency_overrides:
+  analyzer_plugin: ^0.13.4
 
 flutter:
   uses-material-design: true

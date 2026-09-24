@@ -17,6 +17,8 @@ build/
 
 # Android
 android/.gradle/
+# Kotlin build-tools session dir, recreated on every build.
+android/.kotlin/
 android/local.properties
 android/key.properties
 android/app/google-services.json

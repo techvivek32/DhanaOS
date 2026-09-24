@@ -36,10 +36,10 @@ android {
     defaultConfig {
         applicationId = "com.dhanaos"
 
-        // Flutter's default is 24, which already clears the floor our plugins set:
-        // record_android declares minSdk 23, and Supabase's OkHttp stack needs 21+ for
-        // TLS 1.2. Do not pin this lower — Gradle merges library manifests and the build
-        // will fail rather than silently degrade.
+        // Leave this on Flutter's default (24). It is exactly the floor our plugins set:
+        // record_android 2.2.0 declares minSdk 24, and Supabase's OkHttp stack needs 21+
+        // for TLS 1.2. Pinning lower does not widen device support — Gradle merges library
+        // manifests and fails the build instead.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
 
