@@ -1,0 +1,50 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+*.g.dart.lock
+.flutter-plugins
+.flutter-plugins-dependencies
+# .metadata IS committed — it pins the Flutter version so `flutter upgrade` can run the
+# right project migrations for whoever clones this next.
+
+# generated — rebuilt by build_runner
+*.freezed.dart
+*.g.dart
+*.gr.dart
+
+# Android
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/google-services.json
+*.keystore
+*.jks
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Generated.xcconfig
+
+# secrets — D-007: keys reach the build through --dart-define, never through git
+env/*.json
+!env/*.example.json
+.env
+.env.*
+
+# supabase local
+supabase/.branches
+supabase/.temp
+
+# editors
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# coverage
+coverage/

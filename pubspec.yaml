@@ -1,0 +1,61 @@
+name: dhanaos
+description: Manufacturing operations for a bespoke jewellery workshop.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.13.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # state
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+
+  # routing — declarative, role-guarded (D-008)
+  go_router: ^14.2.0
+
+  # backend (D-007)
+  supabase_flutter: ^2.5.6
+
+  # models
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # formatting — INR/USD, dates (D-004)
+  intl: ^0.19.0
+
+  # capture: the intake wizard's media step (D-011 rule 4)
+  image_picker: ^1.1.2
+  file_picker: ^8.0.6
+  record: ^5.1.2
+  just_audio: ^0.9.39
+  path_provider: ^2.1.4
+
+  # ui
+  cached_network_image: ^3.3.1
+  flutter_svg: ^2.0.10+1
+  google_fonts: ^6.2.1
+
+  # utility
+  collection: ^1.18.0
+  uuid: ^4.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.11
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  # custom_lint must be >=0.7 or it pins an analyzer too old for riverpod_generator.
+  riverpod_generator: ^2.6.3
+  custom_lint: ^0.7.3
+  riverpod_lint: ^2.6.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/brand/
