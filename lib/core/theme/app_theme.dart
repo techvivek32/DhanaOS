@@ -268,7 +268,7 @@ abstract final class AppTheme {
       ),
 
       // The source spec was explicit: cards take a 1px border and no shadow.
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: ext.surfaceContainerLowest,
         elevation: 0,
         margin: EdgeInsets.zero,
