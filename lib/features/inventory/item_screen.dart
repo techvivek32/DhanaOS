@@ -55,7 +55,7 @@ final class ItemScreen extends ConsumerWidget {
       backgroundColor: context.scheme.surface,
       appBar: AppBar(
         title: Text(
-          detail.valueOrNull?.item.code ?? 'Stock item',
+          detail.value?.item.code ?? 'Stock item',
           style: AppTheme.mono(size: 15, weight: FontWeight.w600, color: context.scheme.onSurface),
         ),
         actions: [

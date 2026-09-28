@@ -23,7 +23,7 @@ part 'production.g.dart';
 /// `cad_revisions` — one row per version offered to the customer. Approval locks the row, so a
 /// customer who approved v2.0 cannot later be shown a changed v2.0.
 @freezed
-class CadRevision with _$CadRevision {
+abstract class CadRevision with _$CadRevision {
   const CadRevision._();
 
   const factory CadRevision({
@@ -75,7 +75,7 @@ class CadRevision with _$CadRevision {
 
 /// `cad_annotations` — a positioned pin on a render. 'Halo stones were too small...'
 @freezed
-class CadAnnotation with _$CadAnnotation {
+abstract class CadAnnotation with _$CadAnnotation {
   const CadAnnotation._();
 
   const factory CadAnnotation({
@@ -99,7 +99,7 @@ class CadAnnotation with _$CadAnnotation {
 
 /// `cad_reviews` — one decision on one revision.
 @freezed
-class CadReview with _$CadReview {
+abstract class CadReview with _$CadReview {
   const CadReview._();
 
   const factory CadReview({
@@ -134,7 +134,7 @@ class CadReview with _$CadReview {
 
 /// `casting_params` — the vendor's stage. One row per job.
 @freezed
-class CastingParams with _$CastingParams {
+abstract class CastingParams with _$CastingParams {
   const CastingParams._();
 
   const factory CastingParams({
@@ -208,7 +208,7 @@ class CastingParams with _$CastingParams {
 /// `job_exceptions` — `caster_dashboard`'s "Report Issue" was a 50/50 peer of the happy path
 /// with no screen behind it. 'Caster delayed'.
 @freezed
-class JobException with _$JobException {
+abstract class JobException with _$JobException {
   const JobException._();
 
   const factory JobException({
@@ -247,7 +247,7 @@ class JobException with _$JobException {
 /// binding spec ("Target Weight 4.2g ±0.1g", the only spec rendered in gold) as read-only while
 /// a note in the same thread said "Update spec sheet". This table is that missing surface.
 @freezed
-class StageMeasurement with _$StageMeasurement {
+abstract class StageMeasurement with _$StageMeasurement {
   const StageMeasurement._();
 
   const factory StageMeasurement({
@@ -316,7 +316,7 @@ class StageMeasurement with _$StageMeasurement {
 /// `qc_inspections` — one attempt. D-006: reinspection after rework gets its own attempt rather
 /// than overwriting the failed one.
 @freezed
-class QcInspection with _$QcInspection {
+abstract class QcInspection with _$QcInspection {
   const QcInspection._();
 
   const factory QcInspection({
@@ -401,7 +401,7 @@ class QcInspection with _$QcInspection {
 
 /// `qc_checklist_items` — one line of the inspection, optionally citing a requirement (D-009).
 @freezed
-class QcChecklistItem with _$QcChecklistItem {
+abstract class QcChecklistItem with _$QcChecklistItem {
   const QcChecklistItem._();
 
   const factory QcChecklistItem({
@@ -442,7 +442,7 @@ class QcChecklistItem with _$QcChecklistItem {
 
 /// `certificates` — the lab leg.
 @freezed
-class Certificate with _$Certificate {
+abstract class Certificate with _$Certificate {
   const Certificate._();
 
   const factory Certificate({
@@ -517,7 +517,7 @@ class Certificate with _$Certificate {
 /// `shipments` — one leg, not one shipment per job. The mockups proved a job needs several:
 /// inbound wax from "Central Hub", to-lab ("FEDEX: 9876543210"), from-lab, then final dispatch.
 @freezed
-class Shipment with _$Shipment {
+abstract class Shipment with _$Shipment {
   const Shipment._();
 
   const factory Shipment({
@@ -640,7 +640,7 @@ class Shipment with _$Shipment {
 /// `shipment_checks` — one step of the tamper-seal protocol. 'Tamper-evident seal applied to
 /// inner box', reference 'Seal #TE-921'.
 @freezed
-class ShipmentCheck with _$ShipmentCheck {
+abstract class ShipmentCheck with _$ShipmentCheck {
   const ShipmentCheck._();
 
   const factory ShipmentCheck({

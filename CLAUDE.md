@@ -18,9 +18,12 @@ lib/
   features/    auth, intake, jobs, dashboard, production, cad, qc,
                certification, shipping, billing, inventory, partner, portal
   shared/      widgets/ (the design system), shell/ (responsive app shell)
+  admin/       web admin panel — separate entry point (lib/admin/main.dart), same models/theme
 supabase/
-  migrations/  0001..0010 — schema, functions, RLS, views
+  migrations/  0001..0014 — schema, functions, RLS, views, hardening, platform
   seed.sql     reference data using the mockups' real sample records
+  demo.sql     demo profiles and a job at every stage (see its header)
+  tests/       run.sh applies every migration to a local Postgres and runs test_rls.sql
 ```
 
 ## Running it
@@ -28,7 +31,7 @@ supabase/
 ```bash
 cp env/dev.example.json env/dev.json     # then fill in your Supabase URL + anon key
 flutter pub get
-dart run build_runner build --delete-conflicting-outputs
+dart run build_runner build
 flutter run --dart-define-from-file=env/dev.json
 ```
 
@@ -58,7 +61,26 @@ what makes [D-008](DECISIONS.md) load-bearing rather than decorative.
 
 **Stage is derived, not stored.** `jobs.current_stage` and `jobs.status` are a trigger-maintained
 cache. Move a job by calling `fn_complete_stage`, never by updating those columns — see
-[D-005](DECISIONS.md).
+[D-005](DECISIONS.md). A trigger on `job_stages` refuses any other state change except
+active ↔ blocked.
+
+**New SQL has to repeat 0011's rules, or the anon key reads it.** Supabase grants every API role
+everything in `public`, so: a view needs `security_invoker = true`; a `security definer`
+function must use `auth.uid()` (never a caller-supplied user id), check `auth_can_see_job`, and
+`set search_path`; a write policy must check the principal, not just visibility. Run
+`supabase/tests/run.sh` after every migration.
+
+**Three levels of authority (0014).** A platform super admin lives in `platform_admins`, belongs
+to no org, and reads every tenant through per-table `_platform_read` SELECT policies — never give
+a super admin a write policy. A new table in `public` needs its own `_platform_read` policy (the
+0014 loop ran once). Workspace admins act through the `fn_admin_*` RPCs; accounts are created in
+`auth.users` by `_dh_create_login`, which mirrors GoTrue's row shape — keep the empty-string token
+columns or sign-in fails with a 500. A deactivated member or a suspended org resolves to a null
+`auth_org()`/`auth_principal()`, which is what locks them out everywhere.
+
+**The admin panel must stay web-safe.** Nothing under `lib/admin/` may import `dart:io`,
+`lib/app.dart`, `core/router.dart`, the `shared/widgets/widgets.dart` barrel (it exports the
+device-only audio recorder) or any mobile feature screen. Import widget files one by one.
 
 **Business rules live in the database.** Four rules are enforced by Postgres functions and
 CHECK constraints, not by the client:

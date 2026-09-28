@@ -26,7 +26,6 @@
 /// portal and a leak, so they are stated out loud rather than assumed.
 library;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -782,7 +781,7 @@ PortalGateway portalGateway(Ref ref) => PortalGateway(
 /// correct, permanent blank — and why the router sends them to work instead.
 @Riverpod(keepAlive: true)
 String? viewerCustomerId(Ref ref) =>
-    ref.watch(currentUserProvider).valueOrNull?.customerId;
+    ref.watch(currentUserProvider).value?.customerId;
 
 /// The customer's orders, kept live. A stage moving is the whole reason a retailer opens this.
 @riverpod

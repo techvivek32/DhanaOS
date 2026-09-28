@@ -143,7 +143,7 @@ final class _ChartSheet extends StatelessWidget {
             style: context.text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
           ),
           const Gap.md(),
-          Row(
+          const Row(
             children: [
               _HeadCell('INDIA', flex: 3),
               _HeadCell('US', flex: 3),

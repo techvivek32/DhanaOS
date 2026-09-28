@@ -113,7 +113,7 @@ class _RevisionUploadScreenState extends ConsumerState<RevisionUploadScreen> {
     ref.listenManual<AsyncValue<RevisionContext>>(
       revisionContextProvider(widget.jobId),
       (previous, next) {
-        final value = next.valueOrNull;
+        final value = next.value;
         if (value != null && _version.text.trim().isEmpty) {
           _version.text = value.suggestedVersion;
         }
@@ -411,22 +411,18 @@ class _RevisionUploadScreenState extends ConsumerState<RevisionUploadScreen> {
   void _inert() {}
 
   Future<void> _pickRenders() async {
-    FilePickerResult? chosen;
+    List<PlatformFile> chosen;
     try {
-      chosen = await FilePicker.platform.pickFiles(
-        allowMultiple: true,
-        type: FileType.image,
-      );
+      chosen = await FilePicker.pickFiles(type: FileType.image);
     } on Exception catch (error) {
       if (!mounted) return;
       showCadProblem(context, 'The file browser could not be opened. ($error)');
       return;
     }
-    final result = chosen;
-    if (result == null || !mounted) return;
+    if (chosen.isEmpty || !mounted) return;
 
     setState(() {
-      for (final picked in result.files) {
+      for (final picked in chosen) {
         final path = picked.path;
         if (path == null) continue;
         if (_renders.any((r) => r.localKey == path)) continue;
@@ -454,9 +450,9 @@ class _RevisionUploadScreenState extends ConsumerState<RevisionUploadScreen> {
   }
 
   Future<void> _pickMesh() async {
-    FilePickerResult? chosen;
+    PlatformFile? chosen;
     try {
-      chosen = await FilePicker.platform.pickFiles(
+      chosen = await FilePicker.pickFile(
         type: FileType.custom,
         allowedExtensions: _meshExtensions,
       );
@@ -465,9 +461,8 @@ class _RevisionUploadScreenState extends ConsumerState<RevisionUploadScreen> {
       showCadProblem(context, 'The file browser could not be opened. ($error)');
       return;
     }
-    final files = chosen?.files ?? const <PlatformFile>[];
-    if (files.isEmpty || !mounted) return;
-    final picked = files.first;
+    final picked = chosen;
+    if (picked == null || !mounted) return;
     final path = picked.path;
     if (path == null) return;
 

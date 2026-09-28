@@ -105,7 +105,7 @@ final class TopBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(currentUserProvider).valueOrNull;
+    final user = ref.watch(currentUserProvider).value;
     // D-008. Global search resolves to the internal job list, so offering it to a vendor or a
     // retailer would be offering a door the redirect closes again.
     final internal = user?.isInternal ?? false;
@@ -273,7 +273,7 @@ final class _NotificationBell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final actions = ref.watch(openActionsProvider).valueOrNull ?? const <OpenAction>[];
+    final actions = ref.watch(openActionsProvider).value ?? const <OpenAction>[];
     final count = actions.length;
 
     return IconButton(

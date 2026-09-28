@@ -251,7 +251,6 @@ class _AssignSheetState extends ConsumerState<AssignSheet> {
           onRetry: () => ref.invalidate(orgUsersProvider),
         ),
       AsyncValue(value: final users?) => _peopleList(context, users),
-      _ => const SizedBox.shrink(),
     };
   }
 
@@ -370,7 +369,6 @@ class _AssignSheetState extends ConsumerState<AssignSheet> {
             );
           },
         ),
-      _ => const SizedBox.shrink(),
     };
   }
 

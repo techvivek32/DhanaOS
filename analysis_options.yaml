@@ -6,6 +6,7 @@ analyzer:
     - android/**
     - "**/*.freezed.dart"
     - "**/*.g.dart"
+    - web/**
   errors:
     # Generated code is not committed, so a missing part file before build_runner runs is
     # expected noise rather than a real error.
@@ -19,8 +20,6 @@ analyzer:
     strict-casts: true
     strict-raw-types: true
 
-  plugins:
-    - custom_lint
 
 linter:
   rules:

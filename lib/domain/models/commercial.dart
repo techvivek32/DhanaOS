@@ -19,7 +19,7 @@ part 'commercial.g.dart';
 /// One priced version of the job. Versions are kept, never overwritten — a customer who
 /// approved v2 did not approve v3.
 @freezed
-class Quote with _$Quote {
+abstract class Quote with _$Quote {
   const Quote._();
 
   const factory Quote({
@@ -157,7 +157,7 @@ class Quote with _$Quote {
 /// `cost_lines` — one charge on a quote. D-003: every line rolls up into exactly one of the five
 /// customer-facing categories.
 @freezed
-class CostLine with _$CostLine {
+abstract class CostLine with _$CostLine {
   const CostLine._();
 
   const factory CostLine({
@@ -237,7 +237,7 @@ class CostLine with _$CostLine {
 /// `approval_gates` — `review_job_order` showed three gates, all "Pending", with no screen
 /// behind any of them.
 @freezed
-class ApprovalGate with _$ApprovalGate {
+abstract class ApprovalGate with _$ApprovalGate {
   const ApprovalGate._();
 
   const factory ApprovalGate({
@@ -260,18 +260,12 @@ class ApprovalGate with _$ApprovalGate {
   /// D-006: a rejected gate owes a reason, like every other rejection in the system.
   bool get needsNote => isRejected && (note?.trim().isEmpty ?? true);
 
-  /// Which role may decide this gate. D-008 puts the enforcement in RLS; this is so the screen
-  /// can hide a button the session cannot use.
-  UserRole get decidingRole => switch (kind) {
-        ApprovalGateKind.designReview => UserRole.engineer,
-        ApprovalGateKind.costAnalysis => UserRole.admin,
-        ApprovalGateKind.vendorAllocation => UserRole.productionManager,
-      };
+  UserRole get decidingRole => kind.decidingRole;
 }
 
 /// `delivery_schedules` — the buffers between "done on the bench" and "in the customer's hand".
 @freezed
-class DeliverySchedule with _$DeliverySchedule {
+abstract class DeliverySchedule with _$DeliverySchedule {
   const DeliverySchedule._();
 
   const factory DeliverySchedule({
@@ -299,9 +293,7 @@ class DeliverySchedule with _$DeliverySchedule {
   /// Latest date the bench can finish and still hit the requested date.
   DateTime? get latestBenchCompletion {
     final requested = requestedDate;
-    return requested == null
-        ? null
-        : requested.subtract(Duration(days: totalBufferDays));
+    return requested?.subtract(Duration(days: totalBufferDays));
   }
 
   /// The stored recommendation if the server set one, else the derived date, so a screen always
@@ -326,7 +318,7 @@ class DeliverySchedule with _$DeliverySchedule {
 
 /// `acceptance_criteria` — what the piece is measured against at QC, agreed up front.
 @freezed
-class AcceptanceCriteria with _$AcceptanceCriteria {
+abstract class AcceptanceCriteria with _$AcceptanceCriteria {
   const AcceptanceCriteria._();
 
   const factory AcceptanceCriteria({

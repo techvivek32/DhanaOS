@@ -482,6 +482,14 @@ enum ApprovalGateKind {
   final String wire;
   final String label;
   static ApprovalGateKind? parse(String? w) => _from(values, w, (e) => e.wire);
+
+  /// Which role may decide this gate. D-008 puts the enforcement in RLS; this is so the screen
+  /// can hide a button the session cannot use.
+  UserRole get decidingRole => switch (this) {
+        designReview => UserRole.engineer,
+        costAnalysis => UserRole.admin,
+        vendorAllocation => UserRole.productionManager,
+      };
 }
 
 // ---------------------------------------------------------------- quality

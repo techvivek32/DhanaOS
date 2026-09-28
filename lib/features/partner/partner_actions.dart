@@ -36,7 +36,6 @@ library;
 
 import 'dart:io';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:dhanaos/core/router.dart';

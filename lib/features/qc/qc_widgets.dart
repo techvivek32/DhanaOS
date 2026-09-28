@@ -391,10 +391,8 @@ Future<PickedFile?> _pickPhoto(ImageSource source) async {
 
 Future<PickedFile?> _pickFile() async {
   try {
-    final chosen = await FilePicker.platform.pickFiles();
-    final files = chosen?.files ?? const <PlatformFile>[];
-    if (files.isEmpty) return null;
-    final first = files.first;
+    final first = await FilePicker.pickFile();
+    if (first == null) return null;
     final path = first.path;
     return path == null ? null : PickedFile(File(path), first.name);
   } on Exception catch (error, stack) {

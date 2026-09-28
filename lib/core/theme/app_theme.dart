@@ -6,7 +6,6 @@
 library;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'tokens.dart';
@@ -319,10 +318,21 @@ abstract final class AppTheme {
         labelStyle: text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
       ),
 
+      // `text` is the raw theme, before ThemeData merges colours in, so every style taken from it
+      // for a component theme needs its colour spelled out. Without one the chip label painted
+      // in the engine default — white — and vanished against the light surface.
       chipTheme: ChipThemeData(
         shape: const RoundedRectangleBorder(borderRadius: Radii.rFull),
         side: BorderSide(color: scheme.outlineVariant),
-        labelStyle: text.labelMedium,
+        labelStyle: text.labelMedium?.copyWith(color: scheme.onSurfaceVariant),
+      ),
+
+      // The phone's "New job order" is the same action as the rail's FilledButton, so it wears
+      // the same primary rather than Material's primaryContainer default (navy with a grey label
+      // in light, below comfortable contrast).
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: scheme.primary,
+        foregroundColor: scheme.onPrimary,
       ),
 
       dividerTheme: DividerThemeData(color: scheme.outlineVariant, thickness: 1, space: 1),

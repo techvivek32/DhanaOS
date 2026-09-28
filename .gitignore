@@ -34,6 +34,7 @@ ios/Flutter/Generated.xcconfig
 # secrets — D-007: keys reach the build through --dart-define, never through git
 env/*.json
 !env/*.example.json
+env/*.env
 .env
 .env.*
 

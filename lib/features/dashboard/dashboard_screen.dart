@@ -129,9 +129,9 @@ final class _Headline extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final countersAsync = ref.watch(liveStageCountersProvider);
     final riskAsync = ref.watch(dashboardRiskProvider);
-    final live = countersAsync.valueOrNull;
+    final live = countersAsync.value;
     final counters = live?.data;
-    final risk = riskAsync.valueOrNull;
+    final risk = riskAsync.value;
 
     if (counters == null && countersAsync.hasError) {
       return DhCard(
@@ -312,7 +312,7 @@ final class _StageCounterPanel extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final countersAsync = ref.watch(liveStageCountersProvider);
-    final counters = countersAsync.valueOrNull?.data;
+    final counters = countersAsync.value?.data;
     final busiest = counters?.busiest;
 
     return DhSectionCard(
@@ -420,7 +420,7 @@ final class _ActionQueuePanel extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final queueAsync = ref.watch(dashboardQueueProvider);
-    final entries = queueAsync.valueOrNull;
+    final entries = queueAsync.value;
 
     return DhSectionCard(
       title: 'Action queue',
@@ -583,7 +583,7 @@ final class _PriorityPanel extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final jobsAsync = ref.watch(jobListProvider(priorityFilter));
-    final jobs = jobsAsync.valueOrNull;
+    final jobs = jobsAsync.value;
 
     return DhSectionCard(
       title: 'Priority jobs',

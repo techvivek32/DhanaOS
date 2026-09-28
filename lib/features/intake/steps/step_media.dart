@@ -96,18 +96,17 @@ class _StepMediaState extends ConsumerState<StepMedia> {
   }
 
   Future<void> _files() async {
-    FilePickerResult? chosen;
+    List<PlatformFile> chosen;
     try {
-      chosen = await FilePicker.platform.pickFiles(allowMultiple: true);
+      chosen = await FilePicker.pickFiles();
     } on Exception catch (error) {
       if (!mounted) return;
       showFailure(context, 'The file browser could not be opened. ($error)');
       return;
     }
-    final result = chosen;
-    if (result == null || !mounted) return;
+    if (chosen.isEmpty || !mounted) return;
 
-    for (final picked in result.files) {
+    for (final picked in chosen) {
       final path = picked.path;
       if (path == null) continue;
       await _guarded(

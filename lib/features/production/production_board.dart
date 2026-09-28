@@ -62,7 +62,7 @@ class _ProductionBoardScreenState extends ConsumerState<ProductionBoardScreen> {
   Widget build(BuildContext context) {
     final boardAsync = ref.watch(liveProductionBoardProvider);
     final moves = ref.watch(boardMovesProvider);
-    final live = boardAsync.valueOrNull;
+    final live = boardAsync.value;
 
     // No data yet. An error with nothing behind it is the whole screen; an error *over* good data
     // is a banner, because throwing away a board an operator is working from to show a failed

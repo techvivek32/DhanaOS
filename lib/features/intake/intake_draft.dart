@@ -62,7 +62,7 @@ final class GstPreview {
 }
 
 @freezed
-class IntakeDraft with _$IntakeDraft {
+abstract class IntakeDraft with _$IntakeDraft {
   const IntakeDraft._();
 
   const factory IntakeDraft({
@@ -122,7 +122,7 @@ class IntakeDraft with _$IntakeDraft {
 
   /// REQ-GEM-03. An explicit "No stones" skips step 6 outright. Null means unanswered, which
   /// skips nothing — the mockup's CTA read PROCEED TO STONES either way.
-  bool get skipsStones => metalSpec?.skipsStoneStep ?? false;
+  bool get skipsStones => this.metalSpec?.skipsStoneStep ?? false;
 
   bool isSkipped(IntakeStep candidate) =>
       candidate == IntakeStep.stones && skipsStones;
@@ -293,10 +293,10 @@ class IntakeDraft with _$IntakeDraft {
   /// The ceiling the total is measured against: the approved maximum if one was set, otherwise
   /// REQ-FIN-04's budget band from the metal step.
   Money? get costCeiling =>
-      quote?.maxApproved ?? metalSpec?.targetBudgetMax(currency);
+      quote?.maxApproved ?? this.metalSpec?.targetBudgetMax(currency);
 
   Money? get costTarget =>
-      quote?.targetUnitPrice ?? metalSpec?.targetBudgetMin(currency);
+      quote?.targetUnitPrice ?? this.metalSpec?.targetBudgetMin(currency);
 
   /// 0.0–1.0+ against the ceiling. Null when nobody has set one, because a bar with no ceiling
   /// is a bar that always reads "fine".
@@ -405,7 +405,7 @@ class IntakeDraft with _$IntakeDraft {
   Map<String, bool> get _designGates {
     final c = category;
     if (c == null) return {'Choose a product category first.': false};
-    final spec = productSpec;
+    final spec = this.productSpec;
     final missing = spec?.missingFor(c) ?? const <String>['Setting style'];
     return {
       if (missing.isNotEmpty)
@@ -414,7 +414,7 @@ class IntakeDraft with _$IntakeDraft {
   }
 
   Map<String, bool> get _metalGates {
-    final m = metalSpec;
+    final m = this.metalSpec;
     final metal = m?.baseMetal;
     final purity = m?.purity;
     return {

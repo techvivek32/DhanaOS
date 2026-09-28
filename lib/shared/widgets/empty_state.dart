@@ -17,6 +17,7 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart' show OverflowBoxFit;
 
 import 'package:dhanaos/core/theme/app_theme.dart';
 import 'package:dhanaos/core/theme/tokens.dart';
@@ -347,14 +348,26 @@ final class LoadingSkeleton extends StatelessWidget {
         ),
       _SkeletonKind.lines => _Shimmer(child: _lineStack(_lines)),
       _SkeletonKind.card => _Shimmer(child: _card(context)),
+      // A placeholder should run off the bottom of a short screen, not overflow it: in a bounded
+      // slot the column is laid out at full height and clipped; in a scroll view it keeps its
+      // own height.
       _SkeletonKind.list => _Shimmer(
-          child: Column(
-            children: [
-              for (var i = 0; i < _lines; i++) ...[
-                if (i > 0) const SizedBox(height: Spacing.sm + Spacing.xs),
-                _card(context),
-              ],
-            ],
+          child: ClipRect(
+            child: OverflowBox(
+              fit: OverflowBoxFit.deferToChild,
+              alignment: Alignment.topCenter,
+              minHeight: 0,
+              maxHeight: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var i = 0; i < _lines; i++) ...[
+                    if (i > 0) const SizedBox(height: Spacing.sm + Spacing.xs),
+                    _card(context),
+                  ],
+                ],
+              ),
+            ),
           ),
         ),
     };

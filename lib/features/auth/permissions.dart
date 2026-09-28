@@ -13,7 +13,6 @@
 ///   * [Permissions.canAuthorizeQc] — a QC authorisation signs off a piece for dispatch.
 library;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:dhanaos/domain/enums.dart';
@@ -160,7 +159,7 @@ final class Permissions {
 /// next profile refresh rather than on the next app restart.
 @Riverpod(keepAlive: true)
 Permissions permissions(Ref ref) =>
-    Permissions(ref.watch(currentUserProvider).valueOrNull);
+    Permissions(ref.watch(currentUserProvider).value);
 
 /// Sugar for a single gate in a widget: `ref.watch(canProvider(Capability.authorizeQc))`.
 @riverpod

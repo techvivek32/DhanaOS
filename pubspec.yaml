@@ -1,7 +1,7 @@
 name: dhanaos
 description: Manufacturing operations for a bespoke jewellery workshop.
 publish_to: none
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: ">=3.13.0 <4.0.0"
@@ -11,8 +11,8 @@ dependencies:
     sdk: flutter
 
   # state
-  flutter_riverpod: ^2.6.1
-  riverpod_annotation: ^2.6.1
+  flutter_riverpod: ^3.4.3
+  riverpod_annotation: ^4.0.7
 
   # routing — declarative, role-guarded (D-008)
   go_router: ^14.2.0
@@ -21,8 +21,8 @@ dependencies:
   supabase_flutter: ^2.5.6
 
   # models
-  freezed_annotation: ^2.4.4
-  json_annotation: ^4.9.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.12.0
 
   # formatting — INR/USD, dates (D-004)
   intl: ^0.19.0
@@ -51,32 +51,23 @@ dependencies:
 
   # utility
   collection: ^1.18.0
+  # The admin panel's light / dark choice, kept in the browser (localStorage on the web).
+  shared_preferences: ^2.5.5
   uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  build_runner: ^2.4.11
-  freezed: ^2.5.7
-  json_serializable: ^6.8.0
-  # custom_lint must be >=0.7 or it pins an analyzer too old for riverpod_generator.
-  riverpod_generator: ^2.6.3
-  custom_lint: ^0.7.3
-  riverpod_lint: ^2.6.3
-
-# Toolchain repair, not a change to the dependency set.
-#
-# riverpod_lint 2.6.4 and custom_lint 0.7.3 pin analyzer_plugin ^0.12.0. That release was built
-# against the analyzer of the Element/Element2 migration and calls `publiclyExporting2`, which
-# the analyzer this resolution actually lands on (7.6.0, capped below 7.7.0 by
-# custom_lint_visitor) does not have. build_runner reaches analyzer_plugin through
-# riverpod_generator -> riverpod_analyzer_utils -> custom_lint_core, so without this override
-# build_runner cannot compile its own build script and NOTHING generates — no freezed models, no
-# providers, no APK. 0.13.4 is the analyzer_plugin published for analyzer ^7.5.1, which sits
-# inside the window this resolution allows.
-dependency_overrides:
-  analyzer_plugin: ^0.13.4
+  # Codegen runs on the analyzer, and the analyzer must understand the SDK's own syntax: the
+  # Riverpod 2 / freezed 2 generators were capped at analyzer 7, which cannot read the dot
+  # shorthands Flutter 3.47's framework is written in ("Missing implementation of
+  # visitDotShorthandPropertyAccess"), so nothing generated. riverpod_lint moved to the new
+  # analysis_server_plugin system in 3.x and is left out until it is wired up there.
+  build_runner: ^2.16.1
+  freezed: ^4.0.2
+  json_serializable: ^6.14.1
+  riverpod_generator: ^4.0.9
 
 flutter:
   uses-material-design: true

@@ -21,7 +21,6 @@
 /// generated the class.
 library;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -327,9 +326,10 @@ final class RiskSummary {
     atRisk: 0,
   );
 
-  /// Jobs with status `in_production`. Should agree with [StageCounters.totalActive]; when it
-  /// does not, a job is in production with no active stage row, which is a seeding fault worth
-  /// seeing rather than smoothing over.
+  /// Jobs with status `in_production` standing at one of the eight counted stages. Should agree
+  /// with [StageCounters.totalActive]; when it does not, a job is in production with no active or
+  /// blocked stage row, which is a seeding fault worth seeing rather than smoothing over. Jobs at
+  /// inquiry, pricing, final approval, polishing or dispatch are in production but on no tile.
   final int totalActive;
 
   final int dueSoon;
@@ -516,7 +516,8 @@ final class DashboardRepository {
             .from('v_job_list')
             .count(CountOption.exact)
             .eq('org_id', _org)
-            .eq('status', JobStatus.inProduction.wire),
+            .eq('status', JobStatus.inProduction.wire)
+            .inFilter('current_stage', [for (final s in LifecycleStage.operational) s.wire]),
       ),
       guard(
         () => _client

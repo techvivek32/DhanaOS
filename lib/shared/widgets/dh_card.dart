@@ -81,11 +81,18 @@ final class DhCard extends StatelessWidget {
     Widget content = Padding(padding: padding, child: child);
 
     if (accent != null) {
-      content = Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      // The card takes its content's height and the bar fills it. A stretched Row cannot do
+      // that inside a scroll view, where the height it would stretch to is infinite.
+      content = Stack(
         children: [
-          Container(width: 3, color: accent),
-          Expanded(child: content),
+          Padding(padding: const EdgeInsets.only(left: 3), child: content),
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: 3,
+            child: ColoredBox(color: accent!),
+          ),
         ],
       );
     }

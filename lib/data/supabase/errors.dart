@@ -14,9 +14,11 @@
 library;
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'package:dhanaos/data/supabase/transport_web.dart'
+    if (dart.library.io) 'package:dhanaos/data/supabase/transport_io.dart';
 
 /// Coarse classification, for logging and for deciding whether a retry button makes sense.
 enum FailureKind {
@@ -437,11 +439,12 @@ DhFailure _fromStorage(StorageException e) => switch (e.statusCode) {
         ),
     };
 
-/// `IOException` covers the `dart:io` transport family — `SocketException` (no route, failed
-/// host lookup), `HttpException`, `TlsException`. `package:http` is not a direct dependency of
-/// this app, so its `ClientException` is matched by name rather than by type.
+/// On a device, the `dart:io` transport family — `SocketException` (no route, failed host
+/// lookup), `HttpException`, `TlsException` — behind a conditional import so the web admin panel
+/// compiles. `package:http` is not a direct dependency of this app, so its `ClientException` is
+/// matched by name rather than by type.
 bool _isTransportError(Object error) =>
-    error is IOException || error.runtimeType.toString() == 'ClientException';
+    isIoTransportError(error) || error.runtimeType.toString() == 'ClientException';
 
 String? _joinDetail(Object? details, String? hint) {
   final parts = <String>[

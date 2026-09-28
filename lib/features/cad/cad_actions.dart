@@ -19,7 +19,6 @@ library;
 
 import 'dart:io';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:dhanaos/data/repositories/job_repository.dart';
@@ -410,7 +409,7 @@ class CadActions extends _$CadActions {
     required String jobId,
     LifecycleStage stage = LifecycleStage.cad,
   }) async {
-    final me = ref.read(currentUserProvider).valueOrNull;
+    final me = ref.read(currentUserProvider).value;
     if (me == null) {
       throw const PermissionDenied(
         message: 'Your session ended. Sign in again to take this job.',

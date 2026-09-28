@@ -15,7 +15,7 @@ part 'job.freezed.dart';
 part 'job.g.dart';
 
 @freezed
-class Job with _$Job {
+abstract class Job with _$Job {
   const Job._();
 
   const factory Job({
@@ -125,7 +125,7 @@ class Job with _$Job {
 /// `v_job_list` — one row per job, already joined to customer, active assignment and approved
 /// quote. Read this for every list, board and queue; read [Job] only when editing.
 @freezed
-class JobListItem with _$JobListItem {
+abstract class JobListItem with _$JobListItem {
   const JobListItem._();
 
   const factory JobListItem({

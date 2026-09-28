@@ -262,12 +262,12 @@ final class _WizardLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: context.scheme.surface,
-        body: SafeArea(
+        body: const SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(Spacing.md),
+            padding: EdgeInsets.all(Spacing.md),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: const [
+              children: [
                 LoadingSkeleton(height: 18, width: 160),
                 SizedBox(height: Spacing.lg),
                 LoadingSkeleton.card(),

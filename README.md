@@ -42,16 +42,30 @@ answer — and several of them are primary keys, so getting one wrong is a rewri
 flutter doctor           # Android toolchain must be green; Visual Studio is irrelevant here
 ```
 
-**1. Create a Supabase project**, then apply the schema in order:
+**1. Create a Supabase project**, then apply the schema, the seed and the demo data:
 
 ```bash
-supabase link --project-ref YOUR-REF
-supabase db push                                  # runs supabase/migrations/0001..0010
-psql "$DATABASE_URL" -f supabase/seed.sql         # reference data
+# Project Settings → Database → Connection string → Session pooler
+echo "DATABASE_URL='postgresql://postgres.<ref>:<password>@<host>:5432/postgres'" > env/db.env
+DEMO_PASSWORD='choose-one' supabase/apply.sh      # migrations, seed.sql, demo sign-ins + demo.sql
+supabase/apply.sh --no-demo                       # production: migrations and seed only
 ```
 
-Or paste each file into the Supabase SQL editor in numeric order. `0009_rls.sql` must run —
-without it every table is readable by every signed-in user.
+`apply.sh` records what it applied in the Supabase CLI's own migrations table, so it is safe to
+re-run and `supabase db push` can take over later. `0009_rls.sql` and `0011_hardening.sql` must
+both run — without them the anon key in the APK reads and moves every job.
+
+With demo data, `apply.sh` creates the sign-ins listed at the top of
+[supabase/demo.sql](supabase/demo.sql) — all with `DEMO_PASSWORD` — including the platform super
+admin, and gives each a profile and a role. Never run the demo step against a production
+project: the super admin reads every workspace.
+
+**Database tests** — every migration applied to a throwaway local Postgres, then RLS and the
+four business rules exercised as each principal (needs Homebrew `postgresql@17`):
+
+```bash
+supabase/tests/run.sh
+```
 
 **2. Configure the app:**
 
@@ -63,7 +77,7 @@ cp env/dev.example.json env/dev.json     # fill in your project URL and anon key
 
 ```bash
 flutter pub get
-dart run build_runner build --delete-conflicting-outputs
+dart run build_runner build
 flutter run --dart-define-from-file=env/dev.json
 ```
 
@@ -85,6 +99,26 @@ keyPassword=...
 Without it the release build falls back to debug keys, which is fine for internal testing and
 not fine for distribution.
 
+**Web admin panel** — a separate entry point on the same code, models and design system:
+
+```bash
+flutter run -d chrome -t lib/admin/main.dart --dart-define-from-file=env/dev.json
+flutter build web -t lib/admin/main.dart --dart-define-from-file=env/prod.json -o build/admin
+```
+
+`build/admin` is a static site; host it anywhere (Netlify, Vercel, Firebase Hosting, S3).
+
+| Who signs in | What they get |
+|---|---|
+| Platform super admin (`platform_admins`, no workspace) | Every workspace: create one with its first admin, suspend / reactivate, add an admin, reset a password. Read-only view of each workspace's members, customers, partners and jobs. |
+| Workspace admin (`admin` role) | Their own workspace: team and roles, customer and partner records with their portal logins, invoice profile, metal rates, benches. |
+| Anyone else | Told to use the app. |
+
+New accounts get a temporary password from whoever creates them and must choose their own at
+first sign-in — in the app and in the panel. The rules (last admin, own admin role, other
+workspaces) are enforced by the `fn_admin_*` / `fn_platform_*` functions in
+[0014_platform.sql](supabase/migrations/0014_platform.sql), not by the screens.
+
 ---
 
 ## Layout
@@ -97,9 +131,13 @@ lib/
   features/    auth, intake, jobs, dashboard, production, cad, qc,
                certification, shipping, billing, inventory, partner, portal
   shared/      widgets/ (the design system), shell/ (responsive app shell)
+  admin/       the web admin panel (main.dart is its entry point)
 supabase/
-  migrations/  0001..0010 — schema, functions, RLS, views
+  migrations/  0001..0014 — schema, functions, RLS, views, hardening, platform
   seed.sql     reference data
+  demo.sql     demo profiles and a job at every stage
+  apply.sh     apply all of the above to a project
+  tests/       RLS and business-rule tests against a local Postgres
 ```
 
 ## The parts that are easy to get wrong

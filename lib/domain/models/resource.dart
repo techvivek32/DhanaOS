@@ -12,7 +12,7 @@ part 'resource.freezed.dart';
 part 'resource.g.dart';
 
 @freezed
-class Resource with _$Resource {
+abstract class Resource with _$Resource {
   const Resource._();
 
   const factory Resource({

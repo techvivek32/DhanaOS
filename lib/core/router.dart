@@ -12,8 +12,7 @@
 ///
 /// Every route is declared from day one, even where the screen behind it is still being built,
 /// because the fences only mean something if the whole address space exists. Unbuilt areas
-/// render [ComingSoon]; swapping in the real screen is a one-line change at the marked
-/// `builder`.
+/// render [ComingSoon].
 library;
 
 import 'package:flutter/foundation.dart';
@@ -24,15 +23,24 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:dhanaos/domain/enums.dart';
 import 'package:dhanaos/domain/models/app_user.dart';
+import 'package:dhanaos/features/auth/account_screen.dart';
 import 'package:dhanaos/features/auth/login_screen.dart';
 import 'package:dhanaos/features/auth/session.dart';
 import 'package:dhanaos/features/auth/splash_screen.dart';
+import 'package:dhanaos/features/cad/cad_review_screen.dart';
+import 'package:dhanaos/features/certification/certification_screen.dart';
 import 'package:dhanaos/features/dashboard/dashboard_screen.dart';
+import 'package:dhanaos/features/intake/intake_wizard.dart';
+import 'package:dhanaos/features/inventory/inventory_screen.dart';
+import 'package:dhanaos/features/jobs/job_detail_screen.dart';
+import 'package:dhanaos/features/jobs/job_list_screen.dart';
 import 'package:dhanaos/features/partner/casting_job.dart';
 import 'package:dhanaos/features/partner/partner_queue.dart';
 import 'package:dhanaos/features/portal/portal_job.dart';
 import 'package:dhanaos/features/portal/portal_jobs.dart';
 import 'package:dhanaos/features/production/production_board.dart';
+import 'package:dhanaos/features/qc/qc_screen.dart';
+import 'package:dhanaos/features/shipping/shipment_list.dart';
 import 'package:dhanaos/shared/shell/app_shell.dart';
 import 'package:dhanaos/shared/shell/coming_soon.dart';
 import 'package:dhanaos/shared/shell/no_access.dart';
@@ -136,7 +144,7 @@ final class RoleGate extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(currentUserProvider).valueOrNull;
+    final user = ref.watch(currentUserProvider).value;
     // No profile yet: the redirect is already moving us. Painting an error here would flash.
     if (user == null) return const SizedBox.shrink();
     if (!user.isInternal) return child;
@@ -201,28 +209,13 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: Paths.newJob,
         name: RouteNames.newJob,
-        // Fill in: lib/features/intake/intake_wizard.dart -> const IntakeWizard()
-        builder: (context, state) => const ComingSoon(
-          area: 'New Job Order',
-          standalone: true,
-          path: Paths.newJob,
-          note: 'The 11-step intake wizard lands with the intake feature. D-011 rule 4 gates '
-              'its media step: a photo, a voice note or an uploaded file — any one of the '
-              'three — before Continue.',
-        ),
+        builder: (context, state) => const IntakeWizard(),
         routes: <RouteBase>[
           GoRoute(
             path: 'step/:n',
             name: RouteNames.newJobStep,
-            // Fill in: IntakeWizard(step: step)
-            builder: (context, state) {
-              final step = int.tryParse(state.pathParameters['n'] ?? '') ?? 1;
-              return ComingSoon(
-                area: 'New Job Order — step $step',
-                standalone: true,
-                path: Paths.newJobStep(step),
-              );
-            },
+            builder: (context, state) =>
+                IntakeWizard(step: int.tryParse(state.pathParameters['n'] ?? '')),
           ),
         ],
       ),
@@ -252,16 +245,19 @@ GoRouter router(Ref ref) {
 String? _guard(Ref ref, GoRouterState state) {
   final path = state.uri.path;
 
-  // The five gate states that are not a destination — still booting, built without
-  // `--dart-define`, initialisation threw, the profile read was refused, or the account has no
-  // `app_users` row — all park on the splash, which renders each one in words an operator can
-  // act on.
+  // The gate states that are not a destination — still booting, built without `--dart-define`,
+  // initialisation threw, the profile read was refused, the account has no `app_users` row, the
+  // workspace is suspended, the account is deactivated, or it is still on a temporary password —
+  // all park on the splash, which renders each one in words an operator can act on.
   final parked = switch (ref.read(authGateProvider)) {
     AuthGate.booting ||
     AuthGate.unconfigured ||
     AuthGate.bootFailed ||
     AuthGate.unprovisioned ||
-    AuthGate.profileBlocked =>
+    AuthGate.profileBlocked ||
+    AuthGate.suspended ||
+    AuthGate.deactivated ||
+    AuthGate.mustChangePassword =>
       Paths.splash,
     AuthGate.signedOut => Paths.login,
     AuthGate.ready => null,
@@ -271,7 +267,7 @@ String? _guard(Ref ref, GoRouterState state) {
   // AuthGate.ready is defined as "session present and profile loaded", so this is non-null.
   // Parking rather than asserting keeps a future change to the gate from crashing a shipped
   // APK on a state it has never seen.
-  final user = ref.read(currentUserProvider).valueOrNull;
+  final user = ref.read(currentUserProvider).value;
   if (user == null) return path == Paths.splash ? null : Paths.splash;
 
   if (path == Paths.splash || path == Paths.login) return Paths.homeFor(user);
@@ -290,7 +286,7 @@ String? _guard(Ref ref, GoRouterState state) {
 /// Where the splash hands off to once its gate settles on a destination.
 String _landingFor(Ref ref, AuthGate gate) {
   if (gate != AuthGate.ready) return Paths.login;
-  final user = ref.read(currentUserProvider).valueOrNull;
+  final user = ref.read(currentUserProvider).value;
   return user == null ? Paths.login : Paths.homeFor(user);
 }
 
@@ -328,88 +324,58 @@ List<RouteBase> _branchRoutes(NavArea area) => switch (area) {
           GoRoute(
             path: Paths.jobs,
             name: RouteNames.jobs,
-            // Fill in: lib/features/jobs/jobs_screen.dart
-            //          -> JobsScreen(query: state.uri.queryParameters['q'])
+            // Reads `q` and filters on job code, customer and assignee.
             builder: (context, state) => RoleGate.area(
               NavArea.jobs,
-              child: ComingSoon(
-                area: 'Jobs',
-                path: Paths.jobs,
-                note: state.uri.queryParameters['q'] == null
-                    ? null
-                    : 'Searching for "${state.uri.queryParameters['q']}". The job list reads '
-                        'the q parameter; the screen itself lands with the jobs feature.',
-              ),
+              child: JobListScreen(query: state.uri.queryParameters['q']),
             ),
           ),
           GoRoute(
             path: '/jobs/:id',
             name: RouteNames.jobDetail,
-            // Fill in: lib/features/jobs/job_detail_screen.dart -> JobDetailScreen(jobId: id)
             builder: (context, state) => RoleGate.area(
               NavArea.jobs,
-              child: ComingSoon(
-                area: 'Job Order',
-                path: Paths.job(state.pathParameters['id'] ?? ''),
-              ),
+              child: JobDetailScreen(jobId: state.pathParameters['id'] ?? ''),
             ),
           ),
           GoRoute(
             path: '/cad/:revisionId',
             name: RouteNames.cad,
-            // Fill in: lib/features/cad/cad_review_screen.dart -> CadReviewScreen(revisionId:)
+            // D-011 rule 2: "Request Revisions" is blocked on an empty comment; "Approve" is not.
             builder: (context, state) => RoleGate.custom(
               label: 'CAD Review',
               allow: AreaRoles.cad,
-              child: ComingSoon(
-                area: 'CAD Review',
-                path: Paths.cad(state.pathParameters['revisionId'] ?? ''),
-                note: 'D-011 rule 2: "Request Revisions" is blocked on an empty comment; '
-                    '"Approve" is not. Rejection owes the designer a reason.',
-              ),
+              child: CadReviewScreen(revisionId: state.pathParameters['revisionId'] ?? ''),
             ),
           ),
           GoRoute(
             path: '/qc/:jobId',
             name: RouteNames.qc,
-            // Fill in: lib/features/qc/qc_screen.dart -> QcScreen(jobId: jobId)
+            // D-011 rule 3: authorisation enables only at a full checklist, and D-006 restores
+            // the FAIL path the mockup designed and made unreachable.
             builder: (context, state) => RoleGate.custom(
               label: 'Quality Control',
               allow: AreaRoles.qc,
-              child: ComingSoon(
-                area: 'Quality Control',
-                path: Paths.qc(state.pathParameters['jobId'] ?? ''),
-                note: 'D-011 rule 3: authorisation enables only at a full checklist — and '
-                    'D-006 restores the FAIL path the mockup designed and made unreachable.',
-              ),
+              child: QcScreen(jobId: state.pathParameters['jobId'] ?? ''),
             ),
           ),
           GoRoute(
             path: '/certification/:jobId',
             name: RouteNames.certification,
-            // Fill in: lib/features/certification/certification_screen.dart
             builder: (context, state) => RoleGate.custom(
               label: 'Certification',
               allow: AreaRoles.logistics,
-              child: ComingSoon(
-                area: 'Certification',
-                path: Paths.certification(state.pathParameters['jobId'] ?? ''),
-              ),
+              child: CertificationScreen(jobId: state.pathParameters['jobId'] ?? ''),
             ),
           ),
           GoRoute(
             path: '/shipping/:jobId',
             name: RouteNames.shipping,
-            // Fill in: lib/features/shipping/shipping_screen.dart
+            // Dispatch is refused by fn_dispatch_shipment while a security check is open.
             builder: (context, state) => RoleGate.custom(
               label: 'Shipping',
               allow: AreaRoles.logistics,
-              child: ComingSoon(
-                area: 'Shipping',
-                path: Paths.shipping(state.pathParameters['jobId'] ?? ''),
-                note: 'Dispatch is refused by fn_dispatch_shipment while a security check is '
-                    'open. The mockup only dimmed the button and left it pressable.',
-              ),
+              child: ShipmentListScreen(jobId: state.pathParameters['jobId'] ?? ''),
             ),
           ),
         ],
@@ -441,15 +407,10 @@ List<RouteBase> _branchRoutes(NavArea area) => switch (area) {
           GoRoute(
             path: Paths.inventory,
             name: RouteNames.inventory,
-            // Fill in: lib/features/inventory/inventory_screen.dart
+            // Stone rows always show origin — Natural or Lab Grown — and it is never optional.
             builder: (context, state) => const RoleGate.area(
               NavArea.inventory,
-              child: ComingSoon(
-                area: 'Inventory',
-                path: Paths.inventory,
-                note: 'Stone rows always show origin — Natural or Lab Grown. It survived in '
-                    'exactly one of the 46 mockups and is never optional here.',
-              ),
+              child: InventoryScreen(),
             ),
           ),
         ],
@@ -475,10 +436,10 @@ List<RouteBase> _branchRoutes(NavArea area) => switch (area) {
           GoRoute(
             path: Paths.settings,
             name: RouteNames.settings,
-            // Fill in: lib/features/settings/settings_screen.dart -> const SettingsScreen()
+            // My account. Workspace administration lives in the web admin panel.
             builder: (context, state) => const RoleGate.area(
               NavArea.settings,
-              child: ComingSoon(area: 'Settings', path: Paths.settings),
+              child: AccountScreen(),
             ),
           ),
         ],

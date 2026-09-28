@@ -106,10 +106,10 @@ class IntakeController extends _$IntakeController {
 
   // ================================================================ plumbing
 
-  IntakeDraft? get _draft => state.valueOrNull;
+  IntakeDraft? get _draft => state.value;
 
   void _patch(IntakeDraft Function(IntakeDraft current) apply) {
-    final current = state.valueOrNull;
+    final current = state.value;
     if (current == null || _closed) return;
     state = AsyncData(apply(current));
   }

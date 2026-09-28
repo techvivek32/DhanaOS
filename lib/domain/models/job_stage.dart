@@ -14,7 +14,7 @@ part 'job_stage.freezed.dart';
 part 'job_stage.g.dart';
 
 @freezed
-class JobStage with _$JobStage {
+abstract class JobStage with _$JobStage {
   const JobStage._();
 
   const factory JobStage({
@@ -103,7 +103,7 @@ class JobStage with _$JobStage {
 /// second enum. Build one with [StageRail.of] and let it answer "where is this job", so no
 /// screen has to re-implement the ordering.
 @freezed
-class StageRail with _$StageRail {
+abstract class StageRail with _$StageRail {
   const StageRail._();
 
   const factory StageRail(List<JobStage> stages) = _StageRail;

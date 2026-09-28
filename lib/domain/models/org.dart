@@ -8,7 +8,7 @@ part 'org.freezed.dart';
 part 'org.g.dart';
 
 @freezed
-class Org with _$Org {
+abstract class Org with _$Org {
   const Org._();
 
   const factory Org({
@@ -29,6 +29,11 @@ class Org with _$Org {
     @JsonKey(name: 'job_seq') @Default(0) int jobSeq,
     @JsonKey(name: 'job_seq_year') required int jobSeqYear,
     @JsonKey(name: 'logo_path') String? logoPath,
+
+    /// 0014. False while the platform has the workspace suspended.
+    @JsonKey(name: 'is_active') @Default(true) bool isActive,
+    @JsonKey(name: 'suspended_at') DateTime? suspendedAt,
+    @JsonKey(name: 'suspended_reason') String? suspendedReason,
     @JsonKey(name: 'created_at') required DateTime createdAt,
   }) = _Org;
 

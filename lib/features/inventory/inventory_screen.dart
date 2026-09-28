@@ -283,7 +283,7 @@ final class _ResultHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loaded = page.valueOrNull;
+    final loaded = page.value;
     final count = loaded?.items.length;
     // The repository pages with `limit`, so a full page means "at least this many".
     final capped = count != null && count >= filter.limit;

@@ -23,7 +23,6 @@
 library;
 
 import 'package:collection/collection.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -671,7 +670,7 @@ PartnerGateway partnerGateway(Ref ref) => PartnerGateway(
 /// behind it at all.
 @Riverpod(keepAlive: true)
 String? viewerPartnerId(Ref ref) =>
-    ref.watch(currentUserProvider).valueOrNull?.partnerId;
+    ref.watch(currentUserProvider).value?.partnerId;
 
 /// The queue, kept live.
 ///

@@ -100,7 +100,7 @@ class ThreadComposer extends _$ThreadComposer {
     LifecycleStage? stage,
     List<PendingFile> files = const [],
   }) async {
-    state = const AsyncLoading<void>().copyWithPrevious(state);
+    state = const AsyncLoading<void>();
     try {
       final post = await ref.read(threadRepositoryProvider).postMessage(
             jobId: jobId,
@@ -173,8 +173,8 @@ class _DigitalThreadState extends ConsumerState<DigitalThread> {
   @override
   Widget build(BuildContext context) {
     final thread = ref.watch(jobThreadLiveProvider(widget.jobId));
-    final files = ref.watch(jobFilesProvider(widget.jobId)).valueOrNull ?? const <Attachment>[];
-    final urls = ref.watch(jobFileUrlsProvider(widget.jobId)).valueOrNull ?? const <String, String>{};
+    final files = ref.watch(jobFilesProvider(widget.jobId)).value ?? const <Attachment>[];
+    final urls = ref.watch(jobFileUrlsProvider(widget.jobId)).value ?? const <String, String>{};
 
     final byThread = <String, List<Attachment>>{};
     for (final file in files) {
@@ -527,7 +527,7 @@ class _ComposerState extends ConsumerState<_Composer> {
   @override
   Widget build(BuildContext context) {
     final busy = ref.watch(threadComposerProvider(widget.jobId)).isLoading;
-    final me = ref.watch(currentUserProvider).valueOrNull;
+    final me = ref.watch(currentUserProvider).value;
 
     return DhCard(
       child: Column(

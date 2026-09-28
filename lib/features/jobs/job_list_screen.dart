@@ -335,7 +335,7 @@ final class _ResultHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final live = jobs.valueOrNull;
+    final live = jobs.value;
     final count = live?.data.length;
     // The repository pages with `range`, so a full page means "at least this many", not "exactly".
     final capped = count != null && count >= filter.limit;
@@ -773,7 +773,7 @@ final class JobRowCard extends StatelessWidget {
                     dense: true,
                   ),
                 if (item.isDraft)
-                  StatusChip(
+                  const StatusChip(
                     label: 'Draft',
                     tone: ChipTone.neutral,
                     icon: Icons.edit_note_rounded,

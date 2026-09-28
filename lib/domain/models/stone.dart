@@ -18,7 +18,7 @@ part 'stone.freezed.dart';
 part 'stone.g.dart';
 
 @freezed
-class Stone with _$Stone {
+abstract class Stone with _$Stone {
   const Stone._();
 
   const factory Stone({
@@ -194,7 +194,7 @@ class Stone with _$Stone {
 /// D-012: the mockups' segmented control meant two different things across variants, timing
 /// ("Include Now / Include Later") versus sourcing. Resolved to sourcing.
 @freezed
-class MeleeParcel with _$MeleeParcel {
+abstract class MeleeParcel with _$MeleeParcel {
   const MeleeParcel._();
 
   const factory MeleeParcel({

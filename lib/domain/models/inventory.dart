@@ -17,7 +17,7 @@ part 'inventory.freezed.dart';
 part 'inventory.g.dart';
 
 @freezed
-class InventoryItem with _$InventoryItem {
+abstract class InventoryItem with _$InventoryItem {
   const InventoryItem._();
 
   const factory InventoryItem({
@@ -111,7 +111,7 @@ class InventoryItem with _$InventoryItem {
   /// A species-typed attribute: `item.attr('clarity')`.
   String? attr(String key) {
     final v = attrs[key];
-    return v == null ? null : v.toString();
+    return v?.toString();
   }
 
   /// '124.5 g' / '1 pc' / '1.25 ct'.
@@ -157,7 +157,7 @@ class InventoryItem with _$InventoryItem {
 /// `stock_allocations` — the job picker the single "Assign" button in the mockup implied and did
 /// not have.
 @freezed
-class StockAllocation with _$StockAllocation {
+abstract class StockAllocation with _$StockAllocation {
   const StockAllocation._();
 
   const factory StockAllocation({
@@ -193,7 +193,7 @@ class StockAllocation with _$StockAllocation {
 /// mismatch at receiving" while offering nothing that could record a movement. Reconciliation is
 /// a live business problem the designs never solved.
 @freezed
-class StockTransaction with _$StockTransaction {
+abstract class StockTransaction with _$StockTransaction {
   const StockTransaction._();
 
   const factory StockTransaction({
@@ -257,7 +257,7 @@ class StockTransaction with _$StockTransaction {
 /// acknowledgement behind it. The shop took custody of a client's diamond with no record of what
 /// it had accepted.
 @freezed
-class GoodsInReceipt with _$GoodsInReceipt {
+abstract class GoodsInReceipt with _$GoodsInReceipt {
   const GoodsInReceipt._();
 
   const factory GoodsInReceipt({

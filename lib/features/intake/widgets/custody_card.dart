@@ -16,7 +16,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:dhanaos/core/money.dart';
 import 'package:dhanaos/core/theme/app_theme.dart';
-import 'package:dhanaos/core/theme/tokens.dart';
 import 'package:dhanaos/domain/models/models.dart';
 import 'package:dhanaos/features/auth/session.dart';
 import 'package:dhanaos/features/intake/intake_controller.dart';
@@ -136,7 +135,7 @@ class _CustodyCardState extends ConsumerState<CustodyCard> {
   Widget _recordView(BuildContext context) {
     final stone = widget.stone;
     final currency = widget.draft.currency;
-    final verifier = ref.watch(currentUserProvider).valueOrNull;
+    final verifier = ref.watch(currentUserProvider).value;
     final verifiedByMe = verifier != null && verifier.id == stone.verifiedBy;
 
     return Column(
@@ -187,7 +186,7 @@ class _CustodyCardState extends ConsumerState<CustodyCard> {
 
   Widget _form(BuildContext context) {
     final blocked = _blockReason;
-    final verifier = ref.watch(currentUserProvider).valueOrNull;
+    final verifier = ref.watch(currentUserProvider).value;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

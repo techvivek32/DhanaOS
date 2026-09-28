@@ -211,7 +211,7 @@ final class AppShell extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // D-008: the one source of identity in the app. Nothing here falls back to a literal — the
     // rail an operator sees is built from the roles the server actually returned for them.
-    final user = ref.watch(currentUserProvider).valueOrNull;
+    final user = ref.watch(currentUserProvider).value;
     final areas = NavArea.visibleTo(user);
     final current = NavArea.values[navigationShell.currentIndex];
     final wide = MediaQuery.sizeOf(context).width >= wideBreakpoint;

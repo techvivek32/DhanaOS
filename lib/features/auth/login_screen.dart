@@ -17,6 +17,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dhanaos/core/theme/app_theme.dart';
 import 'package:dhanaos/core/theme/tokens.dart';
 import 'package:dhanaos/data/supabase/errors.dart';
+import 'package:dhanaos/features/auth/auth_banner.dart';
 import 'package:dhanaos/features/auth/session.dart';
 import 'package:dhanaos/shared/widgets/widgets.dart';
 
@@ -51,7 +52,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _submit() async {
     if (!(_formKey.currentState?.validate() ?? false)) return;
     final controller = ref.read(authControllerProvider.notifier);
-    final form = ref.read(authControllerProvider).valueOrNull;
+    final form = ref.read(authControllerProvider).value;
 
     switch (_method) {
       case _Method.password:
@@ -81,7 +82,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(authControllerProvider);
-    final form = state.valueOrNull;
+    final form = state.value;
     final busy = state.isLoading;
     // The previous error rides along through a retry (so the phone step is not lost), but a
     // stale refusal under a spinner reads as a fresh one — hide it while the request is out.
@@ -124,13 +125,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       const SizedBox(height: Spacing.lg),
                       if (form?.notice != null) ...[
-                        _Banner(message: form!.notice!, tone: _BannerTone.info),
+                        AuthBanner(message: form!.notice!, tone: AuthBannerTone.info),
                         const SizedBox(height: Spacing.md),
                       ],
                       if (failure != null) ...[
-                        _Banner(
+                        AuthBanner(
                           message: failure.message,
-                          tone: _BannerTone.error,
+                          tone: AuthBannerTone.error,
                         ),
                         const SizedBox(height: Spacing.md),
                       ],
@@ -414,53 +415,6 @@ final class _SecondaryAction extends StatelessWidget {
   }
 }
 
-enum _BannerTone { info, error }
-
-final class _Banner extends StatelessWidget {
-  const _Banner({required this.message, required this.tone});
-
-  final String message;
-  final _BannerTone tone;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = context.scheme;
-    final dh = context.dh;
-    final (background, foreground, icon) = switch (tone) {
-      _BannerTone.error => (
-          scheme.errorContainer,
-          scheme.onErrorContainer,
-          Icons.error_outline,
-        ),
-      _BannerTone.info => (
-          dh.successContainer,
-          dh.success,
-          Icons.mark_email_read_outlined,
-        ),
-    };
-
-    return Container(
-      padding: const EdgeInsets.all(Spacing.md),
-      decoration: BoxDecoration(color: background, borderRadius: Radii.rMd),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, size: 20, color: foreground),
-          const SizedBox(width: Spacing.sm),
-          Expanded(
-            child: Text(
-              // Server messages reach the operator in the server's words. gotrue and the D-011
-              // rules both write from the operator's side already; paraphrasing lets the two
-              // drift apart.
-              message,
-              style: context.text.bodyMedium?.copyWith(color: foreground),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 final class _ButtonSpinner extends StatelessWidget {
   const _ButtonSpinner();

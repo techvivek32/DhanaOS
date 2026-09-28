@@ -13,7 +13,7 @@ part 'app_user.freezed.dart';
 part 'app_user.g.dart';
 
 @freezed
-class AppUser with _$AppUser {
+abstract class AppUser with _$AppUser {
   const AppUser._();
 
   const factory AppUser({
@@ -31,6 +31,10 @@ class AppUser with _$AppUser {
     String? phone,
     @JsonKey(name: 'avatar_path') String? avatarPath,
     @JsonKey(name: 'is_active') @Default(true) bool isActive,
+
+    /// Set when an admin created the account or reset its password with a temporary one (0014).
+    /// The app asks for a new password before anything else.
+    @JsonKey(name: 'must_change_password') @Default(false) bool mustChangePassword,
     @JsonKey(name: 'created_at') required DateTime createdAt,
 
     /// Wire values from the `user_roles` join. Held as strings because Postgres returns them
@@ -44,6 +48,12 @@ class AppUser with _$AppUser {
     /// Set when this user is a vendor's staff (`partner_users`). D-008: this — not a
     /// decorative "Assigned to Me" chip — is what scopes the partner queue.
     @JsonKey(name: 'partner_id', includeToJson: false) String? partnerId,
+
+    /// From the embedded `orgs` row. False when the platform suspended this workspace (0014);
+    /// RLS then returns nothing else, so the gate explains rather than showing empty screens.
+    @JsonKey(name: 'org_active', includeToJson: false) @Default(true) bool orgActive,
+    @JsonKey(name: 'org_suspended_reason', includeToJson: false) String? orgSuspendedReason,
+    @JsonKey(name: 'org_name', includeToJson: false) String? orgName,
   }) = _AppUser;
 
   factory AppUser.fromJson(Map<String, dynamic> json) => _$AppUserFromJson(json);

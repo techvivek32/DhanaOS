@@ -126,7 +126,9 @@ final class DataPair extends StatelessWidget {
       valueColor: valueColor,
       icon: icon,
       trailing: trailing,
-      maxLines: 1,
+      // A half-width column on a phone cannot hold date and time on one line; cutting the time
+      // off hides the half an operator is usually looking for.
+      maxLines: 2,
       alignment: alignment,
       tooltip: DateFormat('EEEE d MMMM yyyy, HH:mm').format(local),
     );
@@ -196,12 +198,24 @@ final class DataPair extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labelWidget = Text(
+    Widget labelWidget = Text(
       label.toUpperCase(),
       style: context.text.labelSmall?.copyWith(color: context.scheme.onSurfaceVariant),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
+
+    // The trailing chip rides on the label's line, so the value keeps the full width. Beside the
+    // whole pair it squeezed the value — a job's price rendered as "₹3,46,7…".
+    if (trailing != null) {
+      labelWidget = Row(
+        children: [
+          Expanded(child: labelWidget),
+          const SizedBox(width: Spacing.sm),
+          trailing!,
+        ],
+      );
+    }
 
     Widget valuePart;
     if (child != null) {
@@ -226,8 +240,8 @@ final class DataPair extends StatelessWidget {
             );
     }
 
-    Widget pair = Column(
-      crossAxisAlignment: alignment,
+    final pair = Column(
+      crossAxisAlignment: trailing != null ? CrossAxisAlignment.stretch : alignment,
       mainAxisSize: MainAxisSize.min,
       children: [
         labelWidget,
@@ -235,17 +249,6 @@ final class DataPair extends StatelessWidget {
         valuePart,
       ],
     );
-
-    if (trailing != null) {
-      pair = Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(child: pair),
-          const SizedBox(width: Spacing.sm),
-          trailing!,
-        ],
-      );
-    }
 
     final message = tooltip;
     return message == null ? pair : Tooltip(message: message, child: pair);

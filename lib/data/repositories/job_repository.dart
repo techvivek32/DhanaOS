@@ -24,7 +24,6 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -76,7 +75,7 @@ final class RepoIdentity {
 
 @Riverpod(keepAlive: true)
 RepoIdentity repoIdentity(Ref ref) {
-  final user = ref.watch(currentUserProvider).valueOrNull;
+  final user = ref.watch(currentUserProvider).value;
   return RepoIdentity(orgId: user?.orgId, userId: user?.id, displayName: user?.fullName);
 }
 

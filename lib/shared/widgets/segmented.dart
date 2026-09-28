@@ -116,20 +116,25 @@ final class DhSegmented<T> extends StatelessWidget {
                       ),
                     ),
                   ),
-                Row(
-                  children: [
-                    for (var i = 0; i < segments.length; i++)
-                      _SegmentLabel<T>(
-                        segment: segments[i],
-                        width: segmentWidth,
-                        selected: i == index,
-                        selectedFg: selectedFg,
-                        dense: dense,
-                        onTap: segments[i].enabled
-                            ? () => onChanged(segments[i].value)
-                            : null,
-                      ),
-                  ],
+                // Fill the track: a non-positioned Stack child is sized to its content and pinned
+                // to the top, which left every label riding the upper edge of the thumb.
+                Positioned.fill(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      for (var i = 0; i < segments.length; i++)
+                        _SegmentLabel<T>(
+                          segment: segments[i],
+                          width: segmentWidth,
+                          selected: i == index,
+                          selectedFg: selectedFg,
+                          dense: dense,
+                          onTap: segments[i].enabled
+                              ? () => onChanged(segments[i].value)
+                              : null,
+                        ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -222,7 +227,7 @@ final class _SegmentLabel<T> extends StatelessWidget {
           onTap: onTap,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: Spacing.xs),
-            child: content,
+            child: Center(child: content),
           ),
         ),
       ),

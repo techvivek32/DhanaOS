@@ -34,7 +34,6 @@ library;
 
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:dhanaos/core/money.dart';
@@ -428,7 +427,7 @@ class PortalComposer extends _$PortalComposer {
   /// Always `isInternal: false`. A customer's own post marked internal would be filtered straight
   /// back out by `thread_select` and vanish in front of them.
   Future<DhFailure?> post(String body) async {
-    state = const AsyncLoading<void>().copyWithPrevious(state);
+    state = const AsyncLoading<void>();
     try {
       await ref.read(threadRepositoryProvider).postMessage(
             jobId: jobId,

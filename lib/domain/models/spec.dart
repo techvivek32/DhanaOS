@@ -18,7 +18,7 @@ part 'spec.g.dart';
 
 /// The design specification. One row per job, keyed by `job_id`.
 @freezed
-class ProductSpec with _$ProductSpec {
+abstract class ProductSpec with _$ProductSpec {
   const ProductSpec._();
 
   const factory ProductSpec({
@@ -109,7 +109,7 @@ class ProductSpec with _$ProductSpec {
 
 /// The metal specification: `metal_materials` ∪ `quick_specs` (D-012).
 @freezed
-class MetalSpec with _$MetalSpec {
+abstract class MetalSpec with _$MetalSpec {
   const MetalSpec._();
 
   const factory MetalSpec({
@@ -213,7 +213,7 @@ class MetalSpec with _$MetalSpec {
 /// `requirements` — D-009. A shared citation for any spec line, so shop floor, QC and customer
 /// argue about `REQ-MAT-01` rather than about "the metal thing".
 @freezed
-class Requirement with _$Requirement {
+abstract class Requirement with _$Requirement {
   const Requirement._();
 
   const factory Requirement({
@@ -251,7 +251,7 @@ class Requirement with _$Requirement {
 
 /// `job_references` — the captured references that satisfy D-011 rule 4.
 @freezed
-class JobReference with _$JobReference {
+abstract class JobReference with _$JobReference {
   const JobReference._();
 
   const factory JobReference({

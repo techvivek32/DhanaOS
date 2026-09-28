@@ -236,10 +236,10 @@ final class _MetadataQuad extends ConsumerWidget {
     final job = snapshot.job;
     final customerId = job.customerId;
     final customer =
-        customerId == null ? null : ref.watch(customerProvider(customerId)).valueOrNull;
-    final partners = ref.watch(partnersByIdProvider).valueOrNull ?? const <String, Partner>{};
-    final org = ref.watch(currentOrgProvider).valueOrNull;
-    final quote = ref.watch(latestJobQuoteProvider(job.id)).valueOrNull;
+        customerId == null ? null : ref.watch(customerProvider(customerId)).value;
+    final partners = ref.watch(partnersByIdProvider).value ?? const <String, Partner>{};
+    final org = ref.watch(currentOrgProvider).value;
+    final quote = ref.watch(latestJobQuoteProvider(job.id)).value;
 
     final activePartnerId = snapshot.activeStage?.assignedPartner;
     final partner = activePartnerId == null ? null : partners[activePartnerId];
@@ -390,8 +390,8 @@ final class _StageSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final users = ref.watch(orgUsersByIdProvider).valueOrNull ?? const <String, AppUser>{};
-    final partners = ref.watch(partnersByIdProvider).valueOrNull ?? const <String, Partner>{};
+    final users = ref.watch(orgUsersByIdProvider).value ?? const <String, AppUser>{};
+    final partners = ref.watch(partnersByIdProvider).value ?? const <String, Partner>{};
     final permissions = ref.watch(permissionsProvider);
 
     final assignee = row.assignedTo == null ? null : users[row.assignedTo];
@@ -479,8 +479,8 @@ final class _CurrentActionCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final active = snapshot.activeStage;
-    final users = ref.watch(orgUsersByIdProvider).valueOrNull ?? const <String, AppUser>{};
-    final partners = ref.watch(partnersByIdProvider).valueOrNull ?? const <String, Partner>{};
+    final users = ref.watch(orgUsersByIdProvider).value ?? const <String, AppUser>{};
+    final partners = ref.watch(partnersByIdProvider).value ?? const <String, Partner>{};
 
     final assignee = active?.assignedTo == null ? null : users[active!.assignedTo];
     final partner = active?.assignedPartner == null ? null : partners[active!.assignedPartner];
@@ -567,11 +567,11 @@ final class _NetworkHub extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final users = ref.watch(orgUsersByIdProvider).valueOrNull ?? const <String, AppUser>{};
-    final partners = ref.watch(partnersByIdProvider).valueOrNull ?? const <String, Partner>{};
+    final users = ref.watch(orgUsersByIdProvider).value ?? const <String, AppUser>{};
+    final partners = ref.watch(partnersByIdProvider).value ?? const <String, Partner>{};
     final customerId = snapshot.job.customerId;
     final customer =
-        customerId == null ? null : ref.watch(customerProvider(customerId)).valueOrNull;
+        customerId == null ? null : ref.watch(customerProvider(customerId)).value;
 
     final entries = <_Participant>[];
 
@@ -734,7 +734,7 @@ final class _ProjectFiles extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final files = ref.watch(jobFilesProvider(jobId));
-    final urls = ref.watch(jobFileUrlsProvider(jobId)).valueOrNull ?? const <String, String>{};
+    final urls = ref.watch(jobFileUrlsProvider(jobId)).value ?? const <String, String>{};
 
     return DhSectionCard(
       title: 'Project files',
@@ -745,7 +745,7 @@ final class _ProjectFiles extends ConsumerWidget {
         _ => 'Loading',
       },
       child: switch (files) {
-        AsyncValue(value: final list?) when list.isEmpty => EmptyState(
+        AsyncValue(value: final list?) when list.isEmpty => const EmptyState(
             compact: true,
             icon: Icons.folder_open_outlined,
             title: 'No files on this job',

@@ -481,7 +481,7 @@ class _MeasurementEntryScreenState extends ConsumerState<MeasurementEntryScreen>
     // A reading that misses the agreed tolerance is a decision, not a typo — so it is confirmed
     // before it goes on the record. One inside tolerance is not worth a dialog.
     if (!within) {
-      final miss = variance!;
+      final miss = variance;
       final confirmed = await confirmAction(
         context,
         title: 'Record an out-of-tolerance weight?',

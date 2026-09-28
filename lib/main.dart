@@ -33,5 +33,10 @@ Future<void> main() async {
   // means the shell's own SafeArea does the insetting instead of the system guessing at it.
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-  runApp(const ProviderScope(child: DhanaOsApp()));
+  // Riverpod 3 retries a failed provider with backoff by default. Here a failure is almost
+  // always an RLS refusal or a business rule from Postgres — retrying cannot change the answer
+  // and only delays the message — and every error state already carries a Retry button.
+  runApp(const ProviderScope(retry: _noRetry, child: DhanaOsApp()));
 }
+
+Duration? _noRetry(int retryCount, Object error) => null;

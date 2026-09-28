@@ -90,7 +90,7 @@ final class _Body extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // The approvals read is a convenience on this screen: a failure must not take the order down
     // with it, so only its value is used.
-    final approvals = ref.watch(portalApprovalsProvider).valueOrNull;
+    final approvals = ref.watch(portalApprovalsProvider).value;
     final mine = [
       for (final item in approvals?.outstanding ?? const <PortalApprovalItem>[])
         if (item.jobId == view.job.id) item,
@@ -512,7 +512,7 @@ class _ConversationState extends ConsumerState<_Conversation> {
   @override
   Widget build(BuildContext context) {
     final thread = ref.watch(jobThreadLiveProvider(widget.jobId));
-    final me = ref.watch(currentUserProvider).valueOrNull;
+    final me = ref.watch(currentUserProvider).value;
     final busy = ref.watch(portalComposerProvider(widget.jobId)).isLoading;
 
     return Column(
@@ -613,7 +613,7 @@ class _ConversationState extends ConsumerState<_Conversation> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         for (final entry in entries) ...[
-          _Entry(entry: entry, viewerId: ref.watch(currentUserProvider).valueOrNull?.id),
+          _Entry(entry: entry, viewerId: ref.watch(currentUserProvider).value?.id),
           const SizedBox(height: Spacing.sm),
         ],
       ],

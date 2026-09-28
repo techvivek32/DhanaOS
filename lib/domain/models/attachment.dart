@@ -13,7 +13,7 @@ part 'attachment.freezed.dart';
 part 'attachment.g.dart';
 
 @freezed
-class Attachment with _$Attachment {
+abstract class Attachment with _$Attachment {
   const Attachment._();
 
   const factory Attachment({

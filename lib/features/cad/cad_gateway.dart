@@ -12,7 +12,6 @@
 /// This is that surface's data.
 library;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -606,7 +605,7 @@ Stream<Live<DesignerQueue>> designerQueueLive(Ref ref) async* {
 /// already open, so opening the picker costs no extra round trip.
 @riverpod
 Map<String, int> cadWorkload(Ref ref) =>
-    ref.watch(designerQueueLiveProvider).valueOrNull?.data.workloadByUser ??
+    ref.watch(designerQueueLiveProvider).value?.data.workloadByUser ??
     const <String, int>{};
 
 @riverpod

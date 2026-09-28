@@ -15,7 +15,7 @@ part 'activity.g.dart';
 /// An immutable audit row. Written by triggers and by `fn_*` procedures — the client inserts
 /// these only for actions that have no server-side procedure.
 @freezed
-class ActivityEvent with _$ActivityEvent {
+abstract class ActivityEvent with _$ActivityEvent {
   const ActivityEvent._();
 
   const factory ActivityEvent({
@@ -51,7 +51,7 @@ class ActivityEvent with _$ActivityEvent {
 /// A human post on the job. `isInternal` hides it from the customer portal — the mockups had
 /// one feed for everybody, which meant shop-floor chatter was customer-visible by default.
 @freezed
-class ThreadPost with _$ThreadPost {
+abstract class ThreadPost with _$ThreadPost {
   const ThreadPost._();
 
   const factory ThreadPost({

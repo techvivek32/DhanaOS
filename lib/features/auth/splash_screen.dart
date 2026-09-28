@@ -19,6 +19,7 @@ import 'package:dhanaos/core/theme/app_theme.dart';
 import 'package:dhanaos/core/theme/tokens.dart';
 import 'package:dhanaos/data/supabase/client.dart';
 import 'package:dhanaos/features/auth/login_screen.dart';
+import 'package:dhanaos/features/auth/password_form.dart';
 import 'package:dhanaos/features/auth/session.dart';
 import 'package:dhanaos/shared/widgets/widgets.dart';
 
@@ -64,6 +65,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               onRetry: () => ref.invalidate(currentUserProvider),
             ),
           AuthGate.unprovisioned => const _Unprovisioned(),
+          AuthGate.suspended => const _Suspended(),
+          AuthGate.deactivated => const _Deactivated(),
+          AuthGate.mustChangePassword => const _SetPassword(),
           AuthGate.signedOut =>
             widget.onResolved == null ? const LoginScreen() : const _Booting(),
           AuthGate.ready =>
@@ -132,7 +136,7 @@ final class _BootFailed extends StatelessWidget {
   Widget build(BuildContext context) => Consumer(
         builder: (context, ref, _) {
           // The wording came from `toDhFailure`, which already writes from the operator's side.
-          final result = ref.watch(bootstrapProvider).valueOrNull;
+          final result = ref.watch(bootstrapProvider).value;
           final failure = result is BootstrapFailed ? result.failure : null;
           return ErrorState(
             icon: Icons.cloud_off_outlined,
@@ -187,6 +191,91 @@ final class _Unprovisioned extends StatelessWidget {
       );
 }
 
+/// 0014: the platform paused the whole workspace. RLS already returns nothing, so this says why
+/// rather than letting every screen come back empty.
+final class _Suspended extends ConsumerWidget {
+  const _Suspended();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(currentUserProvider).value;
+    final workspace = user?.orgName ?? 'This workspace';
+    final reason = user?.orgSuspendedReason;
+    return EmptyState(
+      icon: Icons.pause_circle_outline,
+      title: '$workspace is suspended',
+      message: '${reason == null ? '' : 'Reason: $reason. '}'
+          'Nothing in the workspace can be opened until DhanaOS reactivates it. '
+          'Your workshop owner can contact DhanaOS support.',
+      actionLabel: 'Sign out',
+      onAction: () => ref.read(authControllerProvider.notifier).signOut(),
+    );
+  }
+}
+
+final class _Deactivated extends ConsumerWidget {
+  const _Deactivated();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final workspace = ref.watch(currentUserProvider).value?.orgName ?? 'your workshop';
+    return EmptyState(
+      icon: Icons.person_off_outlined,
+      title: 'This account is turned off',
+      message: 'An administrator of $workspace deactivated it. Everything you recorded stays '
+          'on the jobs; ask them to reactivate the account if you still need it.',
+      actionLabel: 'Sign out',
+      onAction: () => ref.read(authControllerProvider.notifier).signOut(),
+    );
+  }
+}
+
+/// 0014: the account was created, or its password reset, with a temporary password. Nothing
+/// else opens until it is replaced — the admin who typed it has seen it.
+final class _SetPassword extends ConsumerWidget {
+  const _SetPassword();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scheme = context.scheme;
+    final user = ref.watch(currentUserProvider).value;
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(Spacing.lg),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 420),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Icon(Icons.lock_reset_outlined, size: 40, color: context.dh.gold),
+              const SizedBox(height: Spacing.md),
+              Text(
+                'Set your own password',
+                textAlign: TextAlign.center,
+                style: context.text.headlineMedium?.copyWith(color: scheme.onSurface),
+              ),
+              const SizedBox(height: Spacing.sm),
+              Text(
+                '${user == null ? 'You' : '${user.fullName}, you'} signed in with a temporary '
+                'password from your administrator. Choose your own to continue.',
+                textAlign: TextAlign.center,
+                style: context.text.bodyMedium?.copyWith(color: scheme.onSurfaceVariant),
+              ),
+              const SizedBox(height: Spacing.lg),
+              const NewPasswordForm(submitLabel: 'Save and continue'),
+              const SizedBox(height: Spacing.sm),
+              TextButton(
+                onPressed: () => ref.read(authControllerProvider.notifier).signOut(),
+                child: const Text('Sign out'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 // ---------------------------------------------------------------- signed in
 
 /// What a resolved session looks like before the router and dashboard exist.
@@ -200,7 +289,7 @@ final class SessionSummary extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(currentUserProvider).valueOrNull;
+    final user = ref.watch(currentUserProvider).value;
     final scheme = context.scheme;
     final dh = context.dh;
 

@@ -25,7 +25,6 @@ import 'package:dhanaos/core/theme/app_theme.dart';
 import 'package:dhanaos/core/theme/tokens.dart';
 import 'package:dhanaos/data/supabase/errors.dart';
 import 'package:dhanaos/data/supabase/realtime.dart';
-import 'package:dhanaos/domain/enums.dart';
 import 'package:dhanaos/features/auth/session.dart';
 import 'package:dhanaos/features/jobs/job_widgets.dart';
 import 'package:dhanaos/features/partner/partner_gateway.dart';
@@ -47,7 +46,7 @@ class _PartnerQueueScreenState extends ConsumerState<PartnerQueueScreen> {
   @override
   Widget build(BuildContext context) {
     final async = ref.watch(partnerQueueLiveProvider);
-    final me = ref.watch(currentUserProvider).valueOrNull;
+    final me = ref.watch(currentUserProvider).value;
     final scope = _chosen ?? PartnerQueueScope.open;
 
     return ShopFloorSurface(

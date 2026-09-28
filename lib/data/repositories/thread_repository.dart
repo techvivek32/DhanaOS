@@ -16,7 +16,6 @@
 ///    a human post can be edited, only by its author (`thread_edit_own`), and the edit is stamped.
 library;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

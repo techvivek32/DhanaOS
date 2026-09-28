@@ -61,10 +61,10 @@ class _PortalJobsScreenState extends ConsumerState<PortalJobsScreen> {
   @override
   Widget build(BuildContext context) {
     final async = ref.watch(portalJobsLiveProvider);
-    final me = ref.watch(currentUserProvider).valueOrNull;
+    final me = ref.watch(currentUserProvider).value;
     // A failure here must not take the orders list down with it — the banner is a convenience,
     // the list is the screen.
-    final approvals = ref.watch(portalApprovalsProvider).valueOrNull;
+    final approvals = ref.watch(portalApprovalsProvider).value;
 
     return ClientSurface(
       child: async.when(

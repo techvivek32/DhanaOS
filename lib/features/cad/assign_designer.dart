@@ -103,7 +103,7 @@ class _AssignDesignerSheetState extends ConsumerState<AssignDesignerSheet> {
     final workload = ref.watch(cadWorkloadProvider);
     final task = ref.watch(cadActionsProvider);
     final busy = task == CadTask.assign;
-    final me = ref.watch(currentUserProvider).valueOrNull;
+    final me = ref.watch(currentUserProvider).value;
 
     return SafeArea(
       top: false,

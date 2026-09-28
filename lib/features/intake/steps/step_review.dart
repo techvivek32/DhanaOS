@@ -252,7 +252,7 @@ final class _Gates extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final me = ref.watch(currentUserProvider).valueOrNull;
+    final me = ref.watch(currentUserProvider).value;
 
     if (draft.gates.isEmpty) {
       return DhSectionCard(

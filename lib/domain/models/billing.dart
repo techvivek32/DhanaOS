@@ -18,7 +18,7 @@ part 'billing.g.dart';
 /// A GST tax invoice. The CGST/SGST/IGST split is stored, not derived at render time, because an
 /// issued invoice must read the same next year even if a rate changes.
 @freezed
-class Invoice with _$Invoice {
+abstract class Invoice with _$Invoice {
   const Invoice._();
 
   const factory Invoice({
@@ -108,7 +108,7 @@ class Invoice with _$Invoice {
 
 /// `payments` — money actually received against an invoice.
 @freezed
-class Payment with _$Payment {
+abstract class Payment with _$Payment {
   const Payment._();
 
   const factory Payment({
@@ -146,7 +146,7 @@ class Payment with _$Payment {
 /// `metal_rates` — the rate snapshot behind `commercial_requirements`' "Locked Rate" badge,
 /// which implied a snapshot that no field stored a timestamp for.
 @freezed
-class MetalRate with _$MetalRate {
+abstract class MetalRate with _$MetalRate {
   const MetalRate._();
 
   const factory MetalRate({

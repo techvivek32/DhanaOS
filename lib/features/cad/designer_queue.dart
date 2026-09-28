@@ -58,7 +58,7 @@ class _DesignerQueueScreenState extends ConsumerState<DesignerQueueScreen> {
   @override
   Widget build(BuildContext context) {
     final async = ref.watch(designerQueueLiveProvider);
-    final me = ref.watch(currentUserProvider).valueOrNull;
+    final me = ref.watch(currentUserProvider).value;
 
     // A designer opens on their own work; anybody else — a production manager checking the
     // board — opens on all of it.
@@ -71,7 +71,7 @@ class _DesignerQueueScreenState extends ConsumerState<DesignerQueueScreen> {
       appBar: AppBar(
         title: const Text('CAD Queue'),
         actions: [
-          if (async.valueOrNull case final live?) LivePulse(status: live.status, dense: true),
+          if (async.value case final live?) LivePulse(status: live.status, dense: true),
           const SizedBox(width: Spacing.sm),
         ],
       ),

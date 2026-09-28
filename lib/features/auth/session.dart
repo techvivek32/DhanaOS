@@ -15,7 +15,6 @@ library;
 
 import 'dart:async';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -28,8 +27,10 @@ part 'session.g.dart';
 
 /// `app_users` plus the three joins that complete an identity: the roles it holds, and the
 /// retailer or vendor it belongs to. `partner_id` is what actually scopes a vendor's queue —
-/// the mockup used a decorative "Assigned to Me" chip with nothing behind it.
-const _userSelect = '*, user_roles(role), customer_users(customer_id), partner_users(partner_id)';
+/// the mockup used a decorative "Assigned to Me" chip with nothing behind it. Shared with the
+/// admin panel's member lists.
+const userSelect = '*, user_roles(role), customer_users(customer_id), partner_users(partner_id), '
+    'orgs(name, is_active, suspended_reason)';
 
 // ---------------------------------------------------------------- session
 
@@ -63,11 +64,11 @@ Future<AppUser?> currentUser(Ref ref) async {
 
   final client = ref.watch(supabaseProvider);
   final row = await guardOrNull(
-    () => client.from('app_users').select(_userSelect).eq('id', session.user.id).maybeSingle(),
+    () => client.from('app_users').select(userSelect).eq('id', session.user.id).maybeSingle(),
   );
   if (row == null) return null;
 
-  final user = AppUser.fromJson(_shapeUserRow(row));
+  final user = appUserFromRow(row);
 
   // D-008, belt and braces. RLS already restricts `app_users` to the caller and their org, but
   // an over-broad policy would let this provider hand a *different* person's name to every
@@ -86,12 +87,12 @@ Future<AppUser?> currentUser(Ref ref) async {
 /// D-008's three principal classes. Null while signing in or when unprovisioned.
 @Riverpod(keepAlive: true)
 PrincipalClass? currentPrincipal(Ref ref) =>
-    ref.watch(currentUserProvider).valueOrNull?.principal;
+    ref.watch(currentUserProvider).value?.principal;
 
 /// The org every write is scoped to. Convenience for repositories that need `org_id` on an
 /// insert — they must never invent one.
 @Riverpod(keepAlive: true)
-String? currentOrgId(Ref ref) => ref.watch(currentUserProvider).valueOrNull?.orgId;
+String? currentOrgId(Ref ref) => ref.watch(currentUserProvider).value?.orgId;
 
 /// PostgREST returns embedded rows as nested objects. The model wants flat fields, and
 /// `user_roles` in particular arrives as `[{role: admin}, {role: engineer}]` while
@@ -100,6 +101,8 @@ String? currentOrgId(Ref ref) => ref.watch(currentUserProvider).valueOrNull?.org
 /// `customer_users` and `partner_users` are one-to-one (their PK *is* the FK), so PostgREST may
 /// send either a single object or a one-element list depending on how it resolved the
 /// relationship. Both shapes are handled rather than guessed at.
+AppUser appUserFromRow(Map<String, dynamic> row) => AppUser.fromJson(_shapeUserRow(row));
+
 Map<String, dynamic> _shapeUserRow(Map<String, dynamic> row) {
   final shaped = Map<String, dynamic>.from(row);
 
@@ -117,6 +120,17 @@ Map<String, dynamic> _shapeUserRow(Map<String, dynamic> row) {
     ..['partner_id'] = _embeddedId(row['partner_users'], 'partner_id')
     ..remove('customer_users')
     ..remove('partner_users');
+
+  // A locked-out member still reads their own org row (0014 `org_read_own`); anyone else's
+  // profile read never lands here.
+  final org = row['orgs'];
+  if (org is Map) {
+    shaped
+      ..['org_name'] = org['name']
+      ..['org_active'] = org['is_active'] ?? true
+      ..['org_suspended_reason'] = org['suspended_reason'];
+  }
+  shaped.remove('orgs');
 
   return shaped;
 }
@@ -153,12 +167,21 @@ enum AuthGate {
   /// The profile read failed: offline, or a policy refused it. Retryable.
   profileBlocked,
 
+  /// The platform suspended this workspace (0014). Nothing loads until it is reactivated.
+  suspended,
+
+  /// An admin deactivated this account. Its history stays; the account cannot work.
+  deactivated,
+
+  /// Signed in on a temporary password an admin set. A new one comes before anything else.
+  mustChangePassword,
+
   /// Signed in and provisioned. Everything else in the app is allowed to build.
   ready,
 }
 
 @Riverpod(keepAlive: true)
-AuthGate authGate(Ref ref) => switch (ref.watch(bootstrapProvider).valueOrNull) {
+AuthGate authGate(Ref ref) => switch (ref.watch(bootstrapProvider).value) {
       null => AuthGate.booting,
       BootstrapUnconfigured() => AuthGate.unconfigured,
       BootstrapFailed() => AuthGate.bootFailed,
@@ -168,7 +191,11 @@ AuthGate authGate(Ref ref) => switch (ref.watch(bootstrapProvider).valueOrNull) 
 AuthGate _gateForSession(Ref ref) {
   if (ref.watch(currentSessionProvider) == null) return AuthGate.signedOut;
   return switch (ref.watch(currentUserProvider)) {
-    AsyncData(value: final user) => user == null ? AuthGate.unprovisioned : AuthGate.ready,
+    AsyncData(value: null) => AuthGate.unprovisioned,
+    AsyncData(value: final AppUser user) when !user.orgActive => AuthGate.suspended,
+    AsyncData(value: final AppUser user) when !user.isActive => AuthGate.deactivated,
+    AsyncData(value: final AppUser user) when user.mustChangePassword => AuthGate.mustChangePassword,
+    AsyncData() => AuthGate.ready,
     AsyncError() => AuthGate.profileBlocked,
     _ => AuthGate.booting,
   };
@@ -203,7 +230,11 @@ final class AuthFormState {
 /// Every method funnels through [_run], so the screen only ever reads `isLoading` and a
 /// [DhFailure] — and a database or gotrue message reaches the operator in the words the server
 /// chose, which is the same discipline the D-011 rules depend on.
-@riverpod
+///
+/// Kept alive: sign-out is fired from menus that `read` rather than watch this, and an
+/// auto-disposed controller would be gone before the request returned — Riverpod 3 throws on
+/// setting the state of a disposed notifier.
+@Riverpod(keepAlive: true)
 class AuthController extends _$AuthController {
   @override
   FutureOr<AuthFormState> build() => const AuthFormState();
@@ -235,7 +266,7 @@ class AuthController extends _$AuthController {
 
   /// Finish the phone path.
   Future<bool> verifyPhoneCode(String code) {
-    final number = state.valueOrNull?.otpSentTo;
+    final number = state.value?.otpSentTo;
     if (number == null) {
       state = AsyncError(
         const AuthFailure(message: 'Request a code first, then enter it here.'),
@@ -255,6 +286,19 @@ class AuthController extends _$AuthController {
 
   /// Drop back to the phone entry field — "wrong number".
   void clearPhoneCode() => state = const AsyncData(AuthFormState());
+
+  /// Replace the password — a temporary one at first sign-in, or the user's own from their
+  /// account. Clears the must-change flag afterwards and reloads the profile, which moves the
+  /// gate on to [AuthGate.ready].
+  Future<bool> changePassword(String newPassword) async {
+    final ok = await _run(() async {
+      await _auth.updateUser(UserAttributes(password: newPassword));
+      await ref.read(supabaseProvider).rpc<void>('fn_password_changed');
+      return const AuthFormState(notice: 'Your password has been changed.');
+    });
+    if (ok) ref.invalidate(currentUserProvider);
+    return ok;
+  }
 
   Future<bool> sendPasswordReset(String email) => _run(() async {
         await _auth.resetPasswordForEmail(email.trim());
@@ -276,7 +320,7 @@ class AuthController extends _$AuthController {
       });
 
   Future<bool> _run(Future<AuthFormState> Function() body) async {
-    state = const AsyncLoading<AuthFormState>().copyWithPrevious(state);
+    state = const AsyncLoading<AuthFormState>();
     try {
       state = AsyncData(await body());
       return true;

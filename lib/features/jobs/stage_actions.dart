@@ -59,12 +59,12 @@ final class StageGate {
   bool get isOpen => reason == null;
 }
 
-/// The client-side half of D-011 rules 1 and 3.
+/// The client-side half of the D-011 gates `fn_complete_stage` enforces.
 ///
-/// Reads the same two rows `fn_complete_stage` checks — `casting_params.photo_id` and the
-/// `qc_checklist_items` for the newest inspection — so the button is shut before it is pressed and
-/// the operator is told what would open it. Every other stage is ungated here; the RPC is still
-/// the authority.
+/// Reads the same rows the RPC checks — `casting_params.photo_id`, the `qc_checklist_items` for
+/// the newest inspection, and whether the final shipment has left — so the button is shut before
+/// it is pressed and the operator is told what would open it. Every other stage is ungated here;
+/// the RPC is still the authority.
 @riverpod
 Future<StageGate> stageGate(Ref ref, String jobId, LifecycleStage stage) async {
   switch (stage) {
@@ -90,6 +90,24 @@ Future<StageGate> stageGate(Ref ref, String jobId, LifecycleStage stage) async {
       }
       final blocked = inspection.authorizationBlockedReason;
       return blocked == null ? const StageGate.open() : StageGate.blocked(blocked);
+
+    // D-011: the package leaves through the security protocol in Shipping. Closing the stage
+    // from the job detail would walk around the tamper-seal checks fn_dispatch_shipment enforces.
+    case LifecycleStage.dispatch:
+      final shipments = await ref.watch(jobShipmentsProvider(jobId).future);
+      final left = shipments.any(
+        (s) =>
+            s.leg == ShipmentLeg.finalDispatch &&
+            (s.status == ShipmentStatus.dispatched ||
+                s.status == ShipmentStatus.inTransit ||
+                s.status == ShipmentStatus.delivered),
+      );
+      return left
+          ? const StageGate.open()
+          : const StageGate.blocked(
+              'Dispatch closes once the package has left through the security protocol. '
+              'Open Shipping to finish the checks and dispatch it.',
+            );
 
     case _:
       return const StageGate.open();
@@ -169,7 +187,7 @@ class StageActions extends _$StageActions {
       );
 
   Future<DhFailure?> _run(Future<void> Function() body) async {
-    state = const AsyncLoading<void>().copyWithPrevious(state);
+    state = const AsyncLoading<void>();
     try {
       await body();
       state = const AsyncData<void>(null);

@@ -13,7 +13,6 @@
 /// Nothing else in the app calls `Supabase.initialize` or `Supabase.instance`.
 library;
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -98,7 +97,7 @@ Future<Bootstrap> bootstrap(Ref ref) => initSupabase();
 /// `authGateProvider`) gate every other surface on the bootstrap state first.
 @Riverpod(keepAlive: true)
 SupabaseClient supabase(Ref ref) {
-  final result = ref.watch(bootstrapProvider).valueOrNull;
+  final result = ref.watch(bootstrapProvider).value;
   return switch (result) {
     BootstrapReady(:final client) => client,
     BootstrapUnconfigured(:final message) => throw StateError(message),
