@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Brand colours for the launcher icon and launch screen, from lib/core/theme/tokens.dart. -->
+<resources>
+    <color name="dh_gold">#F7BE1D</color>
+    <color name="dh_on_gold">#251A00</color>
+    <color name="dh_surface">#F7F9FB</color>
+</resources>
