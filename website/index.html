@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>DhanaOS — Production software for custom jewelry</title>
   <meta name="description" content="DhanaOS tracks every custom jewelry order through 14 production steps. Specs, stones, gold, approvals, vendors and shipping in one record your whole team shares." />
-  <meta name="theme-color" content="#0c121d" />
+  <meta name="theme-color" content="#DCE1DE" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="canonical" href="https://dhanaos.vercel.app/" />
@@ -13,7 +13,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="DhanaOS" />
   <meta property="og:title" content="DhanaOS — Every piece, accounted for." />
-  <meta property="og:description" content="Production software for custom jewelry. 14 steps, one record, four rules no one can skip." />
+  <meta property="og:description" content="Production software for custom jewelry. 14 steps, one record, four rules the database enforces." />
   <meta property="og:url" content="https://dhanaos.vercel.app/" />
   <meta property="og:image" content="https://dhanaos.vercel.app/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -22,9 +22,11 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://dhanaos.vercel.app/assets/og-image.jpg" />
 
-  <link rel="preload" href="assets/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/bodoni-moda-italic.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/barlow-semi-condensed-600.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/barlow-semi-condensed-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/barlow-500.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/martian-mono.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/sim.css" />
 
@@ -50,477 +52,790 @@
   <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" /></symbol>
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
-    <symbol id="i-block" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M6 18L18 6" /></symbol>
-    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 5.5h15v10h-9l-4 3.5v-3.5h-2z" /></symbol>
-    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="1" /><path d="M15.5 8.5V5.5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3" /></symbol>
-    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5-2 1.5z" /><path d="M9 8h6M9 11.5h6M9 15h3.5" /></symbol>
-    <symbol id="i-tray" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" /><path d="M3.5 12h17M9.2 5.5v13M14.8 5.5v13" /></symbol>
-    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14" /><path d="M5 7l-2.5 6a2.5 2.5 0 0 0 5 0zM19 7l-2.5 6a2.5 2.5 0 0 0 5 0z" /></symbol>
-    <symbol id="i-gem" viewBox="0 0 24 24"><path d="M7.5 4.5h9l4 5L12 20.5 3.5 9.5z" /><path d="M3.5 9.5h17M10 4.5 8.6 9.5 12 20.5l3.4-11-1.4-5" /></symbol>
-    <symbol id="i-sign" viewBox="0 0 24 24"><path d="M3.5 19.5h17" /><path d="M5 15.5c2-4 3.5-8.5 5-8.5 2 0-1.5 8 .5 8 1.5 0 2.5-3 4-3s1 2.5 2.5 2.5 1.5-1 2.5-1" /></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="10" /><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" /></symbol>
-    <symbol id="i-diamond" viewBox="0 0 10 10"><path d="M5 0 10 5 5 10 0 5z" /></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" /><path d="M15.5 8.5V4.5h-11v11h4" /></symbol>
+    <symbol id="i-flag" viewBox="0 0 22 20"><path d="M11 1.5 20.5 18.5h-19z" /></symbol>
   </svg>
 
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="nav">
-    <div class="wrap nav-row">
-      <a class="wordmark" href="#top" aria-label="DhanaOS, back to top">Dhana<em>OS</em></a>
-      <nav class="nav-links" aria-label="Sections">
-        <a href="#how">How it works</a>
-        <a href="#try">Try it</a>
-        <a href="#rules">The rules</a>
-        <a href="#custody">Custody</a>
-        <a href="#rollout">Rollout</a>
-        <a href="#faq">FAQ</a>
+    <div class="nav-in">
+      <a class="brand" href="#top" aria-label="DhanaOS, back to top">
+        <svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><circle class="mk-o" cx="14" cy="14" r="9.5" /><path class="mk-c" d="M14 1.5v7M14 19.5v7M1.5 14h7M19.5 14h7M11.5 14h5M14 11.5v5" /></svg>
+        <span>DhanaOS</span>
+      </a>
+      <nav class="nav-links" aria-label="Sheets">
+        <a href="#how"><span class="n" aria-hidden="true">02</span>How it works</a>
+        <a href="#rules"><span class="n" aria-hidden="true">03</span>The rules</a>
+        <a href="#custody"><span class="n" aria-hidden="true">04</span>Custody</a>
+        <a href="#try"><span class="n" aria-hidden="true">05</span>Try it</a>
+        <a href="#rollout"><span class="n" aria-hidden="true">08</span>Rollout</a>
+        <a href="#faq"><span class="n" aria-hidden="true">09</span>FAQ</a>
       </nav>
-      <a class="btn btn-bone btn-sm" href="#contact">Book a demo</a>
+      <a class="btn btn-sm" href="#contact">Book a demo</a>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- ============================================================ hero -->
-    <section class="hero" id="top">
-      <div class="wrap hero-grid">
+    <!-- ================================================================ SHEET 01 · Overview -->
+    <section class="sheet sheet-zoned hero" id="top" aria-labelledby="hero-title">
+      <div class="zones" aria-hidden="true">
+        <div class="zt"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+        <div class="zb"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+        <div class="zl"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
+        <div class="zr"><span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span></div>
+      </div>
+
+      <div class="sheet-in hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">Production software for custom jewelry</p>
-          <h1 class="display-xl">Every piece, <em>accounted for.</em></h1>
+          <p class="tag"><span class="tag-n">01</span><span class="tag-t">Production software for custom jewelry</span></p>
+          <h1 id="hero-title"><span class="ln">Every piece,</span> <span class="ln">accounted for.</span></h1>
           <p class="lead">DhanaOS tracks each custom order through 14 production steps. Specs, stones, gold, approvals and shipping live in one record that your team, your vendors and your retailers share.</p>
           <div class="cta-row">
-            <a class="btn btn-bone" href="#contact">Book a demo <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>
-            <a class="link-arrow" href="#how">See how it works <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>
+            <a class="btn" href="#contact">Book a demo <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>
+            <a class="link" href="#how">See how it works</a>
           </div>
-          <dl class="stats">
-            <div><dt>Steps, one record</dt><dd>14</dd></div>
-            <div><dt>Rules no one skips</dt><dd>4</dd></div>
-            <div><dt>Quotes shown to vendors</dt><dd>0</dd></div>
-            <div><dt>Weeks to go&#8209;live</dt><dd>8</dd></div>
-          </dl>
+          <p class="gnote"><span class="gnote-k">Note 1</span><span class="gnote-t">Most workshops run on WhatsApp and memory. DhanaOS runs on the record.</span></p>
         </div>
 
-        <div class="hero-art" aria-hidden="true">
-          <img src="assets/art/hero.svg" alt="" width="1000" height="1250" fetchpriority="high" />
-        </div>
-
-        <figure class="ticket" aria-label="Sample job record">
-          <div class="ticket-top">
-            <span class="ticket-key">Job</span>
-            <span class="ticket-status"><span class="pulse" aria-hidden="true"></span>In production</span>
+        <figure class="drawing" role="img" aria-label="Sample drawing of job DH-2026-01842, a solitaire engagement ring, in top, front and side views with a section through the band. Center stone 2.40 carat round brilliant, lab-grown. Metal 18K yellow gold. Inside diameter 16.92 millimeters: US 6½, UK M½, IN 12. Step 7 of 14, casting, with the casting photo still missing.">
+          <div class="dw">
+<!-- gen:hero -->
+<svg class="ga" viewBox="0 0 880 600" aria-hidden="true" focusable="false">
+<defs>
+  <marker id="h-ar" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,1.8 L10,5 L0,8.2 z" class="ar-fill"/></marker>
+  <clipPath id="h-sec"><path d="M768,478 Q792,471 816,478 C818,496 809,520 792,520 C775,520 766,496 768,478 Z"/></clipPath>
+  <clipPath id="h-pour"><rect x="166" y="554" width="268" height="0">
+    <animate attributeName="y" values="554;286" begin="1.25s" dur="1.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".45 0 .2 1"/>
+    <animate attributeName="height" values="0;268" begin="1.25s" dur="1.2s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".45 0 .2 1"/>
+  </rect></clipPath>
+  <linearGradient id="h-heat" gradientUnits="userSpaceOnUse" x1="0" y1="552" x2="0" y2="288">
+    <stop offset="0" stop-color="#FF5A1F" stop-opacity=".82"/><stop offset=".5" stop-color="#FF5A1F" stop-opacity=".46"/><stop offset="1" stop-color="#FF5A1F" stop-opacity=".14"/>
+  </linearGradient>
+</defs>
+<g class="cl fade" style="--d:.05s">
+<path d="M150,105 H450 M300,31 V179"/>
+<path d="M146,420 H186 M414,420 H454 M300,189 V514"/>
+<path d="M610,189 V572 M576,420 H644"/>
+<path d="M754,498 H830 M792,462 V530"/>
+</g>
+<g class="pj">
+<path class="pj-v dr" style="--d:0.15s;--t:0.90s" pathLength="1" d="M244,127 V208"/>
+<path class="pj-v dr" style="--d:0.20s;--t:0.90s" pathLength="1" d="M356,127 V208"/>
+<path class="pj-v dr" style="--d:0.25s;--t:0.90s" pathLength="1" d="M272,161 V197"/>
+<path class="pj-v dr" style="--d:0.30s;--t:0.90s" pathLength="1" d="M328,161 V197"/>
+<path class="pj-v dr" style="--d:0.35s;--t:0.90s" pathLength="1" d="M168,127 V412"/>
+<path class="pj-v dr" style="--d:0.40s;--t:0.90s" pathLength="1" d="M432,127 V412"/>
+<path class="pj-s dr" style="--d:0.45s;--t:0.90s" pathLength="1" d="M364,199 H546"/>
+<path class="pj-s dr" style="--d:0.50s;--t:0.90s" pathLength="1" d="M360,292 H578"/>
+<path class="pj-s dr" style="--d:0.55s;--t:0.90s" pathLength="1" d="M324,552 H590"/>
+</g>
+<g class="view top">
+<path class="ln dr" style="--d:0.30s;--t:1.00s" pathLength="1" d="M168,89 H432 V121 H168 Z"/>
+<path class="hid fade" style="--d:1.2s" d="M190,89 V121 M410,89 V121"/>
+<circle class="ln fillp dr" style="--d:.45s;--t:.9s" pathLength="1" cx="300" cy="105" r="56"/>
+<path class="ln dr" style="--d:0.80s;--t:0.70s" pathLength="1" d="M333.04,105 L323.36,81.64 L300,71.96 L276.64,81.64 L266.96,105 L276.64,128.36 L300,138.04 L323.36,128.36 Z"/>
+<path class="th dr" style="--d:1.00s;--t:1.10s" pathLength="1" d="M333.04,105 L340.87,88.07 L323.36,81.64 M323.36,81.64 L316.93,64.13 L300,71.96 M300,71.96 L283.07,64.13 L276.64,81.64 M276.64,81.64 L259.13,88.07 L266.96,105 M266.96,105 L259.13,121.93 L276.64,128.36 M276.64,128.36 L283.07,145.87 L300,138.04 M300,138.04 L316.93,145.87 L323.36,128.36 M323.36,128.36 L340.87,121.93 L333.04,105"/>
+<path class="th dr" style="--d:1.15s;--t:1.30s" pathLength="1" d="M356,105 L340.87,88.07 L339.6,65.4 M340.87,88.07 L351.74,83.57 M339.6,65.4 L316.93,64.13 L300,49 M316.93,64.13 L321.43,53.26 M300,49 L283.07,64.13 L260.4,65.4 M283.07,64.13 L278.57,53.26 M260.4,65.4 L259.13,88.07 L244,105 M259.13,88.07 L248.26,83.57 M244,105 L259.13,121.93 L260.4,144.6 M259.13,121.93 L248.26,126.43 M260.4,144.6 L283.07,145.87 L300,161 M283.07,145.87 L278.57,156.74 M300,161 L316.93,145.87 L339.6,144.6 M316.93,145.87 L321.43,156.74 M339.6,144.6 L340.87,121.93 L356,105 M340.87,121.93 L351.74,126.43"/>
+<ellipse class="ln fillp dr" style="--d:1.30s;--t:.4s" pathLength="1" cx="353.5" cy="105" rx="6.5" ry="4.2" transform="rotate(0 353.5 105)"/>
+<ellipse class="ln fillp dr" style="--d:1.35s;--t:.4s" pathLength="1" cx="326.75" cy="58.67" rx="6.5" ry="4.2" transform="rotate(-60 326.75 58.67)"/>
+<ellipse class="ln fillp dr" style="--d:1.40s;--t:.4s" pathLength="1" cx="273.25" cy="58.67" rx="6.5" ry="4.2" transform="rotate(-120 273.25 58.67)"/>
+<ellipse class="ln fillp dr" style="--d:1.45s;--t:.4s" pathLength="1" cx="246.5" cy="105" rx="6.5" ry="4.2" transform="rotate(-180 246.5 105)"/>
+<ellipse class="ln fillp dr" style="--d:1.50s;--t:.4s" pathLength="1" cx="273.25" cy="151.33" rx="6.5" ry="4.2" transform="rotate(-240 273.25 151.33)"/>
+<ellipse class="ln fillp dr" style="--d:1.55s;--t:.4s" pathLength="1" cx="326.75" cy="151.33" rx="6.5" ry="4.2" transform="rotate(-300 326.75 151.33)"/>
+</g>
+<g class="view front">
+<path class="melt" clip-path="url(#h-pour)" fill-rule="evenodd" d="M168,420 a132,132 0 1 0 264,0 a132,132 0 1 0 -264,0 Z M190,420 a110,110 0 1 0 220,0 a110,110 0 1 0 -220,0 Z"/>
+<circle class="ln dr" style="--d:.25s;--t:1.2s" pathLength="1" cx="300" cy="420" r="132"/>
+<circle class="ln dr" style="--d:.4s;--t:1.2s" pathLength="1" cx="300" cy="420" r="110"/>
+<circle class="xt dr" style="--d:.7s;--t:1.2s" pathLength="1" cx="300" cy="420" r="128.5"/>
+<circle class="xt dr" style="--d:.8s;--t:1.2s" pathLength="1" cx="300" cy="420" r="113"/>
+<path class="ln fillp dr" style="--d:0.55s;--t:0.50s" pathLength="1" d="M267,280.5 Q267,279 268.5,279 H331.5 Q333,279 333,280.5 L320,292 H280 Z"/>
+<path class="ln fillp dr" style="--d:0.65s;--t:0.90s" pathLength="1" d="M268,199 H332 L356,216 V220 L300,268 L244,220 V216 Z"/>
+<path class="th dr" style="--d:0.95s;--t:0.50s" pathLength="1" d="M244,216 H356"/>
+<path class="th dr" style="--d:1.05s;--t:0.80s" pathLength="1" d="M256,216 L268,199 L278,216 L288,199 L300,216 L312,199 L322,216 L332,199 L344,216"/>
+<path class="th dr" style="--d:1.15s;--t:0.80s" pathLength="1" d="M262,220 L300,268 M284,220 L300,268 M316,220 L300,268 M338,220 L300,268"/>
+<path class="ln fillp dr" style="--d:1.25s;--t:0.60s" pathLength="1" d="M251,243 H349 V250 H251 Z"/>
+<path class="ln fillp dr" style="--d:1.35s;--t:0.70s" pathLength="1" d="M276,281 C269,262 251,240 244.5,222 L244.5,216 L252.5,210 Q253,204.5 248,203.5 Q240,204.5 237.5,212 L237,222 C242,240 259,262 268,281 Z"/>
+<path class="ln fillp dr" style="--d:1.42s;--t:0.70s" pathLength="1" d="M324,281 C331,262 349,240 355.5,222 L355.5,216 L347.5,210 Q347,204.5 352,203.5 Q360,204.5 362.5,212 L363,222 C358,240 341,262 332,281 Z"/>
+<path class="ln fillp dr" style="--d:1.49s;--t:0.70s" pathLength="1" d="M289.2,281 C288,262 277.5,240 274.5,221 L279.75,211 Q279.45,203.8 275.75,203.6 Q270.75,204.6 266.5,213 L266.5,221 C269.5,240 280,262 282.8,281 Z"/>
+<path class="ln fillp dr" style="--d:1.56s;--t:0.70s" pathLength="1" d="M310.8,281 C312,262 322.5,240 325.5,221 L320.25,211 Q320.55,203.8 324.25,203.6 Q329.25,204.6 333.5,213 L333.5,221 C330.5,240 320,262 317.2,281 Z"/>
+</g>
+<g class="view side">
+<path class="ln fillp dr" style="--d:0.50s;--t:1.10s" pathLength="1" d="M594,290 H626 L622,552 H598 Z"/>
+<path class="hid fade" style="--d:1.4s" d="M595.33,310 H624.67 M598.67,530 H621.33"/>
+<path class="ln fillp dr" style="--d:0.75s;--t:0.50s" pathLength="1" d="M577,280.5 Q577,279 578.5,279 H641.5 Q643,279 643,280.5 L630,292 H590 Z"/>
+<path class="ln fillp dr" style="--d:0.85s;--t:0.90s" pathLength="1" d="M578,199 H642 L666,216 V220 L610,268 L554,220 V216 Z"/>
+<path class="th dr" style="--d:1.15s;--t:0.50s" pathLength="1" d="M554,216 H666"/>
+<path class="th dr" style="--d:1.25s;--t:0.80s" pathLength="1" d="M566,216 L578,199 L588,216 L598,199 L610,216 L622,199 L632,216 L642,199 L654,216"/>
+<path class="th dr" style="--d:1.35s;--t:0.80s" pathLength="1" d="M572,220 L610,268 M594,220 L610,268 M626,220 L610,268 M648,220 L610,268"/>
+<path class="ln fillp dr" style="--d:1.45s;--t:0.60s" pathLength="1" d="M561,243 H659 V250 H561 Z"/>
+<path class="ln fillp dr" style="--d:1.55s;--t:0.70s" pathLength="1" d="M588.95,281 C587.75,262 565.9,240 562.9,221 L572.36,211 Q572.06,203.8 568.36,203.6 Q563.36,204.6 554.9,213 L554.9,221 C557.9,240 579.75,262 582.55,281 Z"/>
+<path class="ln fillp dr" style="--d:1.62s;--t:0.70s" pathLength="1" d="M631.05,281 C632.25,262 654.1,240 657.1,221 L647.64,211 Q647.94,203.8 651.64,203.6 Q656.64,204.6 665.1,213 L665.1,221 C662.1,240 640.25,262 637.45,281 Z"/>
+<path class="ln fillp dr" style="--d:1.69s;--t:0.70s" pathLength="1" d="M606,281 L605.6,211 Q605.6,203.6 610,203.6 Q614.4,203.6 614.4,211 L614,281 Z"/>
+</g>
+<g class="cut fade" style="--d:1.55s">
+<path class="cl-ink" d="M300,524 V560"/>
+<path class="cut-thick" d="M300,514 V526 M300,558 V570"/>
+<path class="th" marker-end="url(#h-ar)" d="M300,514 H320"/>
+<path class="th" marker-end="url(#h-ar)" d="M300,570 H320"/>
+</g>
+<g class="view sec">
+<g clip-path="url(#h-sec)" class="fade" style="--d:1.75s"><path class="hatch" d="M706,524 L762,468 M711,524 L767,468 M716,524 L772,468 M721,524 L777,468 M726,524 L782,468 M731,524 L787,468 M736,524 L792,468 M741,524 L797,468 M746,524 L802,468 M751,524 L807,468 M756,524 L812,468 M761,524 L817,468 M766,524 L822,468 M771,524 L827,468 M776,524 L832,468 M781,524 L837,468 M786,524 L842,468 M791,524 L847,468 M796,524 L852,468 M801,524 L857,468 M806,524 L862,468 M811,524 L867,468 M816,524 L872,468 M821,524 L877,468"/></g>
+<path class="ln dr" style="--d:1.45s;--t:0.80s" pathLength="1" d="M768,478 Q792,471 816,478 C818,496 809,520 792,520 C775,520 766,496 768,478 Z"/>
+</g>
+<g class="dim fade" style="--d:1.7s">
+<path class="th" marker-start="url(#h-ar)" marker-end="url(#h-ar)" d="M190,420 H410"/>
+</g>
+<g class="lead co-d fade co-stone" style="--d:2.00s"><circle class="dot" cx="324" cy="75" r="2.6"/><path class="th" d="M324,75 L372,38"/></g>
+<g class="lead co-d fade co-origin" style="--d:2.15s"><circle class="dot" cx="624" cy="246" r="2.6"/><path class="th" d="M624,246 L672,124"/></g>
+<g class="lead co-d fade co-metal" style="--d:2.30s"><circle class="dot" cx="619" cy="392" r="2.6"/><path class="th" d="M619,392 L654,352"/></g>
+<g class="lead co-d fade co-stage is-hot" style="--d:2.45s"><circle class="dot" cx="187.81" cy="465.33" r="2.6"/><path class="th" d="M187.81,465.33 L142,486"/></g>
+<g class="lead co-m"><circle class="dot" cx="322" cy="79" r="2.6"/><path class="th" d="M448,44 L322,79"/></g>
+<g class="lead co-m"><circle class="dot" cx="318" cy="246" r="2.6"/><path class="th" d="M450,196 L318,246"/></g>
+<g class="lead co-m"><circle class="dot" cx="402.61" cy="355.88" r="2.6"/><path class="th" d="M454,300 L402.61,355.88"/></g>
+</svg>
+<div class="ann" aria-hidden="true">
+<span class="vl" style="--x:17.5%;--y:11.167%">Top view</span>
+<span class="vl" style="--x:19.091%;--y:98.333%">Front view</span>
+<span class="vl vl-c" style="--x:69.318%;--y:98.333%">Side view</span>
+<span class="vl vl-c" style="--x:90%;--y:91.333%">Section A–A <span class="vl-s">2:1</span></span>
+<span class="cut-l" style="--x:37.045%;--y:85.667%">A</span>
+<span class="cut-l" style="--x:37.045%;--y:95%">A</span>
+<span class="dm-v" style="--x:34.091%;--y:70%">Ø16.92</span>
+<span class="dm-s" style="--x:34.091%;--y:70%"><span class="k">Ring size</span>US 6½ · UK M½<span class="dm-sep"> · </span><span class="dm-in">IN 12</span></span>
+<span class="co co-stone" style="--x:42.273%;--y:6.333%;--mw:54.545%"><span class="co-k">Center stone</span><span class="co-b"><span class="co-v">2.40 ct round brilliant</span></span></span>
+<span class="co co-origin" style="--x:76.364%;--y:20.667%;--mw:23.409%"><span class="co-k">Origin</span><span class="co-b"><span class="co-v">Lab-grown</span><span class="co-s">Every center and side stone must be marked natural or lab-grown</span></span></span>
+<span class="co co-metal" style="--x:74.318%;--y:58.667%;--mw:25%"><span class="co-k">Metal</span><span class="co-b"><span class="co-v">18K yellow gold</span></span></span>
+<span class="co co-stage is-hot end" style="--x:16.136%;--y:81%;--mw:15.909%"><span class="co-k">Stage 07 / 14</span><span class="co-b"><span class="co-v">Casting</span><span class="co-s">Photo 0 / 1</span></span></span>
+<span class="bal" style="--x:50.909%;--y:7.333%">1</span>
+<span class="bal" style="--x:51.136%;--y:32.667%">2</span>
+<span class="bal" style="--x:51.591%;--y:50%">3</span>
+</div>
+<!-- /gen:hero -->
           </div>
-          <p class="ticket-code">DH-2026-01842</p>
-          <p class="ticket-title">Solitaire engagement ring</p>
-
-          <div class="ticket-rail" role="img" aria-label="Step 7 of 14: Casting. Steps 1 to 6 are complete.">
-            <ol aria-hidden="true">
-              <li class="done"></li><li class="done"></li><li class="done"></li><li class="done"></li><li class="done"></li><li class="done"></li>
-              <li class="now"></li>
-              <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
-            </ol>
-            <div class="rail-labels" aria-hidden="true"><span>01</span><span class="rail-now">07 Casting</span><span>14</span></div>
-          </div>
-
-          <dl class="ticket-rows">
-            <div><dt>Metal</dt><dd>18K yellow gold</dd></div>
-            <div><dt>Center</dt><dd>2.40 ct round brilliant</dd></div>
-            <div><dt>Origin</dt><dd>Lab-grown</dd></div>
-            <div><dt>Ring size</dt><dd>US 6½ · UK M½ · IN 12</dd></div>
-            <div><dt>Due</dt><dd>Aug 24</dd></div>
-            <div><dt>Quote</dt><dd>$4,850.00</dd></div>
-          </dl>
-
-          <p class="ticket-gate"><svg class="ic" aria-hidden="true"><use href="#i-lock" /></svg><span>Casting photo required to close</span><span class="gate-n">0 / 1</span></p>
-          <figcaption class="ticket-foot"><span>Sample record</span><span>DhanaOS</span></figcaption>
         </figure>
-      </div>
-    </section>
 
-    <!-- ======================================================= statement -->
-    <section class="statement" aria-label="Why DhanaOS">
-      <div class="wrap statement-inner">
-        <img class="ornament" src="assets/art/rosette.svg" alt="" width="72" height="72" aria-hidden="true" loading="lazy" decoding="async" />
-        <p class="statement-text">Most workshops run on WhatsApp and memory. DhanaOS runs on <em>the record.</em></p>
-        <p class="caption"><span class="nb">Every stone logged</span> <span aria-hidden="true">·</span> <span class="nb">No silent delays</span> <span aria-hidden="true">·</span> <span class="nb">No guessing who approved it</span></p>
-      </div>
-    </section>
-
-    <!-- ============================================================= how -->
-    <section class="section paper how" id="how" aria-labelledby="how-title">
-      <div class="wrap how-grid">
-        <header class="how-head">
-          <p class="eyebrow">How it works</p>
-          <h2 class="display-l" id="how-title"><span class="ln">Fourteen steps.</span> <span class="ln">Three phases.</span> <span class="ln">One record.</span></h2>
-          <p class="body-muted">Every step is closed by name and time-stamped. Casting can’t close without a photo, and QC can’t pass without a full checklist. Two steps happen outside your workshop, and those partners see only the jobs you send them.</p>
-          <p class="legend"><svg class="ic-d" aria-hidden="true"><use href="#i-diamond" /></svg>Outside partner</p>
-          <p class="fine">Any job can go on hold, be canceled or sent back for rework. Every move is logged with who made it and when.</p>
-        </header>
-
-        <ol class="stages">
-          <li class="stage">
-            <p class="stage-no">01.</p>
-            <div class="stage-body">
-              <h3 class="stage-name">Design</h3>
-              <p class="stage-lead">Capture the order, model it, and lock design and price before any metal is touched.</p>
-              <ol class="steps">
-                <li><span class="s-n">01</span><span class="s-text"><strong>Inquiry</strong><span>Photo, sketch or voice note</span></span><span class="s-owner">Front desk</span></li>
-                <li><span class="s-n">02</span><span class="s-text"><strong>CAD design</strong><span>3D model, every version kept</span></span><span class="s-owner">CAD designer</span></li>
-                <li><span class="s-n">03</span><span class="s-text"><strong>Design approval</strong><span>Approve, or send back with a reason</span></span><span class="s-owner">You / customer</span></li>
-                <li><span class="s-n">04</span><span class="s-text"><strong>Pricing</strong><span>Metal, stones, labor, setting, certification</span></span><span class="s-owner">You / customer</span></li>
-                <li><span class="s-n">05</span><span class="s-text"><strong>Final approval</strong><span>Design and price are locked</span></span><span class="s-owner">You</span></li>
-              </ol>
-            </div>
-          </li>
-          <li class="stage">
-            <p class="stage-no">02.</p>
-            <div class="stage-body">
-              <h3 class="stage-name">Make</h3>
-              <p class="stage-lead">The piece moves bench to bench. Its weight and any metal loss are recorded against the step where they happen.</p>
-              <ol class="steps">
-                <li><span class="s-n">06</span><span class="s-text"><strong>Wax &amp; 3D print</strong><span>Model printed and sent to the caster</span></span><span class="s-owner">Workshop</span></li>
-                <li class="is-out"><span class="s-n">07</span><span class="s-text"><strong>Casting</strong><span>Vendor uploads a photo to finish</span></span><span class="s-owner"><svg class="ic-d" aria-hidden="true"><use href="#i-diamond" /></svg><span class="sr-only">Outside partner: </span>Casting vendor</span></li>
-                <li><span class="s-n">08</span><span class="s-text"><strong>Assembly</strong><span>Piece built, weight recorded</span></span><span class="s-owner">Bench</span></li>
-                <li><span class="s-n">09</span><span class="s-text"><strong>Stone setting</strong><span>Stones linked from the vault</span></span><span class="s-owner">Setter</span></li>
-                <li><span class="s-n">10</span><span class="s-text"><strong>Polishing</strong><span>Final finish, metal loss recorded</span></span><span class="s-owner">Polisher</span></li>
-              </ol>
-            </div>
-          </li>
-          <li class="stage">
-            <p class="stage-no">03.</p>
-            <div class="stage-body">
-              <h3 class="stage-name">Prove &amp; ship</h3>
-              <p class="stage-lead">Checked, certified, sealed and paid, with the evidence attached to the job.</p>
-              <ol class="steps">
-                <li><span class="s-n">11</span><span class="s-text"><strong>Quality check</strong><span>Full checklist and hallmark</span></span><span class="s-owner">QC</span></li>
-                <li class="is-out"><span class="s-n">12</span><span class="s-text"><strong>Certification</strong><span>IGI, GIA or HRD, when ordered</span></span><span class="s-owner"><svg class="ic-d" aria-hidden="true"><use href="#i-diamond" /></svg><span class="sr-only">Outside partner: </span>Gem lab</span></li>
-                <li><span class="s-n">13</span><span class="s-text"><strong>Dispatch</strong><span>Courier, insurance, sealed parcel</span></span><span class="s-owner">Dispatch</span></li>
-                <li><span class="s-n">14</span><span class="s-text"><strong>Delivered</strong><span>Proof, invoice and payment</span></span><span class="s-owner">Office</span></li>
-              </ol>
-            </div>
-          </li>
+        <ol class="bal-list" aria-label="Callouts on the sample drawing">
+          <li><span class="b" aria-hidden="true">1</span><span class="k">Center stone</span><span class="v">2.40 ct round brilliant</span></li>
+          <li><span class="b" aria-hidden="true">2</span><span class="k">Origin</span><span class="v">Lab-grown</span></li>
+          <li><span class="b" aria-hidden="true">3</span><span class="k">Metal</span><span class="v">18K yellow gold</span></li>
         </ol>
+
+        <dl class="stats">
+          <div><dt>Steps, one record</dt><dd>14</dd></div>
+          <div><dt>Rules the database enforces</dt><dd>4</dd></div>
+          <div><dt>Quotes shown to vendors</dt><dd>0</dd></div>
+          <div><dt>Weeks to <span class="nw">go-live</span></dt><dd>8</dd></div>
+        </dl>
+
+        <dl class="tb" aria-label="Sample job record">
+          <div class="tb-cell c-job"><dt class="k">Job</dt><dd class="v v-job">DH-2026-01842</dd></div>
+          <div class="tb-cell c-title"><dt class="k">Title</dt><dd class="v v-title">Solitaire engagement ring</dd></div>
+          <div class="tb-cell c-stage">
+            <dt class="k">Stage</dt>
+            <dd class="v v-stage"><b>07 / 14</b> Casting</dd>
+            <dd class="rail-dd"><span class="rail" role="img" aria-label="Steps 1 to 6 complete, step 7 in progress"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="now"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></dd>
+          </div>
+          <div class="tb-cell c-due"><dt class="k">Due</dt><dd class="v">Aug 24</dd></div>
+          <div class="tb-cell c-quote"><dt class="k">Quote</dt><dd class="v">$4,850.00</dd></div>
+          <div class="tb-cell c-origin">
+            <dt class="k">Origin</dt>
+            <dd class="cbx-set"><span class="cbx"><i aria-hidden="true"></i>Natural<span class="sr-only"> (not selected)</span></span><span class="cbx is-x"><i aria-hidden="true"></i>Lab-grown<span class="sr-only"> (selected)</span></span></dd>
+          </div>
+          <div class="tb-cell c-photo">
+            <dt class="k">Casting photo</dt>
+            <dd class="stampbox"><span class="v">0 / 1</span><span class="sb-t">Required to close</span></dd>
+          </div>
+          <div class="tb-cell c-meta">
+            <dt class="k">Sample record</dt>
+            <dd class="meta-row">
+              <svg class="proj" viewBox="0 0 48 24" aria-hidden="true"><path d="M3 4v16l17-4.5V8.5z" /><circle cx="35" cy="12" r="8.5" /><circle cx="35" cy="12" r="4.2" /><path class="pc" d="M0 12h48M35 1v22" /></svg>
+              <span class="mini"><span class="nw">Third-angle</span><br />Sizes in mm</span>
+            </dd>
+          </div>
+        </dl>
       </div>
     </section>
 
-    <!-- ========================================================= try it -->
-    <section class="section try" id="try" aria-labelledby="try-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <div>
-            <p class="eyebrow">Try it</p>
-            <h2 class="display-l" id="try-title">What unrecorded gold <em>costs you.</em></h2>
+    <!-- ================================================================ SHEET 02 · How it works -->
+    <section class="sheet" id="how" aria-labelledby="how-title">
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">DH-2026-01842</span><span>Sheet 02 / 10</span></p>
+      <div class="sheet-in">
+        <header class="sheet-head">
+          <div class="sh-copy">
+            <p class="tag"><span class="tag-n">02</span><span class="tag-t">How it works</span></p>
+            <h2 id="how-title"><span class="ln">Fourteen steps.</span> <span class="ln">Three phases. One record.</span></h2>
+            <p class="body">Every step is closed by name and time-stamped. Casting can’t close without a photo, and QC can’t pass without a full checklist. Two steps happen outside your workshop, and those partners see only the jobs you send them.</p>
           </div>
-          <p class="body-muted">Casting and polishing always lose some metal. When nobody records it by weight, the loss hides inside your margin. Move the sliders to see what that unrecorded loss is worth in a year.</p>
+          <div class="legend">
+            <p class="lg-h">Legend</p>
+            <ul>
+              <li><i class="sym sym-done" aria-hidden="true"></i><span>Step closed, by name and time-stamped</span></li>
+              <li><i class="sym sym-now" aria-hidden="true"></i><span>Where the sample job is now</span></li>
+              <li><i class="sym sym-out" aria-hidden="true"></i><span>Outside partner: sees only the jobs you send</span></li>
+              <li><svg class="flag" aria-hidden="true"><use href="#i-flag" /></svg><span>A rule applies here (sheet 03)</span></li>
+            </ul>
+          </div>
         </header>
-        <div class="sim" id="gold-sim"></div>
-      </div>
-    </section>
 
-    <!-- ========================================================== rules -->
-    <section class="section paper rules" id="rules" aria-labelledby="rules-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <div>
-            <p class="eyebrow">The rules</p>
-            <h2 class="display-l" id="rules-title">Four rules. No exceptions.</h2>
-          </div>
-          <p class="body-muted">They’re enforced by the database, not the app screen. No update, workaround or extra tap gets past them, and the person blocked is told exactly what’s missing.</p>
-        </header>
+        <div class="process">
+          <div class="dim-all" aria-hidden="true"><i class="ah ah-t"></i><span>14 steps · one record</span><i class="ah ah-b"></i></div>
 
-        <div class="rule-table">
-          <div class="rule-head" aria-hidden="true"><span>No.</span><span>Rule</span><span>What it means</span><span>What the operator sees</span></div>
-          <article class="rule-row">
-            <span class="r-n">01</span>
-            <h3 class="r-name">No photo, <em>no casting.</em></h3>
-            <p class="r-desc">The casting vendor can’t close the step until a photo of the cast piece is uploaded.</p>
-            <p class="r-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span><span class="sr-only">Operator sees: </span>A casting photo is required before marking this stage complete</span></p>
-          </article>
-          <article class="rule-row">
-            <span class="r-n">02</span>
-            <h3 class="r-name">No reason, <em>no rejection.</em></h3>
-            <p class="r-desc">Approving a design takes one tap. Sending it back takes a written reason for the designer.</p>
-            <p class="r-msg is-prompt"><svg class="ic" aria-hidden="true"><use href="#i-chat" /></svg><span><span class="sr-only">Operator sees: </span>Approving locks v2. Sending it back owes the designer a reason.</span></p>
-          </article>
-          <article class="rule-row">
-            <span class="r-n">03</span>
-            <h3 class="r-name">No full checklist, <em>no QC pass.</em></h3>
-            <p class="r-desc">Every inspection point, hallmark included, must be ticked before QC can sign off. A failed piece needs a defect reason.</p>
-            <p class="r-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span><span class="sr-only">Operator sees: </span>QC cannot be authorized with 2 unchecked item(s)</span></p>
-          </article>
-          <article class="rule-row">
-            <span class="r-n">04</span>
-            <h3 class="r-name">No seal, <em>no dispatch.</em></h3>
-            <p class="r-desc">The seal, a photo of the packed piece and a contents check must all be ticked before a parcel can leave.</p>
-            <p class="r-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span><span class="sr-only">Operator sees: </span>Complete the security protocol first — 1 check(s) outstanding</span></p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======================================================== custody -->
-    <section class="section custody" id="custody" aria-labelledby="custody-title">
-      <img class="watermark" src="assets/art/rosette.svg" alt="" aria-hidden="true" width="760" height="760" loading="lazy" decoding="async" />
-      <div class="wrap custody-grid">
-        <div class="custody-copy">
-          <p class="eyebrow">Custody</p>
-          <h2 class="display-l" id="custody-title">Your <em>client’s</em> diamond, on record.</h2>
-          <p class="body-muted">Client-supplied stones and workshop gold are tracked from the moment they arrive until the finished piece ships.</p>
-
-          <ul class="facts">
-            <li><svg class="fi" aria-hidden="true"><use href="#i-receipt" /></svg><p class="f-label">Receipt first</p><p>A client’s stone is logged with its declared value, verifier, time and receipt number before work starts, with photos attached. The client acknowledges the risk terms.</p></li>
-            <li><svg class="fi" aria-hidden="true"><use href="#i-tray" /></svg><p class="f-label">A place for everything</p><p>Every stone and gold lot has a vault location, like Vault A, Tray 4, linked to the job that uses it.</p></li>
-            <li><svg class="fi" aria-hidden="true"><use href="#i-scale" /></svg><p class="f-label">Gold by the gram</p><p>Gold issued, returned and lost to casting and polishing is recorded by weight, against the job and the step.</p></li>
-            <li><svg class="fi" aria-hidden="true"><use href="#i-gem" /></svg><p class="f-label">Natural or lab-grown</p><p>Every stone on an order must be marked natural or lab-grown before the order can go ahead. Origin changes value, disclosure and certification.</p></li>
-            <li><svg class="fi" aria-hidden="true"><use href="#i-sign" /></svg><p class="f-label">Signed and fixed</p><p>Each approval is written to the job’s history with a name and time. That history can’t be edited.</p></li>
-            <li><svg class="fi" aria-hidden="true"><use href="#i-lock" /></svg><p class="f-label">Access you can revoke</p><p>Your records live on the server, not the phone. A lost device or a departing employee is cut off at once, and their past work stays on record.</p></li>
-          </ul>
-        </div>
-
-        <figure class="receipt" aria-label="Sample goods-in receipt for a customer-supplied diamond">
-          <div class="receipt-head">
-            <p class="receipt-kind">Goods-in receipt</p>
-            <p class="receipt-code">GRN-2026-00184</p>
-          </div>
-          <dl class="receipt-rows">
-            <div><dt>Job</dt><dd>DH-2026-01857</dd></div>
-            <div><dt>Job type</dt><dd>Reset stone</dd></div>
-            <div><dt>Item</dt><dd>Diamond, round brilliant</dd></div>
-            <div><dt>Weight</dt><dd>1.52 ct</dd></div>
-            <div><dt>Origin</dt><dd>Natural</dd></div>
-            <div><dt>Declared value</dt><dd>$12,400.00</dd></div>
-            <div><dt>Verified by</dt><dd>Vault keeper</dd></div>
-            <div><dt>Received</dt><dd>Aug 14, 2026 · 10:12 AM</dd></div>
-            <div><dt>Location</dt><dd>Vault A · Tray 4</dd></div>
-            <div><dt>Photos</dt><dd>3 attached</dd></div>
-            <div><dt>Risk terms</dt><dd>Acknowledged</dd></div>
-          </dl>
-          <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
-            <defs><path id="stamp-ring" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0" /></defs>
-            <circle cx="60" cy="60" r="56" />
-            <circle cx="60" cy="60" r="33" />
-            <text textLength="272" lengthAdjust="spacing"><textPath href="#stamp-ring" startOffset="0">IN CUSTODY · VAULT A · TRAY 4 · </textPath></text>
-            <text class="stamp-mid" x="60" y="57" text-anchor="middle">LOGGED</text>
-            <text class="stamp-date" x="60" y="71" text-anchor="middle">AUG 14 26</text>
-          </svg>
-          <figcaption class="receipt-foot">Sample record</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ========================================================= access -->
-    <section class="art-band access" id="access" aria-labelledby="access-title">
-      <img class="band-art" src="assets/art/band.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-      <div class="wrap">
-        <div class="access-card">
-          <div class="access-head">
-            <div>
-              <p class="eyebrow">Access</p>
-              <h2 class="display-l" id="access-title">Partners see only <em>their</em> jobs.</h2>
+          <div class="phases">
+            <div class="ops-head" aria-hidden="true">
+              <span>Step</span><span></span><span>What happens</span><span>Owner</span>
+              <span class="strip"><span class="strip-k">Sample job</span><span class="strip-v"><span class="nb">DH-2026-01842 ·</span> <span class="nb"><b>07/14</b> · Casting</span></span></span>
             </div>
-            <p class="body-muted">Your team works from the screens for their role. Outside partners are limited by the database itself, so a vendor can’t see another vendor’s jobs, even with a modified app, and never sees your quotes or invoices.</p>
+
+            <div class="phase ph-done">
+              <div class="dim-v" aria-hidden="true"><i class="ah ah-t"></i><span>Design · 01–05</span><i class="ah ah-b"></i></div>
+              <div class="ph-body">
+                <header class="ph-head"><span class="ph-sp"></span><div class="ph-t"><span class="ph-n">Phase 1</span><h3 id="ph1">Design</h3></div><p>Capture the order, model it, and lock design and price before any metal is touched.</p><span class="op-st st-gap" aria-hidden="true"></span></header>
+                <ol class="ops">
+                  <li class="op done first"><span class="op-n">01</span><span class="op-name">Inquiry</span><span class="op-desc">Photo, sketch or voice note</span><span class="op-own">Front desk</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: </span>Closed</span></span></li>
+                  <li class="op done"><span class="op-n">02</span><span class="op-name">CAD design</span><span class="op-desc">3D model, every version kept</span><span class="op-own">CAD designer</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: </span>Closed</span></span></li>
+                  <li class="op done has-rule"><span class="op-n">03</span><span class="op-name">Design approval</span><span class="op-desc">Approve, or send back with a reason<span class="op-rule"><svg class="flag" aria-hidden="true"><use href="#i-flag" /></svg><span class="fl-n" aria-hidden="true">1</span><span class="sr-only">Rule 1: </span>No reason, no rejection.</span></span><span class="op-own">You / retailer</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: </span>Closed</span></span></li>
+                  <li class="op done"><span class="op-n">04</span><span class="op-name">Pricing</span><span class="op-desc">Metal, stones, labor, setting, certification</span><span class="op-own">You / retailer</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: </span>Closed</span></span></li>
+                  <li class="op done"><span class="op-n">05</span><span class="op-name">Final approval</span><span class="op-desc">Design and price are locked</span><span class="op-own">You</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: </span>Closed</span></span></li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="phase ph-now">
+              <div class="dim-v" aria-hidden="true"><i class="ah ah-t"></i><span>Make · 06–10</span><i class="ah ah-b"></i></div>
+              <div class="ph-body">
+                <header class="ph-head"><span class="ph-sp"></span><div class="ph-t"><span class="ph-n">Phase 2</span><h3 id="ph2">Make</h3></div><p>The piece moves bench to bench. Its weight and any metal loss are recorded against the step where they happen.</p><span class="op-st st-gap done" aria-hidden="true"><i class="r-top"></i><i class="r-bot"></i></span></header>
+                <ol class="ops">
+                  <li class="op done"><span class="op-n">06</span><span class="op-name">Wax &amp; 3D print</span><span class="op-desc">Model printed and sent to the caster</span><span class="op-own">Workshop</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: </span>Closed</span></span></li>
+                  <li class="op now is-out has-rule"><span class="op-n">07</span><span class="op-name">Casting</span><span class="op-desc">Vendor uploads a photo to finish<span class="op-rule"><svg class="flag" aria-hidden="true"><use href="#i-flag" /></svg><span class="fl-n" aria-hidden="true">2</span><span class="sr-only">Rule 2: </span>No photo, no casting.</span></span><span class="op-own"><span class="out-tag">Outside</span>Casting vendor</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: </span><b>Here now</b> <span class="nw">photo 0 / 1</span></span></span></li>
+                  <li class="op"><span class="op-n">08</span><span class="op-name">Assembly</span><span class="op-desc">Piece built, weight recorded</span><span class="op-own">Bench</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: not started</span></span></span></li>
+                  <li class="op"><span class="op-n">09</span><span class="op-name">Stone setting</span><span class="op-desc">Stones linked from the vault</span><span class="op-own">Setter</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: not started</span></span></span></li>
+                  <li class="op"><span class="op-n">10</span><span class="op-name">Polishing</span><span class="op-desc">Final finish, metal loss recorded</span><span class="op-own">Polisher</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: not started</span></span></span></li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="phase">
+              <div class="dim-v" aria-hidden="true"><i class="ah ah-t"></i><span>Prove &amp; ship · 11–14</span><i class="ah ah-b"></i></div>
+              <div class="ph-body">
+                <header class="ph-head"><span class="ph-sp"></span><div class="ph-t"><span class="ph-n">Phase 3</span><h3 id="ph3">Prove &amp; ship</h3></div><p>Checked, certified, sealed and paid, with the evidence attached to the job.</p><span class="op-st st-gap" aria-hidden="true"><i class="r-top"></i><i class="r-bot"></i></span></header>
+                <ol class="ops">
+                  <li class="op has-rule"><span class="op-n">11</span><span class="op-name">Quality check</span><span class="op-desc">Full checklist and hallmark<span class="op-rule"><svg class="flag" aria-hidden="true"><use href="#i-flag" /></svg><span class="fl-n" aria-hidden="true">3</span><span class="sr-only">Rule 3: </span>No full checklist, no QC pass.</span></span><span class="op-own">QC</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: not started</span></span></span></li>
+                  <li class="op is-out"><span class="op-n">12</span><span class="op-name">Certification</span><span class="op-desc">GIA, IGI, HRD or AGS, when ordered</span><span class="op-own"><span class="out-tag">Outside</span>Gem lab</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: not started</span></span></span></li>
+                  <li class="op has-rule"><span class="op-n">13</span><span class="op-name">Dispatch</span><span class="op-desc">Courier, insurance, sealed parcel<span class="op-rule"><svg class="flag" aria-hidden="true"><use href="#i-flag" /></svg><span class="fl-n" aria-hidden="true">4</span><span class="sr-only">Rule 4: </span>No seal, no dispatch.</span></span><span class="op-own">Dispatch</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: not started</span></span></span></li>
+                  <li class="op last"><span class="op-n">14</span><span class="op-name">Delivered</span><span class="op-desc">Proof, invoice and payment</span><span class="op-own">Office</span><span class="op-st"><i class="r-top"></i><i class="r-bot"></i><i class="node"></i><span class="st-t"><span class="sr-only">Sample job: not started</span></span></span></li>
+                </ol>
+              </div>
+            </div>
           </div>
-          <p class="roles-cap">Where each role starts</p>
-          <ul class="roles">
-            <li><p class="role-name">Owner / manager</p><p>Everything, plus what needs a decision today.</p></li>
-            <li><p class="role-name">Front desk</p><p>Orders they open and the customer list.</p></li>
-            <li><p class="role-name">CAD designer</p><p>Jobs assigned to them.</p></li>
-            <li><p class="role-name">Bench, setter, polisher</p><p>Jobs at their step.</p></li>
-            <li><p class="role-name">QC inspector</p><p>Jobs waiting for inspection.</p></li>
-            <li><p class="role-name">Dispatch</p><p>Jobs ready to ship.</p></li>
-            <li><p class="role-name">Vault keeper</p><p>Gold and stone stock.</p></li>
-            <li class="is-out"><p class="role-name">Casting vendor, gem lab <span class="tag-out">Outside</span></p><p>Only the jobs sent to them. No quotes or invoices.</p></li>
-            <li class="is-out"><p class="role-name">Retailer <span class="tag-out">Outside</span></p><p>Only their own orders, approvals and invoices.</p></li>
-          </ul>
         </div>
+
+        <p class="note"><span class="note-k">Note 2</span><span>Any job can go on hold, be canceled or sent back for rework. Every move is logged with who made it and when.</span></p>
       </div>
     </section>
 
-    <!-- ======================================================== modules -->
-    <section class="section paper modules" id="features" aria-labelledby="features-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <div>
-            <p class="eyebrow">In the app</p>
-            <h2 class="display-l" id="features-title">Everything a custom order touches.</h2>
+    <!-- ================================================================ SHEET 03 · The rules -->
+    <section class="sheet" id="rules" aria-labelledby="rules-title" data-draw>
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">DH-2026-01842</span><span>Sheet 03 / 10</span></p>
+      <div class="sheet-in">
+        <header class="sheet-head">
+          <div class="sh-copy">
+            <p class="tag"><span class="tag-n">03</span><span class="tag-t">The rules</span></p>
+            <h2 id="rules-title">Four rules the database enforces.</h2>
           </div>
-          <p class="body-muted">One app for the shop floor, two portals for the people outside it, and a web panel for whoever runs the office.</p>
+          <p class="body sh-side">They’re enforced by the database, not the app screen, so no screen or extra tap gets past them, and the person blocked is told exactly what’s missing.</p>
         </header>
 
-        <div class="mods">
-          <section class="mod-group" aria-labelledby="mg-floor">
-            <h3 class="mod-group-name" id="mg-floor">Shop floor<span>In the app</span></h3>
-            <ul class="mod-list">
-              <li><p class="mod-name">Order intake</p><p class="mod-desc">A guided form for new designs, remakes, stone resets and repairs. Ring sizes in US, UK and Indian scales.</p></li>
-              <li><p class="mod-name">CAD review</p><p class="mod-desc">Every model version is kept. Approve it, or send it back with comments.</p></li>
-              <li><p class="mod-name">Production board</p><p class="mod-desc">Every active job by step. It updates itself as work is closed.</p></li>
-              <li><p class="mod-name">QC and certification</p><p class="mod-desc">A checklist for every piece, hallmark included, and lab reports from IGI, GIA or HRD.</p></li>
-              <li><p class="mod-name">Dispatch</p><p class="mod-desc">Courier, insurance, seal and photos are checked before release.</p></li>
-              <li><p class="mod-name">Inventory and vault</p><p class="mod-desc">Gold and stones by location, reserved for jobs as they’re used.</p></li>
-            </ul>
-          </section>
-          <section class="mod-group" aria-labelledby="mg-office">
-            <h3 class="mod-group-name" id="mg-office">Office<span>In the app</span></h3>
-            <ul class="mod-list">
-              <li><p class="mod-name">Quotes</p><p class="mod-desc">Metal, stones, labor, setting and certification as separate lines the customer approves.</p></li>
-              <li><p class="mod-name">Invoicing</p><p class="mod-desc">USD or INR. GST tax invoices with the CGST, SGST and IGST split for India.</p></li>
-              <li><p class="mod-name">Job thread</p><p class="mod-desc">Messages and stage changes in one timeline per job, kept as an audit trail.</p></li>
-            </ul>
-          </section>
-          <section class="mod-group" aria-labelledby="mg-partners">
-            <h3 class="mod-group-name" id="mg-partners">Partners<span>Portals</span></h3>
-            <ul class="mod-list">
-              <li><p class="mod-name">Vendor portal</p><p class="mod-desc">Casting vendors see their queue, upload photos and report issues.</p></li>
-              <li><p class="mod-name">Retailer portal</p><p class="mod-desc">Retailers approve designs and prices and follow their orders.</p></li>
-            </ul>
-          </section>
-          <section class="mod-group" aria-labelledby="mg-admin">
-            <h3 class="mod-group-name" id="mg-admin">Admin<span>In a browser</span></h3>
-            <ul class="mod-list">
-              <li><p class="mod-name">Web admin panel</p><p class="mod-desc">Team and roles, customer and vendor logins, invoice details and metal rates.</p></li>
-            </ul>
-          </section>
+        <div class="scale" aria-hidden="true">
+          <ol class="sc-ticks">
+            <li>01</li><li>02</li><li class="is-r"><b>03</b></li><li>04</li><li>05</li><li>06</li><li class="is-r"><b>07</b></li><li>08</li><li>09</li><li>10</li><li class="is-r"><b>11</b></li><li>12</li><li class="is-r"><b>13</b></li><li>14</li>
+          </ol>
+          <svg class="sc-lead" viewBox="0 0 1000 46" preserveAspectRatio="none">
+            <path d="M178.6,0 V14 L41,38 V46 M464.3,0 V14 L277,38 V46 M750,0 V14 L527,38 V46 M892.9,0 V14 L777,38 V46" />
+          </svg>
+        </div>
+
+        <div class="notes">
+          <article class="rnote" aria-labelledby="r1-t">
+            <p class="rn-top"><span class="rn-flag"><svg class="flag lg" aria-hidden="true"><use href="#i-flag" /></svg><span class="fl-n">1</span></span><span>Rule 01</span><span class="rn-at">Step 03 · Design approval</span></p>
+            <div class="rn-art">
+<!-- gen:rule1 -->
+<svg class="rule-art" viewBox="0 0 220 120" aria-hidden="true" focusable="false">
+  <defs><marker id="r1-ar" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,1.8 L10,5 L0,8.2 z" class="ar-fill"/></marker></defs>
+  <path class="ln fillp dr" style="--d:.1s;--t:.7s" pathLength="1" d="M14,24 H70 V96 H14 Z"/>
+  <path class="th dr" style="--d:.4s;--t:.4s" pathLength="1" d="M14,82 H70 M48,82 V96"/>
+  <text class="t-lab" x="20" y="38">CAD</text><text class="t-big" x="42" y="68" text-anchor="middle">v2</text>
+  <path class="th dr" style="--d:.6s;--t:.5s" pathLength="1" marker-end="url(#r1-ar)" d="M76,44 H128"/>
+  <text class="t-lab fade" style="--d:.9s" x="134" y="48">APPROVE</text>
+  <path class="th dr" style="--d:.7s;--t:.6s" pathLength="1" marker-end="url(#r1-ar)" d="M76,78 H104 V92 H128"/>
+  <text class="t-lab fade" style="--d:1s" x="134" y="88">SEND BACK</text>
+  <g class="fade" style="--d:1.2s"><rect class="redbox" x="133" y="96" width="80" height="17"/>
+  <text class="t-hot" x="140" y="108.5">+ REASON</text></g>
+</svg>
+<!-- /gen:rule1 -->
+            </div>
+            <h3 id="r1-t">No reason, no rejection.</h3>
+            <p class="rn-d">Approving a design needs no comment. Sending it back takes a written reason for the designer.</p>
+            <p class="cloud"><span class="cl-k">On screen</span><span class="cl-m">Add a note explaining what to change. A revision request without a reason gives the designer nothing to act on.</span></p>
+          </article>
+          <article class="rnote" aria-labelledby="r2-t">
+            <p class="rn-top"><span class="rn-flag"><svg class="flag lg" aria-hidden="true"><use href="#i-flag" /></svg><span class="fl-n">2</span></span><span>Rule 02</span><span class="rn-at">Step 07 · Casting</span></p>
+            <div class="rn-art">
+<!-- gen:rule2 -->
+<svg class="rule-art" viewBox="0 0 220 120" aria-hidden="true" focusable="false">
+  <path class="th dr" style="--d:.1s;--t:.6s" pathLength="1" d="M40,16 h-16 v16 M196,16 h16 v16 M40,108 h-16 v-16 M196,108 h16 v-16"/>
+  <g class="phantom-g fade" style="--d:.4s">
+    <circle cx="86" cy="68" r="25"/><circle cx="86" cy="68" r="19"/>
+    <path d="M77,44 L80,33 H92 L95,44"/>
+    <path d="M82,93 V106 M90,93 V106"/>
+  </g>
+  <text class="t-lab fade" style="--d:.6s" x="86" y="25" text-anchor="middle">CAST PIECE</text>
+  <text class="t-hot fade" style="--d:.9s" x="200" y="78" text-anchor="end">PHOTO</text>
+  <text class="t-hot lg fade" style="--d:.9s" x="200" y="98" text-anchor="end">0 / 1</text>
+</svg>
+<!-- /gen:rule2 -->
+            </div>
+            <h3 id="r2-t">No photo, no casting.</h3>
+            <p class="rn-d">The casting vendor can’t close the step until a photo of the cast piece is uploaded.</p>
+            <p class="cloud"><span class="cl-k">On screen</span><span class="cl-m">A casting photo is required before marking this stage complete</span></p>
+          </article>
+          <article class="rnote" aria-labelledby="r3-t">
+            <p class="rn-top"><span class="rn-flag"><svg class="flag lg" aria-hidden="true"><use href="#i-flag" /></svg><span class="fl-n">3</span></span><span>Rule 03</span><span class="rn-at">Step 11 · Quality check</span></p>
+            <div class="rn-art">
+<!-- gen:rule3 -->
+<svg class="rule-art" viewBox="0 0 220 120" aria-hidden="true" focusable="false">
+<text class="t-lab" x="14" y="18">CHECKLIST · SAMPLE</text>
+<rect class="ln fillp fade" style="--d:0.15s" x="14" y="30" width="22" height="22"/>
+<path class="tick dr" style="--d:0.35s;--t:.25s" pathLength="1" d="M19,41 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.20s" x="47" y="30" width="22" height="22"/>
+<path class="tick dr" style="--d:0.40s;--t:.25s" pathLength="1" d="M52,41 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.25s" x="80" y="30" width="22" height="22"/>
+<path class="tick dr" style="--d:0.45s;--t:.25s" pathLength="1" d="M85,41 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.30s" x="113" y="30" width="22" height="22"/>
+<path class="tick dr" style="--d:0.50s;--t:.25s" pathLength="1" d="M118,41 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.35s" x="146" y="30" width="22" height="22"/>
+<path class="tick dr" style="--d:0.55s;--t:.25s" pathLength="1" d="M151,41 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.40s" x="179" y="30" width="22" height="22"/>
+<path class="tick dr" style="--d:0.60s;--t:.25s" pathLength="1" d="M184,41 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.45s" x="14" y="70" width="22" height="22"/>
+<path class="tick dr" style="--d:0.65s;--t:.25s" pathLength="1" d="M19,81 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.50s" x="47" y="70" width="22" height="22"/>
+<path class="tick dr" style="--d:0.70s;--t:.25s" pathLength="1" d="M52,81 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.55s" x="80" y="70" width="22" height="22"/>
+<path class="tick dr" style="--d:0.75s;--t:.25s" pathLength="1" d="M85,81 l4,5 l8,-10"/>
+<rect class="ln fillp fade" style="--d:0.60s" x="113" y="70" width="22" height="22"/>
+<path class="tick dr" style="--d:0.80s;--t:.25s" pathLength="1" d="M118,81 l4,5 l8,-10"/>
+<rect class="redbox fade" style="--d:0.65s" x="146" y="70" width="22" height="22"/>
+<rect class="redbox fade" style="--d:0.70s" x="179" y="70" width="22" height="22"/>
+<text class="t-hot fade" style="--d:.9s" x="206" y="112" text-anchor="end">2 OPEN</text>
+</svg>
+<!-- /gen:rule3 -->
+            </div>
+            <h3 id="r3-t">No full checklist, no QC pass.</h3>
+            <p class="rn-d">Every inspection point, hallmark included, must be ticked before QC can sign off. A failed piece needs a defect reason.</p>
+            <p class="cloud"><span class="cl-k">On screen</span><span class="cl-m">QC cannot be authorized with 2 unchecked item(s)</span></p>
+          </article>
+          <article class="rnote" aria-labelledby="r4-t">
+            <p class="rn-top"><span class="rn-flag"><svg class="flag lg" aria-hidden="true"><use href="#i-flag" /></svg><span class="fl-n">4</span></span><span>Rule 04</span><span class="rn-at">Step 13 · Dispatch</span></p>
+            <div class="rn-art">
+<!-- gen:rule4 -->
+<svg class="rule-art" viewBox="0 0 220 120" aria-hidden="true" focusable="false">
+  <path class="ln fillp dr" style="--d:.1s;--t:.6s" pathLength="1" d="M22,46 L64,30 L106,46 L64,62 Z"/>
+  <path class="ln fillp dr" style="--d:.2s;--t:.6s" pathLength="1" d="M22,46 V88 L64,104 V62 Z"/>
+  <path class="ln fillp dr" style="--d:.3s;--t:.6s" pathLength="1" d="M106,46 V88 L64,104 V62 Z"/>
+  <path class="th dr" style="--d:.5s;--t:.5s" pathLength="1" d="M43,38 L85,54 V96"/>
+  <circle class="seal fade" style="--d:.8s" cx="85" cy="74" r="8"/>
+  <path class="ln fillp" d="M122,30 h12 v12 h-12 z M122,56 h12 v12 h-12 z"/>
+  <path class="tick dr" style="--d:.9s;--t:.25s" pathLength="1" d="M124.5,36 l3.5,3.5 l5,-7"/>
+  <path class="tick dr" style="--d:1s;--t:.25s" pathLength="1" d="M124.5,62 l3.5,3.5 l5,-7"/>
+  <rect class="redbox" x="122" y="82" width="12" height="12"/>
+  <text class="t-lab" x="142" y="40.5">SEAL</text>
+  <text class="t-lab" x="142" y="66.5">PHOTO</text>
+  <text class="t-hot" x="142" y="92.5">CONTENTS</text>
+  <text class="t-lab" x="142" y="114">SAMPLE</text>
+</svg>
+<!-- /gen:rule4 -->
+            </div>
+            <h3 id="r4-t">No seal, no dispatch.</h3>
+            <p class="rn-d">The seal, a photo of the packed piece and a contents check must all be ticked before a parcel can leave.</p>
+            <p class="cloud"><span class="cl-k">On screen</span><span class="cl-m">Complete the security protocol first — 1 check(s) outstanding</span></p>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- ======================================================== rollout -->
-    <section class="section rollout" id="rollout" aria-labelledby="rollout-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <div>
-            <p class="eyebrow">Rollout</p>
-            <h2 class="display-l" id="rollout-title">Live in eight weeks. Testable <em>every</em> week.</h2>
+    <!-- ================================================================ SHEET 04 · Custody -->
+    <section class="sheet" id="custody" aria-labelledby="custody-title" data-draw>
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">GRN-2026-00184</span><span>Sheet 04 / 10</span></p>
+      <div class="sheet-in">
+        <header class="sheet-head">
+          <div class="sh-copy">
+            <p class="tag"><span class="tag-n">04</span><span class="tag-t">Custody</span></p>
+            <h2 id="custody-title">Your client’s diamond, on record.</h2>
           </div>
-          <p class="body-muted">Each week ends with a build you can try on a real phone, using your own jobs. The design, the database and most of the app are already built.</p>
+          <p class="body sh-side">Client-supplied stones and workshop gold are tracked from the moment they arrive until the finished piece ships.</p>
         </header>
 
-        <div class="gantt" role="table" aria-label="Eight-week rollout plan">
-          <div class="g-row g-head" role="row">
-            <span class="g-label" role="columnheader">What we build · what you test</span>
-            <span class="sr-only" role="columnheader">When</span>
-            <span aria-hidden="true" style="grid-column:2">W1</span><span aria-hidden="true" style="grid-column:3">W2</span><span aria-hidden="true" style="grid-column:4">W3</span><span aria-hidden="true" style="grid-column:5">W4</span><span aria-hidden="true" style="grid-column:6">W5</span><span aria-hidden="true" style="grid-column:7">W6</span><span aria-hidden="true" style="grid-column:8">W7</span><span aria-hidden="true" style="grid-column:9">W8</span>
+        <div class="custody">
+          <div class="cu-main">
+            <figure class="cu-art" role="img" aria-label="Sample drawing: the client’s 1.52 carat natural diamond in its stone paper, unfolded flat, labeled 1.52 ct, GRN-2026-00184 and job DH-2026-01857, with an enlarged detail of the stone.">
+              <div class="cu-parcel">
+<!-- gen:parcel -->
+<svg class="parcel" viewBox="0 0 340 262" aria-hidden="true" focusable="false">
+<path class="ln fillp dr" style="--d:0.10s;--t:1.00s" pathLength="1" d="M8,22 H332 V232 H8 Z"/>
+<path class="fold fade" style="--d:.6s" d="M8,92 H332 M8,162 H332 M62,22 V232 M278,22 V232"/>
+<g class="cl fade" style="--d:.5s"><path d="M136,127 H204 M170,97 V157"/></g>
+<circle class="ln fillp dr" style="--d:.7s;--t:.6s" pathLength="1" cx="170" cy="127" r="22"/>
+<path class="th dr" style="--d:0.90s;--t:0.50s" pathLength="1" d="M182.98,127 L179.18,117.82 L170,114.02 L160.82,117.82 L157.02,127 L160.82,136.18 L170,139.98 L179.18,136.18 Z"/>
+<path class="th dr" style="--d:1.00s;--t:0.60s" pathLength="1" d="M182.98,127 L186.06,120.35 L179.18,117.82 M179.18,117.82 L176.65,110.94 L170,114.02 M170,114.02 L163.35,110.94 L160.82,117.82 M160.82,117.82 L153.94,120.35 L157.02,127 M157.02,127 L153.94,133.65 L160.82,136.18 M160.82,136.18 L163.35,143.06 L170,139.98 M170,139.98 L176.65,143.06 L179.18,136.18 M179.18,136.18 L186.06,133.65 L182.98,127 M192,127 L186.06,120.35 L185.56,111.44 M186.06,120.35 L190.33,118.58 M185.56,111.44 L176.65,110.94 L170,105 M176.65,110.94 L178.42,106.67 M170,105 L163.35,110.94 L154.44,111.44 M163.35,110.94 L161.58,106.67 M154.44,111.44 L153.94,120.35 L148,127 M153.94,120.35 L149.67,118.58 M148,127 L153.94,133.65 L154.44,142.56 M153.94,133.65 L149.67,135.42 M154.44,142.56 L163.35,143.06 L170,149 M163.35,143.06 L161.58,147.33 M170,149 L176.65,143.06 L185.56,142.56 M176.65,143.06 L178.42,147.33 M185.56,142.56 L186.06,133.65 L192,127 M186.06,133.65 L190.33,135.42"/>
+<circle class="phantom fade" style="--d:1.2s" cx="170" cy="127" r="31"/>
+<g class="fade" style="--d:1.3s"><path class="th" d="M192,149 L208,165"/><text class="t-cut" x="212" y="179">A</text></g>
+<g class="fade pn-2" style="--d:1.1s">
+<text class="t-note" x="72" y="52">1.52 ct · GRN-2026-00184</text>
+<text class="t-note" x="72" y="74">DH-2026-01857</text>
+</g>
+<g class="fade pn-3" style="--d:1.1s">
+<text class="t-note" x="72" y="44">1.52 ct</text>
+<text class="t-note" x="72" y="62">GRN-2026-00184</text>
+<text class="t-note" x="72" y="80">DH-2026-01857</text>
+</g>
+<text class="t-view fade" style="--d:1.2s" x="8" y="254">STONE PAPER · FLAT</text>
+</svg>
+<!-- /gen:parcel -->
+              </div>
+              <div class="cu-detail">
+<!-- gen:detail -->
+<svg class="detail" viewBox="0 0 240 272" aria-hidden="true" focusable="false">
+<g class="cl"><path d="M8,128 H232 M120,16 V240"/></g>
+<circle class="phantom fade" style="--d:.1s" cx="120" cy="128" r="104"/>
+<circle class="ln fillp dr" style="--d:.3s;--t:1s" pathLength="1" cx="120" cy="128" r="84"/>
+<circle class="xt dr" style="--d:.5s;--t:1s" pathLength="1" cx="120" cy="128" r="81"/>
+<path class="ln dr" style="--d:0.60s;--t:0.80s" pathLength="1" d="M169.56,128 L155.04,92.96 L120,78.44 L84.96,92.96 L70.44,128 L84.96,163.04 L120,177.56 L155.04,163.04 Z"/>
+<path class="th dr" style="--d:0.80s;--t:1.20s" pathLength="1" d="M169.56,128 L181.31,102.61 L155.04,92.96 M155.04,92.96 L145.39,66.69 L120,78.44 M120,78.44 L94.61,66.69 L84.96,92.96 M84.96,92.96 L58.69,102.61 L70.44,128 M70.44,128 L58.69,153.39 L84.96,163.04 M84.96,163.04 L94.61,189.31 L120,177.56 M120,177.56 L145.39,189.31 L155.04,163.04 M155.04,163.04 L181.31,153.39 L169.56,128"/>
+<path class="th dr" style="--d:1.00s;--t:1.40s" pathLength="1" d="M204,128 L181.31,102.61 L179.4,68.6 M181.31,102.61 L197.61,95.85 M179.4,68.6 L145.39,66.69 L120,44 M145.39,66.69 L152.15,50.39 M120,44 L94.61,66.69 L60.6,68.6 M94.61,66.69 L87.85,50.39 M60.6,68.6 L58.69,102.61 L36,128 M58.69,102.61 L42.39,95.85 M36,128 L58.69,153.39 L60.6,187.4 M58.69,153.39 L42.39,160.15 M60.6,187.4 L94.61,189.31 L120,212 M94.61,189.31 L87.85,205.61 M120,212 L145.39,189.31 L179.4,187.4 M145.39,189.31 L152.15,205.61 M179.4,187.4 L181.31,153.39 L204,128 M181.31,153.39 L197.61,160.15"/>
+<text class="t-view fade" style="--d:1.2s" x="120" y="262" text-anchor="middle">DETAIL A</text>
+</svg>
+<!-- /gen:detail -->
+              </div>
+            </figure>
+            <figure class="cu-vault" role="img" aria-label="Sample vault layout: eight trays in Vault A, with Tray 4 marked as a sample stock lot.">
+<!-- gen:vault -->
+<svg class="vault" viewBox="0 0 360 128" aria-hidden="true" focusable="false">
+<text class="t-lab" x="2" y="15">VAULT A · SAMPLE LAYOUT</text>
+<path class="ln dr" style="--d:0.20s;--t:0.80s" pathLength="1" d="M2,26 H206 V122 H2 Z"/>
+<rect class="tray" x="8" y="32" width="44" height="40"/>
+<text class="t-tray" x="13" y="47">1</text>
+<rect class="tray" x="56" y="32" width="44" height="40"/>
+<text class="t-tray" x="61" y="47">2</text>
+<rect class="tray" x="104" y="32" width="44" height="40"/>
+<text class="t-tray" x="109" y="47">3</text>
+<rect class="tray-on" x="152" y="32" width="44" height="40"/>
+<clipPath id="v-t4"><rect x="152" y="32" width="44" height="40"/></clipPath>
+<g clip-path="url(#v-t4)"><path class="hatch" d="M112,72 L152,32 M117,72 L157,32 M122,72 L162,32 M127,72 L167,32 M132,72 L172,32 M137,72 L177,32 M142,72 L182,32 M147,72 L187,32 M152,72 L192,32 M157,72 L197,32 M162,72 L202,32 M167,72 L207,32 M172,72 L212,32 M177,72 L217,32 M182,72 L222,32 M187,72 L227,32 M192,72 L232,32"/></g>
+<rect class="paper" x="154" y="35" width="15" height="15"/>
+<text class="t-tray" x="157" y="47">4</text>
+<rect class="tray" x="8" y="76" width="44" height="40"/>
+<text class="t-tray" x="13" y="91">5</text>
+<rect class="tray" x="56" y="76" width="44" height="40"/>
+<text class="t-tray" x="61" y="91">6</text>
+<rect class="tray" x="104" y="76" width="44" height="40"/>
+<text class="t-tray" x="109" y="91">7</text>
+<rect class="tray" x="152" y="76" width="44" height="40"/>
+<text class="t-tray" x="157" y="91">8</text>
+<circle class="dot" cx="184" cy="52" r="2.6"/>
+<path class="th" d="M184,52 L214,38 H358"/>
+<text class="t-lab" x="218" y="31">TRAY 4</text>
+<text class="t-sub" x="218" y="55">Stock lot</text>
+<text class="t-lab" x="218" y="72">SAMPLE</text>
+</svg>
+<!-- /gen:vault -->
+            </figure>
           </div>
-          <div class="g-row" role="row">
-            <div class="g-label" role="rowheader"><strong>Setup and logins</strong><span>Sign in as different roles and see different screens.</span></div>
-            <div class="g-bar" role="cell" style="grid-column:2 / 4"><span>Weeks 1–2</span></div>
+
+          <div class="cu-side">
+            <table class="parts">
+              <caption class="sr-only">Sample goods-in receipt GRN-2026-00184</caption>
+              <thead><tr><th scope="col">Goods-in receipt</th><th scope="col" class="code">GRN-2026-00184</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Job</th><td>DH-2026-01857</td></tr>
+                <tr><th scope="row">Job type</th><td>Reset stone</td></tr>
+                <tr><th scope="row">Item</th><td>Diamond, round brilliant</td></tr>
+                <tr><th scope="row">Weight</th><td>1.52 ct</td></tr>
+                <tr class="is-key"><th scope="row">Origin<span class="req">Required</span></th><td><span class="cbx-set"><span class="cbx is-x"><i aria-hidden="true"></i>Natural<span class="sr-only"> (selected)</span></span><span class="cbx"><i aria-hidden="true"></i>Lab-grown<span class="sr-only"> (not selected)</span></span></span></td></tr>
+                <tr><th scope="row">Declared value</th><td>$12,400.00</td></tr>
+                <tr><th scope="row">Verified by</th><td>Vault keeper</td></tr>
+                <tr><th scope="row">Received</th><td>Aug 14, 2026 · 10:12&nbsp;AM</td></tr>
+                <tr><th scope="row">Photos</th><td>3 attached</td></tr>
+                <tr><th scope="row">Risk terms</th><td>Acknowledged</td></tr>
+              </tbody>
+              <tfoot><tr><td colspan="2">Sample record</td></tr></tfoot>
+            </table>
           </div>
-          <div class="g-row" role="row">
-            <div class="g-label" role="rowheader"><strong>Taking an order</strong><span>Enter one of your real past jobs.</span></div>
-            <div class="g-bar" role="cell" style="grid-column:4 / 5"><span>Week 3</span></div>
-          </div>
-          <div class="g-row" role="row">
-            <div class="g-label" role="rowheader"><strong>Pricing and invoicing</strong><span>Compare the quote with what you actually charged.</span></div>
-            <div class="g-bar" role="cell" style="grid-column:5 / 6"><span>Week 4</span></div>
-          </div>
-          <div class="g-row" role="row">
-            <div class="g-label" role="rowheader"><strong>Design loop and job board</strong><span>Move jobs between steps on the board.</span></div>
-            <div class="g-bar" role="cell" style="grid-column:6 / 7"><span>Week 5</span></div>
-          </div>
-          <div class="g-row" role="row">
-            <div class="g-label" role="rowheader"><strong>Workshop, vendor and QC</strong><span>Run a real job with one casting vendor.</span></div>
-            <div class="g-bar" role="cell" style="grid-column:7 / 8"><span>Week 6</span></div>
-          </div>
-          <div class="g-row" role="row">
-            <div class="g-label" role="rowheader"><strong>Dispatch, vault and customer portal</strong><span>One job from start to finish, plus a vault count.</span></div>
-            <div class="g-bar" role="cell" style="grid-column:8 / 9"><span>Week 7</span></div>
-          </div>
-          <div class="g-row is-final" role="row">
-            <div class="g-label" role="rowheader"><strong>Training and handover</strong><span>Your workshop runs on DhanaOS.</span></div>
-            <div class="g-bar" role="cell" style="grid-column:9 / 10"><span>Week 8</span></div>
+
+          <div class="cu-notes">
+            <p class="gn-h">General notes</p>
+            <ol class="gnotes">
+              <li><span class="gn-n" aria-hidden="true">1</span><div><h3 class="gn-k">Receipt first</h3><p>A client’s stone is logged with its declared value, verifier, time and receipt number before work starts, and photos can be attached. The client acknowledges the risk terms.</p></div></li>
+              <li><span class="gn-n" aria-hidden="true">2</span><div><h3 class="gn-k">A place for everything</h3><p>Every stone and gold lot in stock has a vault location, like Vault A, Tray 4, linked to the job that uses it.</p></div></li>
+              <li><span class="gn-n" aria-hidden="true">3</span><div><h3 class="gn-k">Gold by the gram</h3><p>Gold issued, returned and lost to casting and polishing is recorded by weight, against the job and the step.</p></div></li>
+              <li><span class="gn-n" aria-hidden="true">4</span><div><h3 class="gn-k">Natural or lab-grown</h3><p>Every center and side stone must be marked natural or lab-grown before the order can go ahead. Origin changes value, disclosure and certification.</p></div></li>
+              <li><span class="gn-n" aria-hidden="true">5</span><div><h3 class="gn-k">Signed and fixed</h3><p>Each approval is written to the job’s history with a name and time. That history can’t be edited.</p></div></li>
+              <li><span class="gn-n" aria-hidden="true">6</span><div><h3 class="gn-k">Access you can revoke</h3><p>Your records live on the server, not the phone. A lost device or a departing employee is cut off at once, and their past work stays on record.</p></div></li>
+            </ol>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============================================================ faq -->
-    <section class="section paper faq" id="faq" aria-labelledby="faq-title">
-      <div class="wrap faq-grid">
+    <!-- ================================================================ SHEET 05 · Try it -->
+    <section class="sheet try" id="try" aria-labelledby="try-title">
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">Worksheet</span><span>Sheet 05 / 10</span></p>
+      <div class="sheet-in">
+        <header class="sheet-head">
+          <div class="sh-copy">
+            <p class="tag"><span class="tag-n">05</span><span class="tag-t">Try it</span></p>
+            <h2 id="try-title">What unrecorded gold costs you.</h2>
+          </div>
+          <p class="body sh-side">Casting and polishing always lose some metal. When nobody records it by weight, the loss hides inside your margin. Move the sliders to see what that unrecorded loss is worth in a year.</p>
+        </header>
+        <div class="sim-frame">
+          <div class="sim" id="gold-sim"><p class="sim__note sim-static">At 4,000 g a month with 1% unrecorded loss and gold at $120 a gram, that is 480 g, or $57,600, a year.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ SHEET 06 · Access -->
+    <section class="sheet" id="access" aria-labelledby="access-title">
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">Layers</span><span>Sheet 06 / 10</span></p>
+      <div class="sheet-in">
+        <header class="sheet-head">
+          <div class="sh-copy">
+            <p class="tag"><span class="tag-n">06</span><span class="tag-t">Access</span></p>
+            <h2 id="access-title">Partners see only their jobs.</h2>
+          </div>
+          <p class="body sh-side">Your team works from the screens for their role. Outside partners are limited by the database itself, so a vendor can’t see another vendor’s jobs, even with a modified app, and never sees your quotes or invoices.</p>
+        </header>
+
+        <div class="layers">
+          <table class="ltable">
+            <caption><span class="lt-cap">Layer table</span><span class="lt-sub">Where each role starts</span></caption>
+            <thead>
+              <tr><th scope="col">Layer</th><th scope="col">Role</th><th scope="col">Where they start</th><th scope="col">Access</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="l-code"><i class="lt-s" aria-hidden="true"></i>01-OWNER</td><th scope="row">Owner / manager</th><td>Everything, including opening orders, plus what needs a decision today.</td><td class="l-acc">Screens for their role</td></tr>
+              <tr><td class="l-code"><i class="lt-s" aria-hidden="true"></i>02-CAD</td><th scope="row">CAD designer</th><td>Jobs assigned to them.</td><td class="l-acc">Screens for their role</td></tr>
+              <tr><td class="l-code"><i class="lt-s" aria-hidden="true"></i>03-BENCH</td><th scope="row">Bench, setter, polisher</th><td>Jobs at their step.</td><td class="l-acc">Screens for their role</td></tr>
+              <tr><td class="l-code"><i class="lt-s" aria-hidden="true"></i>04-QC</td><th scope="row">QC inspector</th><td>Jobs waiting for inspection.</td><td class="l-acc">Screens for their role</td></tr>
+              <tr><td class="l-code"><i class="lt-s" aria-hidden="true"></i>05-DISPATCH</td><th scope="row">Dispatch</th><td>Jobs ready to ship.</td><td class="l-acc">Screens for their role</td></tr>
+              <tr><td class="l-code"><i class="lt-s" aria-hidden="true"></i>06-VAULT</td><th scope="row">Vault keeper</th><td>Gold and stone stock.</td><td class="l-acc">Screens for their role</td></tr>
+              <tr class="is-out"><td class="l-code"><i class="lt-s" aria-hidden="true"></i>07-X-VENDOR</td><th scope="row">Casting vendor, gem lab <span class="out-tag">Outside</span></th><td>Only the jobs sent to them. No quotes or invoices.</td><td class="l-acc">Limited by the database</td></tr>
+              <tr class="is-out"><td class="l-code"><i class="lt-s" aria-hidden="true"></i>08-X-RETAIL</td><th scope="row">Retailer <span class="out-tag">Outside</span></th><td>Only their own orders, approvals and invoices.</td><td class="l-acc">Limited by the database</td></tr>
+            </tbody>
+          </table>
+          <dl class="lkey">
+            <div><dt><i class="lt-s" aria-hidden="true"></i>Continuous</dt><dd>Your team, working from the screens for their role.</dd></div>
+            <div class="is-out"><dt><i class="lt-s" aria-hidden="true"></i>Dashed</dt><dd>Outside partners, limited by the database itself.</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ SHEET 07 · In the app -->
+    <section class="sheet" id="features" aria-labelledby="features-title">
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">Parts list</span><span>Sheet 07 / 10</span></p>
+      <div class="sheet-in">
+        <header class="sheet-head">
+          <div class="sh-copy">
+            <p class="tag"><span class="tag-n">07</span><span class="tag-t">In the app</span></p>
+            <h2 id="features-title">Everything a custom order touches.</h2>
+          </div>
+          <p class="body sh-side">One app for the shop floor, two portals for the people outside it, and a web panel for whoever runs the office.</p>
+        </header>
+
+        <div class="bom">
+          <div class="bom-col">
+            <p class="bom-head" aria-hidden="true"><span>Item</span><span>Part</span><span>Description</span></p>
+            <div class="bom-grp">
+              <h3 class="bom-gn" id="bg-floor">Shop floor<span><span class="sr-only">, </span>In the app</span></h3>
+              <ul>
+                <li><span class="bal">1</span><span class="b-name">Order intake</span><span class="b-desc">A guided form for new designs, remakes, stone resets and repairs. Ring sizes in US, UK and Indian scales.</span></li>
+                <li><span class="bal">2</span><span class="b-name">CAD review</span><span class="b-desc">Every model version is kept. Approve it, or send it back with comments.</span></li>
+                <li><span class="bal">3</span><span class="b-name">Production board</span><span class="b-desc">Every active job by step. It updates itself as work is closed.</span></li>
+                <li><span class="bal">4</span><span class="b-name">QC and certification</span><span class="b-desc">A checklist for every piece, hallmark included, and lab reports from GIA, IGI, HRD or AGS.</span></li>
+                <li><span class="bal">5</span><span class="b-name">Dispatch</span><span class="b-desc">Courier, insurance, seal and photos are checked before release.</span></li>
+                <li><span class="bal">6</span><span class="b-name">Inventory and vault</span><span class="b-desc">Gold and stones by location, reserved for jobs as they’re used.</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="bom-col">
+            <p class="bom-head" aria-hidden="true"><span>Item</span><span>Part</span><span>Description</span></p>
+            <div class="bom-grp">
+              <h3 class="bom-gn" id="bg-office">Office<span><span class="sr-only">, </span>In the app</span></h3>
+              <ul>
+                <li><span class="bal">7</span><span class="b-name">Quotes</span><span class="b-desc">Metal, stones, labor, setting and certification as separate lines the retailer approves.</span></li>
+                <li><span class="bal">8</span><span class="b-name">Invoicing</span><span class="b-desc">USD or INR. GST tax invoices with the CGST, SGST and IGST split for India.</span></li>
+                <li><span class="bal">9</span><span class="b-name">Job thread</span><span class="b-desc">Messages and stage changes in one timeline per job. Stage changes can’t be edited.</span></li>
+              </ul>
+            </div>
+            <div class="bom-grp">
+              <h3 class="bom-gn" id="bg-partners">Partners<span><span class="sr-only">, </span>Portals</span></h3>
+              <ul>
+                <li><span class="bal">10</span><span class="b-name">Vendor portal</span><span class="b-desc">Casting vendors see their queue, upload photos and report issues.</span></li>
+                <li><span class="bal">11</span><span class="b-name">Retailer portal</span><span class="b-desc">Retailers approve designs and prices and follow their orders.</span></li>
+              </ul>
+            </div>
+            <div class="bom-grp">
+              <h3 class="bom-gn" id="bg-admin">Admin<span><span class="sr-only">, </span>In a browser</span></h3>
+              <ul>
+                <li><span class="bal">12</span><span class="b-name">Web admin panel</span><span class="b-desc">Team and roles, retailer and vendor logins, invoice details and metal rates.</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ SHEET 08 · Rollout -->
+    <section class="sheet" id="rollout" aria-labelledby="rollout-title">
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">Revisions</span><span>Sheet 08 / 10</span></p>
+      <div class="sheet-in">
+        <header class="sheet-head">
+          <div class="sh-copy">
+            <p class="tag"><span class="tag-n">08</span><span class="tag-t">Rollout</span></p>
+            <h2 id="rollout-title">Live in eight weeks. Testable every week.</h2>
+          </div>
+          <p class="body sh-side">Each week ends with a build you can try on a real phone, using your own jobs. The design, the database and most of the app are already built.</p>
+        </header>
+
+        <table class="revs">
+          <caption class="sr-only">Eight-week rollout plan: what we deliver and what you test each week</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="rv-c">Rev</th>
+              <th scope="col">What we deliver</th>
+              <th scope="col">What you test</th>
+              <th scope="col" class="rv-wk">
+                <span class="sr-only">When</span>
+                <span class="mandrel" aria-hidden="true">
+<!-- gen:mandrel -->
+<svg class="md-svg" viewBox="0 0 800 40" preserveAspectRatio="none" focusable="false">
+<path class="md-body" d="M0,15.5 L800,3 V37 L0,24.5 Z"/>
+<path class="md-cl" d="M0,20 H800"/>
+<path class="md-t" d="M0,15.5 V25.5 M25,15.11 V19.61 M50,14.72 V19.22 M75,14.33 V18.83 M100,13.94 V23.94 M125,13.55 V18.05 M150,13.16 V17.66 M175,12.77 V17.27 M200,12.38 V22.38 M225,11.98 V16.48 M250,11.59 V16.09 M275,11.2 V15.7 M300,10.81 V20.81 M325,10.42 V14.92 M350,10.03 V14.53 M375,9.64 V14.14 M400,9.25 V19.25 M425,8.86 V13.36 M450,8.47 V12.97 M475,8.08 V12.58 M500,7.69 V17.69 M525,7.3 V11.8 M550,6.91 V11.41 M575,6.52 V11.02 M600,6.12 V16.12 M625,5.73 V10.23 M650,5.34 V9.84 M675,4.95 V9.45 M700,4.56 V14.56 M725,4.17 V8.67 M750,3.78 V8.28 M775,3.39 V7.89 M800,3 V13"/>
+</svg>
+<!-- /gen:mandrel -->
+                  <span class="md-wk"><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>W8</span></span>
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="rv-c"><span class="rv">A</span></td><th scope="row">Setup and logins</th><td>Sign in as different roles and see different screens.</td><td class="rv-wk"><span class="wk-label">Weeks 1–2</span><span class="track" aria-hidden="true" style="--a:1;--b:3"><i></i></span></td></tr>
+            <tr><td class="rv-c"><span class="rv">B</span></td><th scope="row">Taking an order</th><td>Enter one of your real past jobs.</td><td class="rv-wk"><span class="wk-label">Week 3</span><span class="track" aria-hidden="true" style="--a:3;--b:4"><i></i></span></td></tr>
+            <tr><td class="rv-c"><span class="rv">C</span></td><th scope="row">Pricing and invoicing</th><td>Compare the quote with what you actually charged.</td><td class="rv-wk"><span class="wk-label">Week 4</span><span class="track" aria-hidden="true" style="--a:4;--b:5"><i></i></span></td></tr>
+            <tr><td class="rv-c"><span class="rv">D</span></td><th scope="row">Design loop and job board</th><td>Move jobs between steps on the board.</td><td class="rv-wk"><span class="wk-label">Week 5</span><span class="track" aria-hidden="true" style="--a:5;--b:6"><i></i></span></td></tr>
+            <tr><td class="rv-c"><span class="rv">E</span></td><th scope="row">Workshop, vendor and QC</th><td>Run a real job with one casting vendor.</td><td class="rv-wk"><span class="wk-label">Week 6</span><span class="track" aria-hidden="true" style="--a:6;--b:7"><i></i></span></td></tr>
+            <tr><td class="rv-c"><span class="rv">F</span></td><th scope="row">Dispatch, vault and retailer portal</th><td>One job from start to finish, plus a vault count.</td><td class="rv-wk"><span class="wk-label">Week 7</span><span class="track" aria-hidden="true" style="--a:7;--b:8"><i></i></span></td></tr>
+            <tr class="is-final"><td class="rv-c"><span class="rv">G</span></td><th scope="row">Training and handover</th><td>Your workshop runs on DhanaOS.</td><td class="rv-wk"><span class="wk-label">Week 8</span><span class="track" aria-hidden="true" style="--a:8;--b:9"><i></i></span><span class="ifp">Issued for production</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================================ SHEET 09 · FAQ -->
+    <section class="sheet" id="faq" aria-labelledby="faq-title">
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">General notes</span><span>Sheet 09 / 10</span></p>
+      <div class="sheet-in faq">
         <header class="faq-head">
-          <p class="eyebrow">FAQ</p>
-          <h2 class="display-l" id="faq-title">Straight answers.</h2>
-          <p class="body-muted">Something else? Write to <a href="mailto:info@madvision.tech">info@madvision.tech</a>.</p>
+          <p class="tag"><span class="tag-n">09</span><span class="tag-t">FAQ</span></p>
+          <h2 id="faq-title">Straight answers.</h2>
+          <p class="body">Something else? Write to <a href="mailto:info@madvision.tech">info@madvision.tech</a>.</p>
         </header>
 
         <div class="faq-list">
+          <p class="gn-h" aria-hidden="true">General notes</p>
           <details open>
-            <summary>Does it run on iPhone?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <summary><span class="fq-n" aria-hidden="true">1</span><h3>Does it run on iPhone?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
             <p>The shop-floor app runs on Android phones and tablets, and admins work from a web panel. DhanaOS is built in Flutter, so an iPhone version shares the same code and can be added later.</p>
           </details>
           <details>
-            <summary>What can vendors and retailers see?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <summary><span class="fq-n" aria-hidden="true">2</span><h3>What can vendors and retailers see?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
             <p>A vendor sees only the jobs sent to them, never a quote or an invoice. A retailer sees only their own orders, plus the quotes and invoices you send them. The database enforces both limits.</p>
           </details>
           <details>
-            <summary>Which currencies does it handle?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <summary><span class="fq-n" aria-hidden="true">3</span><h3>Which currencies does it handle?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
             <p>USD and INR, stored as exact amounts with no rounding drift. Indian GST invoicing, with HSN codes and the CGST, SGST and IGST split, is built in.</p>
           </details>
           <details>
-            <summary>What is it built on?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <summary><span class="fq-n" aria-hidden="true">4</span><h3>What is it built on?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
             <p>A Flutter app on Supabase, which provides a PostgreSQL database, logins, file storage and live updates.</p>
           </details>
           <details>
-            <summary>Who owns the code and data?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <summary><span class="fq-n" aria-hidden="true">5</span><h3>Who owns the code and data?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
             <p>You do. The code, the database and the documentation are handed over to you.</p>
           </details>
           <details>
-            <summary>What isn’t included?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
-            <p>An accounting software link (export is available), counter billing, payroll, a live gold-rate feed, importing old job history, and devices. Each can be quoted separately.</p>
+            <summary><span class="fq-n" aria-hidden="true">6</span><h3>What isn’t included?</h3><svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <p>An accounting software link or export, counter billing, payroll, a live gold-rate feed, importing old job history, and devices. Each can be quoted separately.</p>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- ============================================================ cta -->
-    <section class="art-band cta" id="contact" aria-labelledby="contact-title">
-      <img class="band-art" src="assets/art/cta.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-      <div class="wrap">
-        <div class="cta-card">
-          <p class="eyebrow">Demo</p>
-          <h2 class="display-l" id="contact-title"><span class="ln">Send us one past job.</span> <span class="ln"><em>Watch it run.</em></span></h2>
-          <p class="body-muted">Send its photos, final weight and price. We’ll walk you through it in DhanaOS on a 30-minute call.</p>
-          <div class="cta-actions">
-            <a class="btn btn-ink" href="mailto:info@madvision.tech?subject=DhanaOS%20demo">Book a demo <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>
+    <!-- ================================================================ SHEET 10 · Demo -->
+    <section class="sheet demo" id="contact" aria-labelledby="contact-title">
+      <p class="sheet-tab" aria-hidden="true"><span class="st-job">Your job here</span><span>Sheet 10 / 10</span></p>
+      <div class="sheet-in demo-grid">
+        <div class="demo-copy">
+          <p class="tag"><span class="tag-n">10</span><span class="tag-t">Demo</span></p>
+          <h2 id="contact-title"><span class="ln">Send us one past job.</span> <span class="ln">Watch it run.</span></h2>
+          <p class="body">Send its photos, final weight and price. We’ll walk you through it in DhanaOS on a <span class="nw">30-minute</span> call.</p>
+        </div>
+
+        <div class="tb tb-empty">
+          <div class="tb-cell e-job"><p class="k">Job</p><p class="blank" aria-hidden="true"></p><p class="hint">One of your past jobs</p></div>
+          <div class="tb-cell e-stage"><p class="k">Stage</p><p class="v v-stage"><b class="is-empty">— / 14</b></p><p class="rail" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></p></div>
+          <div class="tb-cell e-f1"><p class="k">Photos</p><p class="blank" aria-hidden="true"></p></div>
+          <div class="tb-cell e-f2"><p class="k">Final weight</p><p class="blank unit" aria-hidden="true"><span>g</span></p></div>
+          <div class="tb-cell e-f3"><p class="k">Price</p><p class="blank unit pre" aria-hidden="true"><span>$</span></p></div>
+          <div class="tb-cell e-cta">
+            <p class="k">Approval</p>
+            <a class="stamp" href="mailto:info@madvision.tech?subject=DhanaOS%20demo">Book a demo<span class="sr-only"> (opens your email app)</span> <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>
+          </div>
+          <div class="tb-cell e-mail">
+            <p class="k">Send it to</p>
             <button class="copy" type="button" id="copy-email" data-copy="info@madvision.tech"><span class="copy-addr" id="contact-email">info@madvision.tech</span><span class="copy-act"><svg class="ic" aria-hidden="true"><use href="#i-copy" /></svg><span class="copy-label">Copy</span></span></button>
             <span class="sr-only" role="status" id="copy-status"></span>
           </div>
+          <div class="tb-cell e-meta"><p class="k">Call</p><p class="v">30 minutes</p></div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="wrap footer-top">
-      <div class="f-brand">
-        <p class="f-tag">Every piece, <em>accounted for.</em></p>
-        <p class="caption">14 steps · One record · No exceptions</p>
-      </div>
-      <nav class="f-cols" aria-label="Footer">
-        <div>
-          <p class="f-head">Product</p>
-          <a href="#how">How it works</a>
-          <a href="#try">Try it</a>
-          <a href="#rules">The rules</a>
-          <a href="#custody">Custody</a>
-        </div>
-        <div>
-          <p class="f-head">Plan</p>
-          <a href="#features">In the app</a>
-          <a href="#rollout">Rollout</a>
-          <a href="#faq">FAQ</a>
-          <a href="#contact">Book a demo</a>
-        </div>
-        <div>
-          <p class="f-head">Contact</p>
-          <a href="mailto:info@madvision.tech">info@<wbr>madvision.tech</a>
-          <a href="https://madvision.tech" target="_blank" rel="noopener">madvision.tech</a>
-        </div>
-      </nav>
-    </div>
-    <div class="wrap footer-legal">
+  <footer class="foot">
+    <nav class="index" aria-label="Sheet index">
+      <p class="idx-h">Sheet index</p>
+      <ol>
+        <li><a href="#top"><span class="n">01</span>Overview</a></li>
+        <li><a href="#how"><span class="n">02</span>How it works</a></li>
+        <li><a href="#rules"><span class="n">03</span>The rules</a></li>
+        <li><a href="#custody"><span class="n">04</span>Custody</a></li>
+        <li><a href="#try"><span class="n">05</span>Try it</a></li>
+        <li><a href="#access"><span class="n">06</span>Access</a></li>
+        <li><a href="#features"><span class="n">07</span>In the app</a></li>
+        <li><a href="#rollout"><span class="n">08</span>Rollout</a></li>
+        <li><a href="#faq"><span class="n">09</span>FAQ</a></li>
+        <li><a href="#contact"><span class="n">10</span>Demo</a></li>
+      </ol>
+    </nav>
+    <div class="legal">
       <p>© <span id="year">2026</span> DhanaOS. Built by <a href="https://madvision.tech" target="_blank" rel="noopener">Mad Vision Tech</a>.</p>
       <p>Sample records on this page are illustrative.</p>
     </div>
-    <p class="giant" aria-hidden="true">Dhana<em>OS</em></p>
   </footer>
 
   <script src="assets/js/main.js" defer></script>
