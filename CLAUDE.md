@@ -24,6 +24,7 @@ supabase/
   seed.sql     reference data using the mockups' real sample records
   demo.sql     demo profiles and a job at every stage (see its header)
   tests/       run.sh applies every migration to a local Postgres and runs test_rls.sql
+website/       public one-page site, static HTML — its claims map to the code; see its README
 ```
 
 ## Running it

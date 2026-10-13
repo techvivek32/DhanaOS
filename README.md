@@ -138,6 +138,7 @@ supabase/
   demo.sql     demo profiles and a job at every stage
   apply.sh     apply all of the above to a project
   tests/       RLS and business-rule tests against a local Postgres
+website/       public one-page site, static HTML, deploys to Vercel (see website/README.md)
 ```
 
 ## The parts that are easy to get wrong
