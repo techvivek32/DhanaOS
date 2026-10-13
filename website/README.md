@@ -24,19 +24,25 @@ npx serve website
 
 ## Deploy
 
+Live at **https://dhanaos.vercel.app**. The Vercel project `dhanaos`
+(`vivekvora3226-2527s-projects`) is connected to this GitHub repo with **Root Directory =
+`website`**. Every push to `main` deploys to production; other branches get preview URLs.
+
+Do not run `vercel` from inside `website/`. The project's root directory would then resolve to
+`website/website` and the deploy fails. For a manual deploy, run it from the repo root:
+
 ```bash
-cd website
-npx vercel          # preview
-npx vercel --prod   # production
+npx vercel --prod
 ```
 
-Set the Vercel project's root directory to `website/` if you deploy from the Git integration.
+If the Root Directory setting is ever reset to `.`, Vercel serves the Flutter repo root, which
+has no `index.html`, and the site returns 404.
 
-## Before going live
+## Placeholders
 
-- **Domain.** `https://dhanaos.vercel.app/` is assumed in `index.html` (canonical, Open Graph,
-  Twitter), `robots.txt` and `sitemap.xml`. If the project gets a different URL or a custom
-  domain, search-and-replace it in those three files.
+- **Domain.** `https://dhanaos.vercel.app/` is written into `index.html` (canonical, Open Graph,
+  Twitter), `robots.txt` and `sitemap.xml`. If you add a custom domain, search-and-replace it in
+  those three files.
 - **Contact.** The demo button and the copy button both use `info@madvision.tech`. Change it in
   `index.html` (three places: the `mailto:`, the visible address, and `data-copy`), and in the
   JSON-LD block.
