@@ -5,27 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>DhanaOS — Production software for custom jewelry</title>
   <meta name="description" content="DhanaOS tracks every custom jewelry order through 14 production steps. Specs, stones, gold, approvals, vendors and shipping in one record your whole team shares." />
-  <meta name="theme-color" content="#041329" />
+  <meta name="theme-color" content="#0c121d" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="canonical" href="https://dhanaos.vercel.app/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="DhanaOS" />
-  <meta property="og:title" content="DhanaOS — Production software for custom jewelry" />
-  <meta property="og:description" content="Every custom piece, tracked from sketch to delivery. 14 steps, one record, four rules no one can skip." />
+  <meta property="og:title" content="DhanaOS — Every piece, accounted for." />
+  <meta property="og:description" content="Production software for custom jewelry. 14 steps, one record, four rules no one can skip." />
   <meta property="og:url" content="https://dhanaos.vercel.app/" />
-  <meta property="og:image" content="https://dhanaos.vercel.app/assets/og-image.png" />
+  <meta property="og:image" content="https://dhanaos.vercel.app/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://dhanaos.vercel.app/assets/og-image.png" />
+  <meta name="twitter:image" content="https://dhanaos.vercel.app/assets/og-image.jpg" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+  <link rel="preload" href="assets/fonts/bodoni-moda.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/bodoni-moda-italic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/sim.css" />
 
   <script type="application/ld+json">
   {
@@ -33,8 +34,8 @@
     "@type": "SoftwareApplication",
     "name": "DhanaOS",
     "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Android",
-    "description": "Production software for bespoke jewelry workshops. Tracks every custom order through 14 steps, from first sketch to insured delivery.",
+    "operatingSystem": "Android, Web",
+    "description": "Production software for custom jewelry workshops. Tracks every custom order through 14 steps, from first sketch to insured delivery.",
     "url": "https://dhanaos.vercel.app/",
     "publisher": {
       "@type": "Organization",
@@ -46,250 +47,241 @@
   </script>
 </head>
 <body>
-  <svg width="0" height="0" class="sprite" aria-hidden="true" focusable="false">
-    <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" /></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" /><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" /></symbol>
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" /></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
     <symbol id="i-block" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M6 18L18 6" /></symbol>
-    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M5 5.5h14v10H10l-4 3.5v-3.5H5z" /></symbol>
-    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2" /><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5" /></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2" /><path d="M4 7l8 6 8-6" /></symbol>
-    <symbol id="i-gem" viewBox="0 0 32 32"><path d="M10.5 8.5h11l5 6L16 25.5 5.5 14.5z" /><path d="M5.5 14.5h21M13 8.5l-1.8 6L16 25.5l4.8-11-1.8-6" /></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 5.5h15v10h-9l-4 3.5v-3.5h-2z" /></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="1" /><path d="M15.5 8.5V5.5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3" /></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-2-1.5-2 1.5-2-1.5-2 1.5-2-1.5-2 1.5z" /><path d="M9 8h6M9 11.5h6M9 15h3.5" /></symbol>
+    <symbol id="i-tray" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" /><path d="M3.5 12h17M9.2 5.5v13M14.8 5.5v13" /></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M7 20h10M5 7h14" /><path d="M5 7l-2.5 6a2.5 2.5 0 0 0 5 0zM19 7l-2.5 6a2.5 2.5 0 0 0 5 0z" /></symbol>
+    <symbol id="i-gem" viewBox="0 0 24 24"><path d="M7.5 4.5h9l4 5L12 20.5 3.5 9.5z" /><path d="M3.5 9.5h17M10 4.5 8.6 9.5 12 20.5l3.4-11-1.4-5" /></symbol>
+    <symbol id="i-sign" viewBox="0 0 24 24"><path d="M3.5 19.5h17" /><path d="M5 15.5c2-4 3.5-8.5 5-8.5 2 0-1.5 8 .5 8 1.5 0 2.5-3 4-3s1 2.5 2.5 2.5 1.5-1 2.5-1" /></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="10" /><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3" /></symbol>
+    <symbol id="i-diamond" viewBox="0 0 10 10"><path d="M5 0 10 5 5 10 0 5z" /></symbol>
   </svg>
 
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="wrap header-row">
-      <a class="brand" href="#top" aria-label="DhanaOS, back to top">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><use href="#i-gem" /></svg></span>
-        <span>DhanaOS</span>
-      </a>
-      <nav class="nav" aria-label="Sections">
-        <a href="#workflow">Workflow</a>
-        <a href="#controls">Controls</a>
+  <header class="nav">
+    <div class="wrap nav-row">
+      <a class="wordmark" href="#top" aria-label="DhanaOS, back to top">Dhana<em>OS</em></a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#how">How it works</a>
+        <a href="#try">Try it</a>
+        <a href="#rules">The rules</a>
         <a href="#custody">Custody</a>
-        <a href="#access">Access</a>
         <a href="#rollout">Rollout</a>
         <a href="#faq">FAQ</a>
       </nav>
-      <a class="btn btn-gold btn-sm" href="#contact">Book a demo</a>
+      <a class="btn btn-bone btn-sm" href="#contact">Book a demo</a>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- Hero -->
+    <!-- ============================================================ hero -->
     <section class="hero" id="top">
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Production software for custom jewelry</p>
-          <h1>Every custom piece, tracked from sketch to delivery.</h1>
-          <p class="lead">DhanaOS moves each order through 14 production steps. Specs, stones, gold, approvals and shipping live in one job record that your team, your vendors and your retail customers share.</p>
+          <h1 class="display-xl">Every piece, <em>accounted for.</em></h1>
+          <p class="lead">DhanaOS tracks each custom order through 14 production steps. Specs, stones, gold, approvals and shipping live in one record that your team, your vendors and your retailers share.</p>
           <div class="cta-row">
-            <a class="btn btn-gold" href="#contact">Book a demo</a>
-            <a class="btn btn-ghost" href="#workflow">See how a job moves</a>
+            <a class="btn btn-bone" href="#contact">Book a demo <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>
+            <a class="link-arrow" href="#how">See how it works <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>
           </div>
-          <dl class="hero-facts">
-            <div><dt>production steps in one record</dt><dd>14</dd></div>
-            <div><dt>rules no one can skip</dt><dd>4</dd></div>
-            <div><dt>of your prices shown to vendors</dt><dd>0</dd></div>
-            <div><dt>weeks from kickoff to go-live</dt><dd>8</dd></div>
+          <dl class="stats">
+            <div><dt>Steps, one record</dt><dd>14</dd></div>
+            <div><dt>Rules no one skips</dt><dd>4</dd></div>
+            <div><dt>Quotes shown to vendors</dt><dd>0</dd></div>
+            <div><dt>Weeks to go&#8209;live</dt><dd>8</dd></div>
           </dl>
         </div>
 
-        <figure class="ticket" aria-label="Sample job record as it appears in DhanaOS">
-          <div class="ticket-head">
-            <div>
-              <span class="t-label">Job</span>
-              <span class="ticket-code">DH-2026-01842</span>
-            </div>
-            <span class="pill pill-live"><span class="dot" aria-hidden="true"></span>In production</span>
-          </div>
+        <div class="hero-art" aria-hidden="true">
+          <img src="assets/art/hero.svg" alt="" width="1000" height="1250" fetchpriority="high" />
+        </div>
 
-          <div class="ticket-id">
-            <p class="ticket-title">Solitaire engagement ring</p>
-            <p class="ticket-meta">Retail customer · Due Aug 24 · $4,850.00</p>
+        <figure class="ticket" aria-label="Sample job record">
+          <div class="ticket-top">
+            <span class="ticket-key">Job</span>
+            <span class="ticket-status"><span class="pulse" aria-hidden="true"></span>In production</span>
           </div>
+          <p class="ticket-code">DH-2026-01842</p>
+          <p class="ticket-title">Solitaire engagement ring</p>
 
-          <div class="rail" role="img" aria-label="Stage 7 of 14: Casting. Steps 1 to 6 complete.">
-            <div class="rail-top"><span>Stage 07 / 14</span><span class="rail-now">Casting</span></div>
-            <ol class="rail-nodes" aria-hidden="true">
-              <li class="done" style="--i:1"></li>
-              <li class="done" style="--i:2"></li>
-              <li class="done" style="--i:3"></li>
-              <li class="done" style="--i:4"></li>
-              <li class="done" style="--i:5"></li>
-              <li class="done" style="--i:6"></li>
+          <div class="ticket-rail" role="img" aria-label="Step 7 of 14: Casting. Steps 1 to 6 are complete.">
+            <ol aria-hidden="true">
+              <li class="done"></li><li class="done"></li><li class="done"></li><li class="done"></li><li class="done"></li><li class="done"></li>
               <li class="now"></li>
               <li></li><li></li><li></li><li></li><li></li><li></li><li></li>
             </ol>
-            <div class="rail-ends" aria-hidden="true"><span>01 Inquiry</span><span>14 Delivered</span></div>
+            <div class="rail-labels" aria-hidden="true"><span>01</span><span class="rail-now">07 Casting</span><span>14</span></div>
           </div>
 
-          <dl class="spec">
+          <dl class="ticket-rows">
             <div><dt>Metal</dt><dd>18K yellow gold</dd></div>
-            <div><dt>Center stone</dt><dd>2.40 ct round brilliant</dd></div>
-            <div><dt>Origin</dt><dd><span class="tag">Lab-grown</span></dd></div>
-            <div><dt>Setting</dt><dd>6-prong crown</dd></div>
+            <div><dt>Center</dt><dd>2.40 ct round brilliant</dd></div>
+            <div><dt>Origin</dt><dd>Lab-grown</dd></div>
             <div><dt>Ring size</dt><dd>US 6½ · UK M½ · IN 12</dd></div>
+            <div><dt>Due</dt><dd>Aug 24</dd></div>
+            <div><dt>Quote</dt><dd>$4,850.00</dd></div>
           </dl>
 
-          <div class="gate">
-            <svg class="ic" aria-hidden="true"><use href="#i-lock" /></svg>
-            <p><strong>Casting photo required</strong><span>The vendor can't close this step until a photo is uploaded.</span></p>
-            <span class="gate-count">0 / 1</span>
-          </div>
-
-          <ol class="thread" aria-label="Job thread">
-            <li><time>10:42</time><span>CAD v2 approved by customer</span></li>
-            <li><time>11:15</time><span>Casting vendor: "Wax received. Starting the cast."</span></li>
-            <li><time>11:16</time><span class="sys">Stage changed to Casting · system</span></li>
-          </ol>
-
-          <figcaption class="ticket-foot">Sample record</figcaption>
+          <p class="ticket-gate"><svg class="ic" aria-hidden="true"><use href="#i-lock" /></svg><span>Casting photo required to close</span><span class="gate-n">0 / 1</span></p>
+          <figcaption class="ticket-foot"><span>Sample record</span><span>DhanaOS</span></figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- Problem -->
-    <section class="section" id="why" aria-labelledby="why-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <p class="eyebrow">The problem</p>
-          <h2 id="why-title">Custom orders run on WhatsApp, spreadsheets and paper.</h2>
-          <p class="sec-lead">A single custom piece passes through ten or more pairs of hands. When the record is scattered across chats and paper, specs drift and stones go unaccounted for.</p>
-        </header>
-
-        <div class="compare">
-          <div class="compare-row compare-head" aria-hidden="true">
-            <span>Today</span><span>With DhanaOS</span>
-          </div>
-          <div class="compare-row">
-            <p><svg class="ic" aria-hidden="true"><use href="#i-x" /></svg><span>Order details change between the quote and the bench.</span></p>
-            <p><svg class="ic" aria-hidden="true"><use href="#i-check" /></svg><span>Specs are entered once and every step works from the same record.</span></p>
-          </div>
-          <div class="compare-row">
-            <p><svg class="ic" aria-hidden="true"><use href="#i-x" /></svg><span>A customer's own stone arrives with no proper receipt.</span></p>
-            <p><svg class="ic" aria-hidden="true"><use href="#i-check" /></svg><span>Every stone is logged with value, verifier, photos and a vault location.</span></p>
-          </div>
-          <div class="compare-row">
-            <p><svg class="ic" aria-hidden="true"><use href="#i-x" /></svg><span>You hear about a delay when the customer calls.</span></p>
-            <p><svg class="ic" aria-hidden="true"><use href="#i-check" /></svg><span>You see where every job is and who has it, live.</span></p>
-          </div>
-          <div class="compare-row">
-            <p><svg class="ic" aria-hidden="true"><use href="#i-x" /></svg><span>In a dispute, nobody can prove what was agreed.</span></p>
-            <p><svg class="ic" aria-hidden="true"><use href="#i-check" /></svg><span>Each approval is saved with a name and time, and can't be edited later.</span></p>
-          </div>
-        </div>
+    <!-- ======================================================= statement -->
+    <section class="statement" aria-label="Why DhanaOS">
+      <div class="wrap statement-inner">
+        <img class="ornament" src="assets/art/rosette.svg" alt="" width="72" height="72" aria-hidden="true" loading="lazy" decoding="async" />
+        <p class="statement-text">Most workshops run on WhatsApp and memory. DhanaOS runs on <em>the record.</em></p>
+        <p class="caption"><span class="nb">Every stone logged</span> <span aria-hidden="true">·</span> <span class="nb">No silent delays</span> <span aria-hidden="true">·</span> <span class="nb">No guessing who approved it</span></p>
       </div>
     </section>
 
-    <!-- Workflow -->
-    <section class="section section-alt" id="workflow" aria-labelledby="workflow-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <p class="eyebrow">Workflow</p>
-          <h2 id="workflow-title">How a job moves: 14 steps, one owner each.</h2>
-          <p class="sec-lead">Each step is closed by the person who did the work. Two steps happen outside your workshop, and those partners see only the jobs sent to them.</p>
+    <!-- ============================================================= how -->
+    <section class="section paper how" id="how" aria-labelledby="how-title">
+      <div class="wrap how-grid">
+        <header class="how-head">
+          <p class="eyebrow">How it works</p>
+          <h2 class="display-l" id="how-title"><span class="ln">Fourteen steps.</span> <span class="ln">Three phases.</span> <span class="ln">One record.</span></h2>
+          <p class="body-muted">Every step is closed by name and time-stamped. Casting can’t close without a photo, and QC can’t pass without a full checklist. Two steps happen outside your workshop, and those partners see only the jobs you send them.</p>
+          <p class="legend"><svg class="ic-d" aria-hidden="true"><use href="#i-diamond" /></svg>Outside partner</p>
+          <p class="fine">Any job can go on hold, be canceled or sent back for rework. Every move is logged with who made it and when.</p>
         </header>
 
-        <ol class="steps">
-          <li class="step"><span class="step-no">01</span><h3>Inquiry</h3><p>Take the order from a photo, sketch or voice note.</p><span class="step-owner">Front desk</span></li>
-          <li class="step"><span class="step-no">02</span><h3>CAD design</h3><p>3D model built. Every version is kept.</p><span class="step-owner">CAD designer</span></li>
-          <li class="step"><span class="step-no">03</span><h3>Design approval</h3><p>Approve, or send back with a reason.</p><span class="step-owner">You / customer</span></li>
-          <li class="step"><span class="step-no">04</span><h3>Pricing</h3><p>Metal, stones, labor, setting and certification.</p><span class="step-owner">You / customer</span></li>
-          <li class="step"><span class="step-no">05</span><h3>Final approval</h3><p>Design and price are locked.</p><span class="step-owner">You</span></li>
-          <li class="step"><span class="step-no">06</span><h3>Wax &amp; 3D print</h3><p>Model printed and sent to the caster.</p><span class="step-owner">Workshop</span></li>
-          <li class="step is-out"><span class="step-no">07</span><h3>Casting</h3><p>Vendor uploads a photo of the casting to finish.</p><span class="step-owner">Casting vendor</span></li>
-          <li class="step"><span class="step-no">08</span><h3>Assembly</h3><p>Piece is built and its weight recorded.</p><span class="step-owner">Bench</span></li>
-          <li class="step"><span class="step-no">09</span><h3>Stone setting</h3><p>Stones from the vault are linked to the job.</p><span class="step-owner">Setter</span></li>
-          <li class="step"><span class="step-no">10</span><h3>Polishing</h3><p>Final finish. Metal loss is recorded.</p><span class="step-owner">Polisher</span></li>
-          <li class="step"><span class="step-no">11</span><h3>Quality check</h3><p>Full checklist and hallmark. Pass or send back.</p><span class="step-owner">QC</span></li>
-          <li class="step is-out"><span class="step-no">12</span><h3>Certification</h3><p>Lab report, when the order calls for one.</p><span class="step-owner">IGI / GIA / HRD</span></li>
-          <li class="step"><span class="step-no">13</span><h3>Dispatch</h3><p>Courier, insurance and a sealed parcel.</p><span class="step-owner">Dispatch</span></li>
-          <li class="step"><span class="step-no">14</span><h3>Delivered</h3><p>Proof of delivery, invoice and payment.</p><span class="step-owner">Accounts</span></li>
+        <ol class="stages">
+          <li class="stage">
+            <p class="stage-no">01.</p>
+            <div class="stage-body">
+              <h3 class="stage-name">Design</h3>
+              <p class="stage-lead">Capture the order, model it, and lock design and price before any metal is touched.</p>
+              <ol class="steps">
+                <li><span class="s-n">01</span><span class="s-text"><strong>Inquiry</strong><span>Photo, sketch or voice note</span></span><span class="s-owner">Front desk</span></li>
+                <li><span class="s-n">02</span><span class="s-text"><strong>CAD design</strong><span>3D model, every version kept</span></span><span class="s-owner">CAD designer</span></li>
+                <li><span class="s-n">03</span><span class="s-text"><strong>Design approval</strong><span>Approve, or send back with a reason</span></span><span class="s-owner">You / customer</span></li>
+                <li><span class="s-n">04</span><span class="s-text"><strong>Pricing</strong><span>Metal, stones, labor, setting, certification</span></span><span class="s-owner">You / customer</span></li>
+                <li><span class="s-n">05</span><span class="s-text"><strong>Final approval</strong><span>Design and price are locked</span></span><span class="s-owner">You</span></li>
+              </ol>
+            </div>
+          </li>
+          <li class="stage">
+            <p class="stage-no">02.</p>
+            <div class="stage-body">
+              <h3 class="stage-name">Make</h3>
+              <p class="stage-lead">The piece moves bench to bench. Its weight and any metal loss are recorded against the step where they happen.</p>
+              <ol class="steps">
+                <li><span class="s-n">06</span><span class="s-text"><strong>Wax &amp; 3D print</strong><span>Model printed and sent to the caster</span></span><span class="s-owner">Workshop</span></li>
+                <li class="is-out"><span class="s-n">07</span><span class="s-text"><strong>Casting</strong><span>Vendor uploads a photo to finish</span></span><span class="s-owner"><svg class="ic-d" aria-hidden="true"><use href="#i-diamond" /></svg><span class="sr-only">Outside partner: </span>Casting vendor</span></li>
+                <li><span class="s-n">08</span><span class="s-text"><strong>Assembly</strong><span>Piece built, weight recorded</span></span><span class="s-owner">Bench</span></li>
+                <li><span class="s-n">09</span><span class="s-text"><strong>Stone setting</strong><span>Stones linked from the vault</span></span><span class="s-owner">Setter</span></li>
+                <li><span class="s-n">10</span><span class="s-text"><strong>Polishing</strong><span>Final finish, metal loss recorded</span></span><span class="s-owner">Polisher</span></li>
+              </ol>
+            </div>
+          </li>
+          <li class="stage">
+            <p class="stage-no">03.</p>
+            <div class="stage-body">
+              <h3 class="stage-name">Prove &amp; ship</h3>
+              <p class="stage-lead">Checked, certified, sealed and paid, with the evidence attached to the job.</p>
+              <ol class="steps">
+                <li><span class="s-n">11</span><span class="s-text"><strong>Quality check</strong><span>Full checklist and hallmark</span></span><span class="s-owner">QC</span></li>
+                <li class="is-out"><span class="s-n">12</span><span class="s-text"><strong>Certification</strong><span>IGI, GIA or HRD, when ordered</span></span><span class="s-owner"><svg class="ic-d" aria-hidden="true"><use href="#i-diamond" /></svg><span class="sr-only">Outside partner: </span>Gem lab</span></li>
+                <li><span class="s-n">13</span><span class="s-text"><strong>Dispatch</strong><span>Courier, insurance, sealed parcel</span></span><span class="s-owner">Dispatch</span></li>
+                <li><span class="s-n">14</span><span class="s-text"><strong>Delivered</strong><span>Proof, invoice and payment</span></span><span class="s-owner">Office</span></li>
+              </ol>
+            </div>
+          </li>
         </ol>
-
-        <div class="steps-note">
-          <p class="legend"><span class="legend-mark" aria-hidden="true"></span>Outside partner</p>
-          <p>Any job can be put on hold, canceled or sent back for rework. Every move is logged with who made it and when.</p>
-        </div>
       </div>
     </section>
 
-    <!-- Controls -->
-    <section class="section band" id="controls" aria-labelledby="controls-title">
+    <!-- ========================================================= try it -->
+    <section class="section try" id="try" aria-labelledby="try-title">
       <div class="wrap">
         <header class="sec-head">
-          <p class="eyebrow">Controls</p>
-          <h2 id="controls-title">Four rules no one can skip.</h2>
-          <p class="sec-lead">They're enforced by the database itself. No screen, app update or extra tap can get around them, and the person blocked is told exactly what's missing.</p>
+          <div>
+            <p class="eyebrow">Try it</p>
+            <h2 class="display-l" id="try-title">What unrecorded gold <em>costs you.</em></h2>
+          </div>
+          <p class="body-muted">Casting and polishing always lose some metal. When nobody records it by weight, the loss hides inside your margin. Move the sliders to see what that unrecorded loss is worth in a year.</p>
+        </header>
+        <div class="sim" id="gold-sim"></div>
+      </div>
+    </section>
+
+    <!-- ========================================================== rules -->
+    <section class="section paper rules" id="rules" aria-labelledby="rules-title">
+      <div class="wrap">
+        <header class="sec-head">
+          <div>
+            <p class="eyebrow">The rules</p>
+            <h2 class="display-l" id="rules-title">Four rules. No exceptions.</h2>
+          </div>
+          <p class="body-muted">They’re enforced by the database, not the app screen. No update, workaround or extra tap gets past them, and the person blocked is told exactly what’s missing.</p>
         </header>
 
-        <div class="rules">
-          <article class="rule">
-            <h3>No photo, no casting</h3>
-            <p>The casting vendor can't close the step until they upload a photo of the cast piece.</p>
-            <div class="screen">
-              <span class="screen-label">On screen</span>
-              <p class="screen-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span>A casting photo is required before marking this stage complete</span></p>
-            </div>
+        <div class="rule-table">
+          <div class="rule-head" aria-hidden="true"><span>No.</span><span>Rule</span><span>What it means</span><span>What the operator sees</span></div>
+          <article class="rule-row">
+            <span class="r-n">01</span>
+            <h3 class="r-name">No photo, <em>no casting.</em></h3>
+            <p class="r-desc">The casting vendor can’t close the step until a photo of the cast piece is uploaded.</p>
+            <p class="r-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span><span class="sr-only">Operator sees: </span>A casting photo is required before marking this stage complete</span></p>
           </article>
-          <article class="rule">
-            <h3>No reason, no rejection</h3>
-            <p>A design can be approved in one tap. Sending it back requires a written comment for the designer.</p>
-            <div class="screen">
-              <span class="screen-label">On screen</span>
-              <p class="screen-msg is-prompt"><svg class="ic" aria-hidden="true"><use href="#i-chat" /></svg><span>Approving locks v2. Sending it back owes the designer a reason.</span></p>
-            </div>
+          <article class="rule-row">
+            <span class="r-n">02</span>
+            <h3 class="r-name">No reason, <em>no rejection.</em></h3>
+            <p class="r-desc">Approving a design takes one tap. Sending it back takes a written reason for the designer.</p>
+            <p class="r-msg is-prompt"><svg class="ic" aria-hidden="true"><use href="#i-chat" /></svg><span><span class="sr-only">Operator sees: </span>Approving locks v2. Sending it back owes the designer a reason.</span></p>
           </article>
-          <article class="rule">
-            <h3>No full checklist, no QC pass</h3>
-            <p>Every inspection point, hallmark included, must be checked before QC can sign off. A failed piece needs a defect reason.</p>
-            <div class="screen">
-              <span class="screen-label">On screen</span>
-              <p class="screen-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span>QC cannot be authorized with 2 unchecked item(s)</span></p>
-            </div>
+          <article class="rule-row">
+            <span class="r-n">03</span>
+            <h3 class="r-name">No full checklist, <em>no QC pass.</em></h3>
+            <p class="r-desc">Every inspection point, hallmark included, must be ticked before QC can sign off. A failed piece needs a defect reason.</p>
+            <p class="r-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span><span class="sr-only">Operator sees: </span>QC cannot be authorized with 2 unchecked item(s)</span></p>
           </article>
-          <article class="rule">
-            <h3>No seal, no dispatch</h3>
-            <p>Seal, paperwork and parcel photos must be complete before a shipment can leave the building.</p>
-            <div class="screen">
-              <span class="screen-label">On screen</span>
-              <p class="screen-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span>Complete the security protocol first — 1 check(s) outstanding</span></p>
-            </div>
+          <article class="rule-row">
+            <span class="r-n">04</span>
+            <h3 class="r-name">No seal, <em>no dispatch.</em></h3>
+            <p class="r-desc">The seal, a photo of the packed piece and a contents check must all be ticked before a parcel can leave.</p>
+            <p class="r-msg"><svg class="ic" aria-hidden="true"><use href="#i-block" /></svg><span><span class="sr-only">Operator sees: </span>Complete the security protocol first — 1 check(s) outstanding</span></p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Custody -->
-    <section class="section" id="custody" aria-labelledby="custody-title">
+    <!-- ======================================================== custody -->
+    <section class="section custody" id="custody" aria-labelledby="custody-title">
+      <img class="watermark" src="assets/art/rosette.svg" alt="" aria-hidden="true" width="760" height="760" loading="lazy" decoding="async" />
       <div class="wrap custody-grid">
-        <div>
-          <header class="sec-head">
-            <p class="eyebrow">Custody</p>
-            <h2 id="custody-title">Your client's diamond, accounted for.</h2>
-            <p class="sec-lead">Customer-supplied stones and workshop gold are tracked from the moment they arrive until the finished piece ships.</p>
-          </header>
+        <div class="custody-copy">
+          <p class="eyebrow">Custody</p>
+          <h2 class="display-l" id="custody-title">Your <em>client’s</em> diamond, on record.</h2>
+          <p class="body-muted">Client-supplied stones and workshop gold are tracked from the moment they arrive until the finished piece ships.</p>
 
-          <dl class="points">
-            <div><dt>Receipt before work starts</dt><dd>A customer's stone is logged with its declared value, who verified it, when, a receipt number and photos. The customer acknowledges the risk terms.</dd></div>
-            <div><dt>A place for everything</dt><dd>Every stone and gold lot has a vault location, like Vault A, Tray 4, and is linked to the job that uses it.</dd></div>
-            <div><dt>Gold by the gram</dt><dd>Gold issued, returned and lost in casting and polishing is recorded at each step.</dd></div>
-            <div><dt>Natural or lab-grown, always</dt><dd>Every stone records its origin and the field can't be left blank. Origin changes value, disclosure and certification.</dd></div>
-            <div><dt>Approvals that stay put</dt><dd>Each approval is saved with a name and time. Nobody can edit it afterward.</dd></div>
-            <div><dt>Access you can revoke</dt><dd>Nothing sensitive is stored on the phone. A lost device or a departing employee is cut off at once, and their past work stays on record.</dd></div>
-          </dl>
+          <ul class="facts">
+            <li><svg class="fi" aria-hidden="true"><use href="#i-receipt" /></svg><p class="f-label">Receipt first</p><p>A client’s stone is logged with its declared value, verifier, time and receipt number before work starts, with photos attached. The client acknowledges the risk terms.</p></li>
+            <li><svg class="fi" aria-hidden="true"><use href="#i-tray" /></svg><p class="f-label">A place for everything</p><p>Every stone and gold lot has a vault location, like Vault A, Tray 4, linked to the job that uses it.</p></li>
+            <li><svg class="fi" aria-hidden="true"><use href="#i-scale" /></svg><p class="f-label">Gold by the gram</p><p>Gold issued, returned and lost to casting and polishing is recorded by weight, against the job and the step.</p></li>
+            <li><svg class="fi" aria-hidden="true"><use href="#i-gem" /></svg><p class="f-label">Natural or lab-grown</p><p>Every stone on an order must be marked natural or lab-grown before the order can go ahead. Origin changes value, disclosure and certification.</p></li>
+            <li><svg class="fi" aria-hidden="true"><use href="#i-sign" /></svg><p class="f-label">Signed and fixed</p><p>Each approval is written to the job’s history with a name and time. That history can’t be edited.</p></li>
+            <li><svg class="fi" aria-hidden="true"><use href="#i-lock" /></svg><p class="f-label">Access you can revoke</p><p>Your records live on the server, not the phone. A lost device or a departing employee is cut off at once, and their past work stays on record.</p></li>
+          </ul>
         </div>
 
         <figure class="receipt" aria-label="Sample goods-in receipt for a customer-supplied diamond">
           <div class="receipt-head">
-            <span class="receipt-title">Goods-in receipt</span>
-            <span class="receipt-code">GRN-2026-00184</span>
+            <p class="receipt-kind">Goods-in receipt</p>
+            <p class="receipt-code">GRN-2026-00184</p>
           </div>
-          <dl>
+          <dl class="receipt-rows">
             <div><dt>Job</dt><dd>DH-2026-01857</dd></div>
             <div><dt>Job type</dt><dd>Reset stone</dd></div>
             <div><dt>Item</dt><dd>Diamond, round brilliant</dd></div>
@@ -300,141 +292,238 @@
             <div><dt>Received</dt><dd>Aug 14, 2026 · 10:12 AM</dd></div>
             <div><dt>Location</dt><dd>Vault A · Tray 4</dd></div>
             <div><dt>Photos</dt><dd>3 attached</dd></div>
-            <div><dt>Risk terms</dt><dd>Acknowledged by customer</dd></div>
+            <div><dt>Risk terms</dt><dd>Acknowledged</dd></div>
           </dl>
-          <div class="receipt-foot">
-            <span class="pill pill-ok"><svg class="ic" aria-hidden="true"><use href="#i-check" /></svg>In custody</span>
-            <figcaption>Sample record</figcaption>
-          </div>
+          <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
+            <defs><path id="stamp-ring" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0" /></defs>
+            <circle cx="60" cy="60" r="56" />
+            <circle cx="60" cy="60" r="33" />
+            <text textLength="272" lengthAdjust="spacing"><textPath href="#stamp-ring" startOffset="0">IN CUSTODY · VAULT A · TRAY 4 · </textPath></text>
+            <text class="stamp-mid" x="60" y="57" text-anchor="middle">LOGGED</text>
+            <text class="stamp-date" x="60" y="71" text-anchor="middle">AUG 14 26</text>
+          </svg>
+          <figcaption class="receipt-foot">Sample record</figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- Access -->
-    <section class="section section-alt" id="access" aria-labelledby="access-title">
+    <!-- ========================================================= access -->
+    <section class="art-band access" id="access" aria-labelledby="access-title">
+      <img class="band-art" src="assets/art/band.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
       <div class="wrap">
-        <header class="sec-head">
-          <p class="eyebrow">Access</p>
-          <h2 id="access-title">Everyone sees their own work. Partners never see your prices.</h2>
-          <p class="sec-lead">Access rules live in the database, so a vendor can't see another vendor's jobs, even with a modified app.</p>
-        </header>
-
-        <div class="roles">
-          <div class="role"><h3>Owner / manager</h3><p>Everything, plus what needs a decision today.</p></div>
-          <div class="role"><h3>Front desk</h3><p>Orders they open and the customer list.</p></div>
-          <div class="role"><h3>CAD designer</h3><p>Jobs assigned to them.</p></div>
-          <div class="role"><h3>Bench, setter, polisher</h3><p>Jobs at their step.</p></div>
-          <div class="role"><h3>QC inspector</h3><p>Jobs waiting for inspection.</p></div>
-          <div class="role"><h3>Dispatch</h3><p>Jobs ready to ship.</p></div>
-          <div class="role"><h3>Vault keeper</h3><p>Gold and stone stock.</p></div>
-          <div class="role is-out"><h3>Casting vendor <span class="tag-out">Outside</span></h3><p>Only the jobs sent to them. No prices.</p></div>
-          <div class="role is-out"><h3>Retail customer <span class="tag-out">Outside</span></h3><p>Only their own orders, approvals and invoices.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Modules -->
-    <section class="section" id="features" aria-labelledby="features-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <p class="eyebrow">In the app</p>
-          <h2 id="features-title">Everything a custom order touches.</h2>
-        </header>
-
-        <dl class="modules">
-          <div><dt>Order intake</dt><dd>A guided form for new designs, remakes, stone resets and repairs. Ring sizes in US, UK and Indian scales.</dd></div>
-          <div><dt>CAD review</dt><dd>Every model version is kept. Approve it, or send it back with comments.</dd></div>
-          <div><dt>Quotes</dt><dd>Metal, stones, labor, setting and certification as separate lines the customer approves.</dd></div>
-          <div><dt>Production board</dt><dd>Every active job by step. It updates itself as work is closed.</dd></div>
-          <div><dt>Vendor portal</dt><dd>Casting vendors see their queue, upload photos and report issues.</dd></div>
-          <div><dt>Customer portal</dt><dd>Retailers approve designs and prices and follow their orders.</dd></div>
-          <div><dt>QC and certification</dt><dd>A checklist for every piece, hallmark included. Lab submissions to IGI, GIA or HRD with the report attached.</dd></div>
-          <div><dt>Web admin panel</dt><dd>Manage the team and roles, customer and vendor logins, invoice details and metal rates from a browser.</dd></div>
-          <div><dt>Dispatch</dt><dd>Courier, insurance, seal and photos are checked before release.</dd></div>
-          <div><dt>Inventory and vault</dt><dd>Gold and stones by location, reserved for jobs as they're used.</dd></div>
-          <div><dt>Invoicing</dt><dd>USD or INR. GST tax invoices with CGST, SGST and IGST for India.</dd></div>
-          <div><dt>Job thread</dt><dd>Messages and stage changes in one timeline per job, kept as an audit trail.</dd></div>
-        </dl>
-      </div>
-    </section>
-
-    <!-- Rollout -->
-    <section class="section section-alt" id="rollout" aria-labelledby="rollout-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <p class="eyebrow">Rollout</p>
-          <h2 id="rollout-title">Live in 8 weeks. Something to test every week.</h2>
-          <p class="sec-lead">Each week ends with a build you can try on a real phone, using your own jobs.</p>
-        </header>
-
-        <div class="weeks">
-          <div class="weeks-head" aria-hidden="true"><span>When</span><span>What we build</span><span>What you test</span></div>
-          <ol class="weeks-list">
-            <li class="week"><span class="week-no">Weeks 1–2</span><span class="week-build">Setup and logins</span><span class="week-test"><span class="week-k">You test: </span>Sign in as different roles and see different screens.</span></li>
-            <li class="week"><span class="week-no">Week 3</span><span class="week-build">Taking an order</span><span class="week-test"><span class="week-k">You test: </span>Enter one of your real past jobs.</span></li>
-            <li class="week"><span class="week-no">Week 4</span><span class="week-build">Pricing and invoicing</span><span class="week-test"><span class="week-k">You test: </span>Compare the quote with what you actually charged.</span></li>
-            <li class="week"><span class="week-no">Week 5</span><span class="week-build">Design loop and job board</span><span class="week-test"><span class="week-k">You test: </span>Move jobs between steps on the board.</span></li>
-            <li class="week"><span class="week-no">Week 6</span><span class="week-build">Workshop, vendor and QC</span><span class="week-test"><span class="week-k">You test: </span>Run a real job with one casting vendor.</span></li>
-            <li class="week"><span class="week-no">Week 7</span><span class="week-build">Dispatch, vault and customer portal</span><span class="week-test"><span class="week-k">You test: </span>Take one job from start to finish, and count your vault.</span></li>
-            <li class="week is-final"><span class="week-no">Week 8</span><span class="week-build">Training and handover</span><span class="week-test"><span class="week-k">You test: </span>Your workshop runs on DhanaOS.</span></li>
-          </ol>
-        </div>
-
-        <p class="built-note"><svg class="ic" aria-hidden="true"><use href="#i-check" /></svg><span><strong>Already built:</strong> the design, the database and most of the app. Weeks 1–2 make it live.</span></p>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section" id="faq" aria-labelledby="faq-title">
-      <div class="wrap">
-        <header class="sec-head">
-          <p class="eyebrow">FAQ</p>
-          <h2 id="faq-title">Straight answers.</h2>
-        </header>
-
-        <dl class="faq">
-          <div><dt>Does it run on iPhone?</dt><dd>The shop-floor app runs on Android phones and tablets, and admins work from a web panel. DhanaOS is built in Flutter, so an iPhone version shares the same code and can be added later.</dd></div>
-          <div><dt>Can vendors or customers see our costs?</dt><dd>No. A vendor sees only the jobs sent to them. A customer sees only their own orders and the prices you send them. The database enforces this, so no app screen can expose it.</dd></div>
-          <div><dt>Which currencies does it handle?</dt><dd>USD and INR, stored as exact amounts with no rounding drift. Indian GST invoicing, with HSN codes and the CGST, SGST and IGST split, is built in.</dd></div>
-          <div><dt>What is it built on?</dt><dd>A Flutter app on Supabase, which provides a PostgreSQL database, logins, file storage and live updates.</dd></div>
-          <div><dt>Who owns the code and data?</dt><dd>You do. The code, the database and the documentation are handed over to you.</dd></div>
-          <div><dt>What isn't included?</dt><dd>An accounting software link (export is available), counter billing, payroll, a live gold-rate feed, importing old job history, and devices. Each can be quoted separately.</dd></div>
-        </dl>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="section band contact" id="contact" aria-labelledby="contact-title">
-      <div class="wrap contact-grid">
-        <div>
-          <p class="eyebrow">Demo</p>
-          <h2 id="contact-title">See it run on one of your own jobs.</h2>
-          <p class="sec-lead">Send us one past order with its photos, final weight and price. We'll walk you through it in DhanaOS on a 30-minute call.</p>
-        </div>
-        <div class="contact-card">
-          <span class="t-label">Email</span>
-          <p class="email" id="contact-email">info@madvision.tech</p>
-          <div class="contact-actions">
-            <a class="btn btn-gold" href="mailto:info@madvision.tech?subject=DhanaOS%20demo"><svg class="ic" aria-hidden="true"><use href="#i-mail" /></svg>Book a demo</a>
-            <button class="btn btn-ghost" type="button" id="copy-email" data-copy="info@madvision.tech"><svg class="ic" aria-hidden="true"><use href="#i-copy" /></svg><span>Copy email</span></button>
+        <div class="access-card">
+          <div class="access-head">
+            <div>
+              <p class="eyebrow">Access</p>
+              <h2 class="display-l" id="access-title">Partners see only <em>their</em> jobs.</h2>
+            </div>
+            <p class="body-muted">Your team works from the screens for their role. Outside partners are limited by the database itself, so a vendor can’t see another vendor’s jobs, even with a modified app, and never sees your quotes or invoices.</p>
           </div>
-          <p class="contact-note">Built and supported by <a href="https://madvision.tech" target="_blank" rel="noopener">Mad Vision Tech</a>.</p>
+          <p class="roles-cap">Where each role starts</p>
+          <ul class="roles">
+            <li><p class="role-name">Owner / manager</p><p>Everything, plus what needs a decision today.</p></li>
+            <li><p class="role-name">Front desk</p><p>Orders they open and the customer list.</p></li>
+            <li><p class="role-name">CAD designer</p><p>Jobs assigned to them.</p></li>
+            <li><p class="role-name">Bench, setter, polisher</p><p>Jobs at their step.</p></li>
+            <li><p class="role-name">QC inspector</p><p>Jobs waiting for inspection.</p></li>
+            <li><p class="role-name">Dispatch</p><p>Jobs ready to ship.</p></li>
+            <li><p class="role-name">Vault keeper</p><p>Gold and stone stock.</p></li>
+            <li class="is-out"><p class="role-name">Casting vendor, gem lab <span class="tag-out">Outside</span></p><p>Only the jobs sent to them. No quotes or invoices.</p></li>
+            <li class="is-out"><p class="role-name">Retailer <span class="tag-out">Outside</span></p><p>Only their own orders, approvals and invoices.</p></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== modules -->
+    <section class="section paper modules" id="features" aria-labelledby="features-title">
+      <div class="wrap">
+        <header class="sec-head">
+          <div>
+            <p class="eyebrow">In the app</p>
+            <h2 class="display-l" id="features-title">Everything a custom order touches.</h2>
+          </div>
+          <p class="body-muted">One app for the shop floor, two portals for the people outside it, and a web panel for whoever runs the office.</p>
+        </header>
+
+        <div class="mods">
+          <section class="mod-group" aria-labelledby="mg-floor">
+            <h3 class="mod-group-name" id="mg-floor">Shop floor<span>In the app</span></h3>
+            <ul class="mod-list">
+              <li><p class="mod-name">Order intake</p><p class="mod-desc">A guided form for new designs, remakes, stone resets and repairs. Ring sizes in US, UK and Indian scales.</p></li>
+              <li><p class="mod-name">CAD review</p><p class="mod-desc">Every model version is kept. Approve it, or send it back with comments.</p></li>
+              <li><p class="mod-name">Production board</p><p class="mod-desc">Every active job by step. It updates itself as work is closed.</p></li>
+              <li><p class="mod-name">QC and certification</p><p class="mod-desc">A checklist for every piece, hallmark included, and lab reports from IGI, GIA or HRD.</p></li>
+              <li><p class="mod-name">Dispatch</p><p class="mod-desc">Courier, insurance, seal and photos are checked before release.</p></li>
+              <li><p class="mod-name">Inventory and vault</p><p class="mod-desc">Gold and stones by location, reserved for jobs as they’re used.</p></li>
+            </ul>
+          </section>
+          <section class="mod-group" aria-labelledby="mg-office">
+            <h3 class="mod-group-name" id="mg-office">Office<span>In the app</span></h3>
+            <ul class="mod-list">
+              <li><p class="mod-name">Quotes</p><p class="mod-desc">Metal, stones, labor, setting and certification as separate lines the customer approves.</p></li>
+              <li><p class="mod-name">Invoicing</p><p class="mod-desc">USD or INR. GST tax invoices with the CGST, SGST and IGST split for India.</p></li>
+              <li><p class="mod-name">Job thread</p><p class="mod-desc">Messages and stage changes in one timeline per job, kept as an audit trail.</p></li>
+            </ul>
+          </section>
+          <section class="mod-group" aria-labelledby="mg-partners">
+            <h3 class="mod-group-name" id="mg-partners">Partners<span>Portals</span></h3>
+            <ul class="mod-list">
+              <li><p class="mod-name">Vendor portal</p><p class="mod-desc">Casting vendors see their queue, upload photos and report issues.</p></li>
+              <li><p class="mod-name">Retailer portal</p><p class="mod-desc">Retailers approve designs and prices and follow their orders.</p></li>
+            </ul>
+          </section>
+          <section class="mod-group" aria-labelledby="mg-admin">
+            <h3 class="mod-group-name" id="mg-admin">Admin<span>In a browser</span></h3>
+            <ul class="mod-list">
+              <li><p class="mod-name">Web admin panel</p><p class="mod-desc">Team and roles, customer and vendor logins, invoice details and metal rates.</p></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== rollout -->
+    <section class="section rollout" id="rollout" aria-labelledby="rollout-title">
+      <div class="wrap">
+        <header class="sec-head">
+          <div>
+            <p class="eyebrow">Rollout</p>
+            <h2 class="display-l" id="rollout-title">Live in eight weeks. Testable <em>every</em> week.</h2>
+          </div>
+          <p class="body-muted">Each week ends with a build you can try on a real phone, using your own jobs. The design, the database and most of the app are already built.</p>
+        </header>
+
+        <div class="gantt" role="table" aria-label="Eight-week rollout plan">
+          <div class="g-row g-head" role="row">
+            <span class="g-label" role="columnheader">What we build · what you test</span>
+            <span class="sr-only" role="columnheader">When</span>
+            <span aria-hidden="true" style="grid-column:2">W1</span><span aria-hidden="true" style="grid-column:3">W2</span><span aria-hidden="true" style="grid-column:4">W3</span><span aria-hidden="true" style="grid-column:5">W4</span><span aria-hidden="true" style="grid-column:6">W5</span><span aria-hidden="true" style="grid-column:7">W6</span><span aria-hidden="true" style="grid-column:8">W7</span><span aria-hidden="true" style="grid-column:9">W8</span>
+          </div>
+          <div class="g-row" role="row">
+            <div class="g-label" role="rowheader"><strong>Setup and logins</strong><span>Sign in as different roles and see different screens.</span></div>
+            <div class="g-bar" role="cell" style="grid-column:2 / 4"><span>Weeks 1–2</span></div>
+          </div>
+          <div class="g-row" role="row">
+            <div class="g-label" role="rowheader"><strong>Taking an order</strong><span>Enter one of your real past jobs.</span></div>
+            <div class="g-bar" role="cell" style="grid-column:4 / 5"><span>Week 3</span></div>
+          </div>
+          <div class="g-row" role="row">
+            <div class="g-label" role="rowheader"><strong>Pricing and invoicing</strong><span>Compare the quote with what you actually charged.</span></div>
+            <div class="g-bar" role="cell" style="grid-column:5 / 6"><span>Week 4</span></div>
+          </div>
+          <div class="g-row" role="row">
+            <div class="g-label" role="rowheader"><strong>Design loop and job board</strong><span>Move jobs between steps on the board.</span></div>
+            <div class="g-bar" role="cell" style="grid-column:6 / 7"><span>Week 5</span></div>
+          </div>
+          <div class="g-row" role="row">
+            <div class="g-label" role="rowheader"><strong>Workshop, vendor and QC</strong><span>Run a real job with one casting vendor.</span></div>
+            <div class="g-bar" role="cell" style="grid-column:7 / 8"><span>Week 6</span></div>
+          </div>
+          <div class="g-row" role="row">
+            <div class="g-label" role="rowheader"><strong>Dispatch, vault and customer portal</strong><span>One job from start to finish, plus a vault count.</span></div>
+            <div class="g-bar" role="cell" style="grid-column:8 / 9"><span>Week 7</span></div>
+          </div>
+          <div class="g-row is-final" role="row">
+            <div class="g-label" role="rowheader"><strong>Training and handover</strong><span>Your workshop runs on DhanaOS.</span></div>
+            <div class="g-bar" role="cell" style="grid-column:9 / 10"><span>Week 8</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ faq -->
+    <section class="section paper faq" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq-grid">
+        <header class="faq-head">
+          <p class="eyebrow">FAQ</p>
+          <h2 class="display-l" id="faq-title">Straight answers.</h2>
+          <p class="body-muted">Something else? Write to <a href="mailto:info@madvision.tech">info@madvision.tech</a>.</p>
+        </header>
+
+        <div class="faq-list">
+          <details open>
+            <summary>Does it run on iPhone?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <p>The shop-floor app runs on Android phones and tablets, and admins work from a web panel. DhanaOS is built in Flutter, so an iPhone version shares the same code and can be added later.</p>
+          </details>
+          <details>
+            <summary>What can vendors and retailers see?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <p>A vendor sees only the jobs sent to them, never a quote or an invoice. A retailer sees only their own orders, plus the quotes and invoices you send them. The database enforces both limits.</p>
+          </details>
+          <details>
+            <summary>Which currencies does it handle?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <p>USD and INR, stored as exact amounts with no rounding drift. Indian GST invoicing, with HSN codes and the CGST, SGST and IGST split, is built in.</p>
+          </details>
+          <details>
+            <summary>What is it built on?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <p>A Flutter app on Supabase, which provides a PostgreSQL database, logins, file storage and live updates.</p>
+          </details>
+          <details>
+            <summary>Who owns the code and data?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <p>You do. The code, the database and the documentation are handed over to you.</p>
+          </details>
+          <details>
+            <summary>What isn’t included?<svg class="ic" aria-hidden="true"><use href="#i-plus" /></svg></summary>
+            <p>An accounting software link (export is available), counter billing, payroll, a live gold-rate feed, importing old job history, and devices. Each can be quoted separately.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ cta -->
+    <section class="art-band cta" id="contact" aria-labelledby="contact-title">
+      <img class="band-art" src="assets/art/cta.svg" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <div class="wrap">
+        <div class="cta-card">
+          <p class="eyebrow">Demo</p>
+          <h2 class="display-l" id="contact-title"><span class="ln">Send us one past job.</span> <span class="ln"><em>Watch it run.</em></span></h2>
+          <p class="body-muted">Send its photos, final weight and price. We’ll walk you through it in DhanaOS on a 30-minute call.</p>
+          <div class="cta-actions">
+            <a class="btn btn-ink" href="mailto:info@madvision.tech?subject=DhanaOS%20demo">Book a demo <svg class="ic" aria-hidden="true"><use href="#i-arrow" /></svg></a>
+            <button class="copy" type="button" id="copy-email" data-copy="info@madvision.tech"><span class="copy-addr" id="contact-email">info@madvision.tech</span><span class="copy-act"><svg class="ic" aria-hidden="true"><use href="#i-copy" /></svg><span class="copy-label">Copy</span></span></button>
+            <span class="sr-only" role="status" id="copy-status"></span>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap footer-row">
-      <a class="brand brand-foot" href="#top" aria-label="DhanaOS, back to top">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><use href="#i-gem" /></svg></span>
-        <span>DhanaOS</span>
-      </a>
-      <p>Production software for custom jewelry.</p>
-      <p>© <span id="year">2026</span> DhanaOS · Built by <a href="https://madvision.tech" target="_blank" rel="noopener">Mad Vision Tech</a></p>
+  <footer class="footer">
+    <div class="wrap footer-top">
+      <div class="f-brand">
+        <p class="f-tag">Every piece, <em>accounted for.</em></p>
+        <p class="caption">14 steps · One record · No exceptions</p>
+      </div>
+      <nav class="f-cols" aria-label="Footer">
+        <div>
+          <p class="f-head">Product</p>
+          <a href="#how">How it works</a>
+          <a href="#try">Try it</a>
+          <a href="#rules">The rules</a>
+          <a href="#custody">Custody</a>
+        </div>
+        <div>
+          <p class="f-head">Plan</p>
+          <a href="#features">In the app</a>
+          <a href="#rollout">Rollout</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Book a demo</a>
+        </div>
+        <div>
+          <p class="f-head">Contact</p>
+          <a href="mailto:info@madvision.tech">info@<wbr>madvision.tech</a>
+          <a href="https://madvision.tech" target="_blank" rel="noopener">madvision.tech</a>
+        </div>
+      </nav>
     </div>
+    <div class="wrap footer-legal">
+      <p>© <span id="year">2026</span> DhanaOS. Built by <a href="https://madvision.tech" target="_blank" rel="noopener">Mad Vision Tech</a>.</p>
+      <p>Sample records on this page are illustrative.</p>
+    </div>
+    <p class="giant" aria-hidden="true">Dhana<em>OS</em></p>
   </footer>
 
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/sim.js" defer></script>
 </body>
 </html>

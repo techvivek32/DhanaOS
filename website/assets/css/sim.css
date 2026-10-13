@@ -1,0 +1,464 @@
+/* DhanaOS: "What unmeasured gold costs you" calculator.
+   Lives directly on a dark section. Every selector is scoped under .sim; page tokens are read
+   with literal fallbacks and never redefined on :root. */
+
+.sim {
+  --sim-gold: var(--gold, #d9a640);
+  --sim-gold-hi: var(--gold-hi, #f2c766);
+  --sim-gold-deep: var(--gold-deep, #8b5e10);
+  --sim-ink: var(--ink, #0c121d);
+  --sim-text: var(--text-light, #efe8dc);
+  --sim-muted: var(--muted-light, #a9a294);
+  --sim-line: var(--line-light, rgba(239, 232, 220, 0.14));
+  --sim-track: rgba(239, 232, 220, 0.22);
+  --sim-display: var(--font-display, "Bodoni Moda", "Bodoni 72", Didot, Georgia, serif);
+  --sim-body: var(--font-body, "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif);
+  --sim-mono: var(--font-mono, "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace);
+
+  color: var(--sim-text);
+  font-family: var(--sim-body);
+  min-width: 0;
+}
+
+.sim *,
+.sim *::before,
+.sim *::after {
+  box-sizing: border-box;
+}
+
+.sim p {
+  margin: 0;
+}
+
+/* ---------- layout ---------- */
+
+.sim .sim__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+}
+
+@media (min-width: 900px) {
+  .sim .sim__layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 0 clamp(48px, 5vw, 64px);
+  }
+}
+
+.sim .sim__panel {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- controls ---------- */
+
+.sim .sim__control + .sim__control {
+  margin-top: 26px;
+}
+
+.sim .sim__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sim .sim__label {
+  font-family: var(--sim-body);
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--sim-muted);
+  cursor: pointer;
+}
+
+.sim .sim__value {
+  flex: none;
+  font-family: var(--sim-mono);
+  font-size: 15px;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+  color: var(--sim-text);
+  white-space: nowrap;
+}
+
+.sim .sim__help {
+  margin-top: 1px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--sim-muted);
+}
+
+/* Range: a 2px rule with a gold run up to a 16px gold bead. --sim-p is the 0..1 position. */
+
+.sim .sim__range {
+  --sim-p: 0.5;
+  --sim-run: calc(8px + var(--sim-p) * (100% - 16px));
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin: 4px 0 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.sim .sim__range:focus {
+  outline: none;
+}
+
+.sim .sim__range::-webkit-slider-runnable-track {
+  height: 2px;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(to right,
+      var(--sim-gold) 0, var(--sim-gold) var(--sim-run),
+      var(--sim-track) var(--sim-run), var(--sim-track) 100%);
+}
+
+.sim .sim__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  margin-top: -7px;
+  border: 1px solid var(--sim-ink);
+  border-radius: 50%;
+  background: var(--sim-gold);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.sim .sim__range::-moz-range-track {
+  height: 2px;
+  border: 0;
+  border-radius: 0;
+  background: var(--sim-track);
+}
+
+.sim .sim__range::-moz-range-progress {
+  height: 2px;
+  border-radius: 0;
+  background: var(--sim-gold);
+}
+
+.sim .sim__range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--sim-ink);
+  border-radius: 50%;
+  background: var(--sim-gold);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.sim .sim__range:hover::-webkit-slider-thumb {
+  background: var(--sim-gold-hi);
+}
+
+.sim .sim__range:hover::-moz-range-thumb {
+  background: var(--sim-gold-hi);
+}
+
+.sim .sim__range:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.sim .sim__range:active::-moz-range-thumb {
+  transform: scale(1.15);
+}
+
+.sim .sim__range:focus-visible::-webkit-slider-thumb {
+  background: var(--sim-gold-hi);
+  box-shadow: 0 0 0 3px var(--sim-ink), 0 0 0 4.5px var(--sim-gold-hi);
+}
+
+.sim .sim__range:focus-visible::-moz-range-thumb {
+  background: var(--sim-gold-hi);
+  box-shadow: 0 0 0 3px var(--sim-ink), 0 0 0 4.5px var(--sim-gold-hi);
+}
+
+/* ---------- result ---------- */
+
+.sim .sim__result {
+  container-type: inline-size;
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid var(--sim-line);
+}
+
+.sim .sim__kicker {
+  font-family: var(--sim-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sim-muted);
+}
+
+.sim .sim__figure {
+  margin-top: 12px;
+  font-family: var(--sim-display);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: min(48px, 15cqi);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  font-variant-numeric: lining-nums proportional-nums;
+  color: var(--sim-text);
+  white-space: nowrap;
+}
+
+@media (min-width: 600px) {
+  .sim .sim__figure {
+    font-size: min(68px, 18cqi);
+  }
+}
+
+@media (min-width: 900px) {
+  .sim .sim__figure {
+    font-size: min(88px, 19.5cqi);
+  }
+}
+
+/* Seven figures set smaller inside the same line box, so nothing below the figure moves. */
+.sim .sim__figure[data-len="9"] .sim__amount,
+.sim .sim__figure[data-len="10"] .sim__amount {
+  font-size: 0.8em;
+}
+
+.sim .sim__figure[data-len="9"] .sim__cur,
+.sim .sim__figure[data-len="10"] .sim__cur {
+  font-size: 0.46em;
+  vertical-align: 0.52em;
+}
+
+.sim .sim__cur {
+  display: inline-block;
+  margin-right: 0.05em;
+  font-style: italic;
+  font-size: 0.56em;
+  line-height: 1;
+  vertical-align: 0.62em;
+  color: var(--sim-gold);
+}
+
+.sim .sim__grams {
+  margin-top: 16px;
+  font-family: var(--sim-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--sim-muted);
+}
+
+.sim .sim__grams-num {
+  color: var(--sim-text);
+}
+
+/* ---------- chart ---------- */
+
+.sim .sim__chart {
+  position: relative;
+  min-width: 0;
+  height: 240px;
+  touch-action: pan-y;
+}
+
+@media (min-width: 600px) {
+  .sim .sim__chart {
+    height: 300px;
+  }
+}
+
+@media (min-width: 900px) {
+  .sim .sim__chart {
+    height: auto;
+    min-height: 320px;
+  }
+}
+
+.sim .sim__chart:focus {
+  outline: none;
+}
+
+.sim .sim__chart:focus-visible {
+  outline: 2px solid var(--sim-gold);
+  outline-offset: 6px;
+}
+
+.sim .sim__svg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  overflow: visible;
+}
+
+.sim .sim__svg text {
+  font-family: var(--sim-mono);
+  font-size: 11px;
+  fill: var(--sim-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.sim .sim__grid {
+  stroke: var(--sim-line);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.sim .sim__baseline,
+.sim .sim__tick {
+  stroke: rgba(239, 232, 220, 0.34);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.sim .sim__svg .sim__caption {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.sim .sim__area {
+  fill: var(--sim-gold);
+  fill-opacity: 0.3;
+}
+
+.sim .sim__hatch-line {
+  fill: none;
+  stroke: var(--sim-gold-hi);
+  stroke-width: 1.1;
+  stroke-opacity: 0.8;
+}
+
+.sim .sim__cuts {
+  fill: none;
+  stroke: var(--sim-ink);
+  stroke-width: 1;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges;
+}
+
+.sim .sim__line {
+  fill: none;
+  stroke: var(--sim-gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sim .sim__end-halo {
+  fill: none;
+  stroke: var(--sim-gold);
+  stroke-opacity: 0.55;
+  stroke-width: 1;
+}
+
+.sim .sim__end-dot {
+  fill: var(--sim-gold-hi);
+  stroke: var(--sim-ink);
+  stroke-width: 2;
+}
+
+.sim .sim__svg .sim__end-text,
+.sim .sim__svg .sim__hover-value {
+  font-size: 13px;
+  font-weight: 500;
+  fill: var(--sim-text);
+}
+
+.sim .sim__svg .sim__end-text,
+.sim .sim__svg .sim__hover-value,
+.sim .sim__svg .sim__hover-month,
+.sim .sim__svg .sim__ylabel {
+  paint-order: stroke;
+  stroke: var(--sim-ink);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.sim .sim__svg .sim__hover-month {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sim .sim__end-text {
+  transition: opacity 0.15s ease;
+}
+
+.sim .sim__end.is-quiet .sim__end-text {
+  opacity: 0;
+}
+
+.sim .sim__hover {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sim .sim__hover.is-on {
+  opacity: 1;
+}
+
+.sim .sim__hover-line {
+  stroke: rgba(239, 232, 220, 0.4);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.sim .sim__hover-dot {
+  fill: var(--sim-ink);
+  stroke: var(--sim-gold-hi);
+  stroke-width: 1.5;
+}
+
+/* ---------- footnote ---------- */
+
+.sim .sim__foot {
+  margin-top: 44px;
+  padding-top: 18px;
+  border-top: 1px solid var(--sim-line);
+}
+
+.sim .sim__note {
+  max-width: 68ch;
+  font-family: var(--sim-mono);
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--sim-muted);
+}
+
+/* ---------- utilities ---------- */
+
+.sim .sim__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Separate rules: one unknown vendor pseudo-element would void a combined selector list. */
+@media (prefers-reduced-motion: reduce) {
+  .sim .sim__range::-webkit-slider-thumb {
+    transition: none;
+  }
+  .sim .sim__range::-moz-range-thumb {
+    transition: none;
+  }
+  .sim .sim__end-text {
+    transition: none;
+  }
+}

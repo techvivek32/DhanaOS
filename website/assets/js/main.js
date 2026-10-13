@@ -6,26 +6,29 @@
 
   // Copy the contact email. Falls back to selecting the address when the clipboard is refused.
   var copyBtn = document.getElementById('copy-email');
-  var emailText = document.getElementById('contact-email');
-  if (!copyBtn || !emailText) return;
+  var address = document.getElementById('contact-email');
+  if (!copyBtn || !address) return;
 
-  var label = copyBtn.querySelector('span');
+  var label = copyBtn.querySelector('.copy-label');
+  var status = document.getElementById('copy-status');
+  var isMac = /Mac|iP(hone|ad|od)/.test(navigator.platform || navigator.userAgent);
   var resetTimer;
 
   function flash(text) {
     if (!label) return;
     label.textContent = text;
+    if (status) status.textContent = text === 'Copied' ? 'Email address copied' : 'Address selected. Copy it with ' + (isMac ? 'Command C' : 'Control C') + '.';
     clearTimeout(resetTimer);
-    resetTimer = setTimeout(function () { label.textContent = 'Copy email'; }, 2000);
+    resetTimer = setTimeout(function () { label.textContent = 'Copy'; }, 2000);
   }
 
   function selectAddress() {
     var range = document.createRange();
-    range.selectNodeContents(emailText);
+    range.selectNodeContents(address);
     var sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    flash('Press Ctrl+C to copy');
+    flash(isMac ? 'Press ⌘C' : 'Press Ctrl+C');
   }
 
   copyBtn.addEventListener('click', function () {

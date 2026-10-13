@@ -5,14 +5,20 @@ deploys to Vercel as-is.
 
 ```
 index.html               the whole page
-assets/css/style.css     tokens (D-010) + layout
+assets/css/style.css     tokens + layout (one committed look: midnight ink / cream paper)
+assets/css/sim.css       the gold-loss calculator
 assets/js/main.js        footer year, copy-email button
-assets/favicon.svg       mark
-assets/apple-touch-icon.png
-assets/og-image.png      1200×630 link preview
+assets/js/sim.js         builds the calculator into #gold-sim
+assets/art/*.svg         generated art: alloy strata, guilloché rosette, engraving tiles
+tools/gen-art.mjs        regenerates assets/art (node tools/gen-art.mjs); not deployed
+assets/favicon.svg, apple-touch-icon.png, og-image.jpg
 vercel.json              security + cache headers
+.vercelignore            keeps tools/ and this README off the live site
 robots.txt, sitemap.xml
 ```
+
+Type: Bodoni Moda (display, roman with italic accent words), Hanken Grotesk (text) and
+JetBrains Mono (data and labels). The last two are the app's own faces.
 
 ## Run locally
 
@@ -54,18 +60,29 @@ change the page:
 
 | Page says | Source |
 |---|---|
-| 14 steps and their names | `LifecycleStage` in `lib/domain/enums.dart`, D-002 |
-| Four rules + the on-screen messages | `fn_complete_stage`, `fn_dispatch_shipment`, `cad_reviews` CHECK, D-011 |
-| Partners see only their jobs, never prices | RLS in `0009_rls.sql`, D-008 |
-| Natural / lab-grown always recorded | `stones.origin`, D-012 |
+| 14 steps, their names, Design 1–5 / Make 6–10 / Prove & ship 11–14 | `LifecycleStage` in `lib/domain/enums.dart`, D-002 |
+| Rule messages 1, 3, 4 (verbatim) | `fn_complete_stage`, `fn_dispatch_shipment` (redefined in `0011`/`0013`) |
+| Rule 2 prompt (verbatim) | `lib/features/cad/cad_review_screen.dart` |
+| Partners see only their jobs, never quotes or invoices | RLS in `0009_rls.sql` / `0011_hardening.sql`, D-008 |
+| Approval history can't be edited | `activity_events` has no update or delete policy |
+| Stones on an order must be marked natural or lab-grown | intake checklist (`Stone.openQuestions`); `stones.origin` itself is nullable |
 | Goods-in receipt fields, `GRN-…` code, vault location | `goods_in_receipts`, `inventory_items.location` in `0007_inventory.sql` |
 | US 6½ = UK M½ = IN 12 | `lib/features/intake/ring_sizes.dart` |
 | USD + INR, GST split | `core/money.dart`, D-004 |
 | Web admin panel (team, logins, invoice profile, metal rates) | `lib/admin/`, `0014_platform.sql` |
+| Gold-loss calculator | illustrative: grams × % × 12 × price, in `assets/js/sim.js` |
 | 8-week rollout, not-included list | the project brief |
 
-The rule messages are quoted verbatim from Postgres. If the wording changes in a migration,
-update the matching `.screen-msg` in `index.html`.
+Keep the copy no stronger than the code. Things the page deliberately does **not** claim, because
+the app doesn't enforce them yet: that every step needs proof (only casting and QC do), that
+weights are required at each step, and that retailers can't see quote internals (the portal
+currently fetches `cost_lines(*)` and `margin_pct`).
+
+The rule messages are quoted verbatim. If the wording changes, update the matching `.r-msg` in
+`index.html`.
+
+Fonts are self-hosted from `assets/fonts/` (latin subsets from Google Fonts, OFL), so the page
+makes no third-party requests.
 
 The sample job (`DH-2026-01842`) and receipt (`GRN-2026-00184`) are illustrative and labeled
 "Sample record" on the page.
